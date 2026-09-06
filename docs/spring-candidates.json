@@ -1,0 +1,11 @@
+{
+  "candidate_from_user": {
+    "nominal_diameter_mm": 2,
+    "nominal_free_length_mm": 5,
+    "diameter_is_outside": true,
+    "solid_height_mm": 2,
+    "rate_n_per_mm": null,
+    "supplier": null,
+    "status": "Active single-key assumption: 2 mm OD, 5 mm free, 2 mm solid; rate unknown, not measured"
+  }
+}
