@@ -23,5 +23,5 @@ Its centre is now 9 mm below hole 4, leaving 1 mm axial clearance from the
 assumed 6 mm hole 5. The upper clamp remains 13 mm above hole 4. Confirm that
 this also leaves comfortable room for the right middle finger.
 
-The TPU pad diameter and central relief now follow measured hole 4 size:
-9.59 mm outside and 7.59 mm relief, with the existing trial sealing-band margins.
+The TPU pad outside diameter follows measured hole 4 size: 9.59 mm. Its
+contact face is continuously concave; the previous central relief is removed.

@@ -33,7 +33,7 @@ extending the design to all three.
 - Use a purchased 1 mm diameter × 12 mm steel dowel as the pivot. Hold it by
   friction in the fixed supports; provide running clearance in the moving key.
 - Use the player's available M2 bolts and nuts for the clamp halves.
-- Prototype a custom 95A TPU pad with a curved sealing lip.
+- Prototype a custom 95A TPU pad with a continuous curved sealing face.
 - Print rigid parts in PETG on a Bambu Lab P1S; print the TPU separately.
 - Keep dimensions in millimetres and geometry parametric in build123d.
 
@@ -59,18 +59,18 @@ model of a whistle.
 ## Pad and seal
 
 The current trial pad is a separate TPU insert with a flat backing and a concave
-cylindrical face matching the nominal outside of the tube. A central relief
-leaves a continuous sealing lip surrounding the hole. A continuous roof closes
-the opening; this is not an open ring or a plug pushed into the tone hole.
+cylindrical face matching the nominal outside of the tube, with 0.2 mm radial
+interference for trial compression. The contact face is continuous across the
+centre: the earlier annular lip and central relief have been removed at the
+player’s request. A locating recess remains only on the opposite, flat backing.
 
 A rectangular boss on the rigid key fits a recess in the pad backing. It locates
 the pad and prevents it rotating out of alignment with the tube. The fit has
 clearance and is not a snap fastening: retention still requires selection and
 trial of a removable adhesive suitable for the actual PETG and TPU.
 
-The lip is intended to obtain compliance from its geometry despite 95A TPU's
-relative firmness. Printed texture, seams and inaccurate alignment may cause
-leaks. The current dimensions are experimental; CAD validity does not prove
+The player will trial available 95A TPU first. Its firmness, printed texture,
+seams and inaccurate alignment may cause leaks. The current dimensions are experimental; CAD validity does not prove
 airtightness. Retain the option of a soft silicone sealing layer if printed TPU
 cannot seal reliably at a comfortable force.
 
@@ -95,8 +95,7 @@ Remaining unmeasured reference dimensions retain provisional high-D values.
 | Pivot pin | 1 × 12 mm | User-identified steel dowel |
 | Support / moving-key bore | 1.0 / 1.25 mm | Tune printed fit using coupon |
 | M2 screw clearance | 2.4 mm | Prototype choice |
-| TPU pad outside / relief diameter | 9.59 / 7.59 mm | Derived from measured hole plus trial sealing margins |
-| TPU lip relief height | 0.8 mm | Experimental |
+| TPU pad outside diameter | 9.59 mm | Derived from measured hole plus trial sealing margins |
 | Nominal pad/tube radial interference closed | 0.2 mm | Intended elastic compression, not rigid clearance |
 | Pad locator boss | 3 × 2 × 0.8 mm | Rectangular; 0.2 mm total lateral clearance |
 | Compression spring OD / free length | 2 / 5 mm | User-found spring; treated as OD and free length |
@@ -137,7 +136,7 @@ Manufacturing changes included in the model:
 - The hinge barrel is flattened flush with the finger face, giving the key a
   broad flat printing surface.
 - The pad has a recessed locator instead of a protruding peg, allowing its
-  flat backing to lie on the bed with the sealing lip upwards.
+  flat backing to lie on the bed with the contact face upwards.
 - Sloping gussets support the spring seat and closing-stop shelf.
 - Independent STEP/STL copies are oriented and placed at bed height.
 - A small coupon tests horizontal 0.9, 1.0, 1.1 and 1.25 mm bores. With its
@@ -149,14 +148,14 @@ Manufacturing changes included in the model:
 | Frame | Split faces down; pivot supports up |
 | Lower clamp caps | Flat semicircular end down; tube axis vertical |
 | Lever | Flat finger face down; pad locator up |
-| TPU pad | Flat backing down; curved sealing lip up |
+| TPU pad | Flat backing down; curved contact face up |
 | Fit coupon | Flat base down, as exported |
 
 For a presumed 0.4 mm nozzle, initial settings discussed were 0.16 mm layers and
 four walls for PETG, and 0.12 mm layers with solid construction for TPU. These
 are untested starting points, not a calibrated printer profile. Inspect the
-slicer preview, especially the 1 mm bores, small frame features and TPU lip.
-Do not put support contacts on the sealing lip. Keep the TPU dry and follow its
+slicer preview, especially the 1 mm bores, small frame features and TPU contact face.
+Do not put support contacts on the sealing face. Keep the TPU dry and follow its
 manufacturer's settings; use external feeding for ordinary 95A TPU.
 
 Use the coupon to choose friction grip without forcing the pin into a fragile
@@ -176,7 +175,7 @@ and a frame-to-tube interference check after adding gussets.
 
 Automated printability analysis no longer reports the frame's flat cantilever
 shelves after the gussets were added. It still flags small frame features and
-thin regions, and a thin region in the TPU lip. It also flags possible tip-over
+thin regions, and a thin region in the TPU contact face. It also flags possible tip-over
 for the lever and clamp cap despite their broad planar bed faces; these warnings
 have not been cleared by a slicer or physical print. Review adhesion and use a
 brim if needed. This is not a fully validated production design.

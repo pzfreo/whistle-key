@@ -27,6 +27,10 @@ subject to the player’s comfort trial.
 The measured-instrument revision also checks a 1 mm axial margin between the
 lower clamp and hole 5, using the still-provisional 6 mm hole 5 diameter.
 
+The continuous-face revision additionally probes material across the centre
+of the curved contact face to prevent reintroducing the rejected central relief.
+The sealing-band check still applies to the outer region of this full face.
+
 ## Physical usability and function tests
 
 Record outcomes for the right index finger first. Use the actual playing grip,

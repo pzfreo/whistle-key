@@ -1,7 +1,7 @@
 from build123d import *
 import math
 # Single-key prototype for hole 4; measured OD and hole 4, trial mechanism.
-# TPU sealing lip is experimental; no physical seal has been verified.
+# Continuous TPU sealing face is experimental; no physical seal verified.
 # All lengths mm. See docs/measurements.md for measured versus assumed values.
 # Edit this parameter block; regenerate through build123d MCP execute_file.
 # Small springs and pad sealing must be physically tested before instrument use.
@@ -51,8 +51,6 @@ screw_clearance_d = 2.4
 lug_width = 5.0
 lug_height = 3.5
 tpu_outer_diameter = hole4_d + 4.5
-tpu_recess_diameter = hole4_d + 2.5
-tpu_lip_height = 0.8
 tpu_interference = 0.2
 pad_locator_width = 3.0
 pad_locator_length = 2.0
@@ -164,11 +162,9 @@ lever=checked(lever & box_at(pivot_x-10,pad_diameter,-pad_diameter,pad_diameter,
 lever=checked(lever.fuse(box_at(-pad_locator_width/2,pad_locator_width/2,-pad_locator_length/2,pad_locator_length/2,lever_bottom-pad_locator_height,lever_bottom+0.1)))
 show(lever,'lever_blank')
 
-# Continuous TPU roof and cylindrical sealing lip; flat back locates in key.
+# Continuous concave TPU contact face; recessed locator on the flat back.
 pad_blank=hole_z(0,0,0,lever_bottom,tpu_outer_diameter)
 pad_blank=checked(pad_blank-cyl_y(r-tpu_interference,tpu_outer_diameter+2,0,0,0))
-recess=checked(cyl_y(r-tpu_interference+tpu_lip_height,tpu_outer_diameter+2,0,0,0) & hole_z(0,0,0,lever_bottom,tpu_recess_diameter))
-pad_blank=checked(pad_blank-recess)
 locator_w=pad_locator_width+pad_locator_clearance
 locator_l=pad_locator_length+pad_locator_clearance
 pad_blank=checked(pad_blank-box_at(-locator_w/2,locator_w/2,-locator_l/2,locator_l/2,lever_bottom-pad_locator_height-0.1,lever_bottom+0.1))

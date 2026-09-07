@@ -125,3 +125,12 @@ def test_lower_clamp_leaves_space_around_hole5(model):
     lowest_clamp_edge = min(m["clamp_ys"]) - m["clamp_width"] / 2
     hole5_upper_edge = m["hole5_y"] + m["hole5_d"] / 2
     assert lowest_clamp_edge - hole5_upper_edge >= 1.0 - 1e-6
+
+
+def test_pad_contact_face_has_no_central_relief(model):
+    """The contact face is continuous across the centre, not an annular lip."""
+    m = model
+    for x in [-2, -1, 0, 1, 2]:
+        for y in [-2, -1, 0, 1, 2]:
+            z = math.sqrt((m["r"] - 0.1) ** 2 - x ** 2)
+            assert m["pad_blank"].is_inside(Vector(x, y, z))
