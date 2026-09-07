@@ -1,16 +1,17 @@
 from build123d import *
 import math
-# Single-key prototype for hole 4; all dimensions provisional.
+# Single-key prototype for hole 4; measured OD and hole 4, trial mechanism.
 # TPU sealing lip is experimental; no physical seal has been verified.
-# All lengths mm. Defaults are NOT measured Burke dimensions.
+# All lengths mm. See docs/measurements.md for measured versus assumed values.
 # Edit this parameter block; regenerate through build123d MCP execute_file.
 # Small springs and pad sealing must be physically tested before instrument use.
-tube_od = 12.7
+tube_od = 14.2
 tube_wall = 0.396875
-hole4_y = 85.0
-hole5_y = 68.0
+hole4_y = 81.68
+hole45_spacing = 16.0
+hole5_y = hole4_y - hole45_spacing
 hole6_y = 43.0
-hole4_d = 6.0
+hole4_d = 5.09
 hole5_d = 6.0
 hole6_d = 5.0
 pad_back_height = 2.6 # Rigid key underside above tube crown
@@ -30,6 +31,7 @@ clamp_width = 6.0
 clamp_wall = 3.0
 clamp_split_gap = 0.8
 clamp_offset = 13.0
+adjacent_hole_margin = 1.0
 rail_width = 7.0
 rail_top = 5.0
 ear_thickness = 2.0
@@ -48,8 +50,8 @@ spring_lateral_offset = 1.25
 screw_clearance_d = 2.4
 lug_width = 5.0
 lug_height = 3.5
-tpu_outer_diameter = 10.5
-tpu_recess_diameter = 8.5
+tpu_outer_diameter = hole4_d + 4.5
+tpu_recess_diameter = hole4_d + 2.5
 tpu_lip_height = 0.8
 tpu_interference = 0.2
 pad_locator_width = 3.0
@@ -67,7 +69,9 @@ open_angle = math.degrees(math.asin(pad_centre_lift/-pivot_x))
 rail_x_min = pivot_x-rail_width/2
 rail_x_max = pivot_x+rail_width/2
 holes = [(4,hole4_y,hole4_d)]
-clamp_ys = [hole4_y-clamp_offset,hole4_y+clamp_offset]
+lower_clamp_offset = min(clamp_offset, hole45_spacing-hole5_d/2-clamp_width/2-adjacent_hole_margin)
+assert lower_clamp_offset-clamp_width/2 > hub_length/2+axial_clearance+ear_thickness
+clamp_ys = [hole4_y-lower_clamp_offset,hole4_y+clamp_offset]
 rail_y_min = clamp_ys[0]-clamp_width/2
 rail_y_max = clamp_ys[1]+clamp_width/2
 clamp_inner_r = r+liner_thickness

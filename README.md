@@ -28,7 +28,9 @@ mechanism. Use the separate files in
 copies of `clamp_cap_print`. These files have orientations and bed placement,
 but do not contain slicer settings or supports.
 
-The actual whistle has not been measured. The pad seal, printed pin fit, liner,
+The [measured tube and hole 4 dimensions](docs/measurements.md) are now applied.
+Hole 5 diameter and the remaining reference dimensions are still provisional.
+The pad seal, printed pin fit, liner,
 spring response and comfort have not been physically tested. CAD validity and
 sampled rigid movement checks passed; printability warnings and trial details
 are recorded in the brief.

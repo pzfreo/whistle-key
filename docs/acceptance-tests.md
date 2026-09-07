@@ -24,6 +24,9 @@ exposed the curved lip occupying the airway at 4 mm lift. Increasing the
 prototype lift to 6 mm clears the specified region; the extra travel remains
 subject to the player’s comfort trial.
 
+The measured-instrument revision also checks a 1 mm axial margin between the
+lower clamp and hole 5, using the still-provisional 6 mm hole 5 diameter.
+
 ## Physical usability and function tests
 
 Record outcomes for the right index finger first. Use the actual playing grip,

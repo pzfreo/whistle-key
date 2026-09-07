@@ -117,3 +117,11 @@ def test_pad_socket_preserves_an_unbroken_roof(model):
         for y in [-1, 0, 1]:
             for depth in [0.01, 0.5, 1.0]:
                 assert m["pad_blank"].is_inside(Vector(x, y, bottom_of_socket - depth))
+
+
+def test_lower_clamp_leaves_space_around_hole5(model):
+    """Keep a 1 mm axial margin around the neighbouring uncovered hole."""
+    m = model
+    lowest_clamp_edge = min(m["clamp_ys"]) - m["clamp_width"] / 2
+    hole5_upper_edge = m["hole5_y"] + m["hole5_d"] / 2
+    assert lowest_clamp_edge - hole5_upper_edge >= 1.0 - 1e-6

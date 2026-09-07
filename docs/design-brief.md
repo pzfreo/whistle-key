@@ -1,7 +1,7 @@
 # Burke whistle key attachment — design brief
 
 Status: single-key development prototype, not yet fitted or played.
-Updated: 6 September 2026.
+Updated: 7 September 2026.
 Active parametric model: [`scripts/single_key.py`](../scripts/single_key.py).
 
 ## Purpose and player needs
@@ -76,17 +76,17 @@ cannot seal reliably at a comfortable force.
 
 ## Dimensions and assumptions
 
-Instrument measurements are unavailable. The player authorised provisional
-high-D dimensions, to be replaced when the actual whistle can be measured.
+The player has supplied the [tube and hole 4 measurements](measurements.md).
+Remaining unmeasured reference dimensions retain provisional high-D values.
 
 | Item | Current value | Basis/status |
 |---|---:|---|
-| Tube outside diameter | 12.7 mm | Provisional; not a Burke measurement |
+| Tube outside diameter | 14.2 mm | Measured; cylindrical tube confirmed |
 | Tube wall | 0.396875 mm | Provisional; bore derived from OD and wall |
-| Hole 4 centre from open foot | 85 mm | Provisional |
-| Hole 5 / 6 centres from foot | 68 / 43 mm | Reference only; provisional |
-| Hole 4 / 5 / 6 diameters | 6 / 6 / 5 mm | Provisional |
-| Single-key frame length | 32 mm | Derived from current clamp layout |
+| Hole 4 centre from open foot | 81.68 mm | Measured |
+| Hole 5 / 6 centres from foot | 65.68 / 43 mm | Hole 5 derived from measured 16 mm spacing; hole 6 provisional |
+| Hole 4 / 5 / 6 diameters | 5.09 / 6 / 5 mm | Hole 4 measured circular; holes 5/6 provisional |
+| Single-key frame length | 28 mm | Lower clamp moved to clear hole 5 |
 | Clamp width, each | 6 mm | Prototype choice |
 | Nominal split gap | 0.8 mm | Must retain tightening travel when fitted |
 | Liner allowance, radial | 0.5 mm | Liner material/compression unselected |
@@ -95,14 +95,14 @@ high-D dimensions, to be replaced when the actual whistle can be measured.
 | Pivot pin | 1 × 12 mm | User-identified steel dowel |
 | Support / moving-key bore | 1.0 / 1.25 mm | Tune printed fit using coupon |
 | M2 screw clearance | 2.4 mm | Prototype choice |
-| TPU pad outside / relief diameter | 10.5 / 8.5 mm | Experimental |
+| TPU pad outside / relief diameter | 9.59 / 7.59 mm | Derived from measured hole plus trial sealing margins |
 | TPU lip relief height | 0.8 mm | Experimental |
 | Nominal pad/tube radial interference closed | 0.2 mm | Intended elastic compression, not rigid clearance |
 | Pad locator boss | 3 × 2 × 0.8 mm | Rectangular; 0.2 mm total lateral clearance |
 | Compression spring OD / free length | 2 / 5 mm | User-found spring; treated as OD and free length |
 | Spring solid length | 2 mm | Explicit user assumption, not supplier data |
 | Spring rate | Unknown | Establish suitability by physical trial |
-| Closed / open spring seat spacing | About 2.80 / 4.64 mm | Calculated from current geometry |
+| Closed / open spring seat spacing | About 2.80 / 4.50 mm | Calculated from current geometry |
 
 The spring has about 0.80 mm clearance above its assumed solid length at closure.
 Its actual safe working stroke and force are unverified. The model shows a
@@ -187,8 +187,8 @@ closed position represents intended compression, not a simulated deformation.
 
 Before a playing trial:
 
-1. Measure tube OD at both clamps and the hole; measure hole size, axial position
-   and any offset around the tube. Confirm available finger and clamp space.
+1. Tube OD, hole 4 size/position and hole 4–5 spacing are recorded. Confirm
+   adjacent-hole diameter, any offset around the tube, and finger/clamp space.
 2. Print the fit coupon and verify pin grip and running clearance.
 3. Inspect and assemble the rigid parts, liner, spring and pad; verify spring
    retention, free movement and clearance above solid at full closure.
