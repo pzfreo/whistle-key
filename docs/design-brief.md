@@ -102,7 +102,7 @@ Remaining unmeasured reference dimensions retain provisional high-D values.
 | Compression spring OD / free length | 2 / 5 mm | User-found spring; treated as OD and free length |
 | Spring solid length | 2 mm | Explicit user assumption, not supplier data |
 | Spring rate | Unknown | Establish suitability by physical trial |
-| Closed / open spring seat spacing | About 2.80 / 4.50 mm | Calculated from current geometry |
+| Closed / open spring seat spacing | About 2.80 / 4.59 mm | Calculated from current geometry |
 
 The spring has about 0.80 mm clearance above its assumed solid length at the
 nominal modelled closure. Actual pad compression depends on finger force; this
@@ -110,6 +110,15 @@ is not a hard limit enforced by a rigid stop.
 Its actual safe working stroke and force are unverified. The model shows a
 cylindrical spring envelope, not a simulated coil; check retention and rubbing
 as the upper seat tilts.
+
+The spring is located in a 2.4 mm diameter lower socket, initially 1.5 mm deep,
+and by an upper peg, 1 mm long with a 1 mm base tapering to a 0.6 mm tip.
+The user's 0.3 mm wire gives a nominal 1.4 mm spring bore. The raised socket wall
+provides retention without reducing initial preload. Increasing
+`spring_floor_extra_depth` lowers only the floor and reduces compression;
+currently it is zero. Open preload displacement is about 0.41 mm, so available
+floor-depth adjustment is limited. Retention and rubbing still need a trial.
+The coil in `spring-socket-section.png` is illustrative; turn count is not measured.
 
 The clamp split gap alone does not guarantee gripping force. The liner and
 actual bore fit must allow the halves to compress the liner and hold the whistle

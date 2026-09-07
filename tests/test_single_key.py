@@ -142,3 +142,12 @@ def test_pad_ring_leaves_tpu_exposed_and_glue_clearance(model):
     assert m["pad_ring_wall"] >= 0.8
     # The rigid rim must remain at least 1 mm above the tube crown at closure.
     assert m["lever_bottom"] - m["pad_ring_height"] - m["r"] >= 1.0
+
+
+def test_spring_locators_have_clearance_and_do_not_bottom_out(model):
+    m = model
+    spring_id = m["spring_od"] - 2*m["spring_wire_diameter"]
+    assert spring_id - m["spring_peg_diameter"] >= 0.3
+    assert m["spring_length_closed"] - m["spring_peg_length"] >= 0.5
+    assert m["spring_top_closed"] - m["spring_socket_rim_z"] >= 0.5
+    assert m["spring_socket_rim_z"] - m["seat_floor_z"] >= 1.0

@@ -42,7 +42,12 @@ spring_free_length = 5.0
 spring_solid_height = 2.0 # User assumption, not measured
 spring_rate_n_per_mm = None # Unknown; do not infer force
 spring_solid_margin = 0.5
-spring_pocket_depth = 0.5
+spring_socket_depth = 1.5
+spring_floor_extra_depth = 0.0 # Increase to reduce preload; keep return at full opening
+spring_wire_diameter = 0.3
+spring_peg_diameter = 1.0
+spring_peg_tip_diameter = 0.6
+spring_peg_length = 1.0
 spring_seat_width = 3.2
 spring_closed_length = 2.8 # Fixed CAD seat spacing, not an adjustment screw
 spring_tube_clearance = 0.3
@@ -81,8 +86,10 @@ lug_x = clamp_outer_r+lug_width/2-0.5
 spring_x = -(r + spring_lateral_offset)
 seat_right = spring_x + spring_seat_width/2
 seat_bottom = math.sqrt(max(0, r*r-seat_right*seat_right)) + spring_tube_clearance
-spring_top_closed = lever_bottom + spring_pocket_depth
-seat_floor_z = spring_top_closed - spring_closed_length
+spring_top_closed = lever_bottom
+seat_floor_nominal_z = spring_top_closed - spring_closed_length
+seat_floor_z = seat_floor_nominal_z - spring_floor_extra_depth
+spring_socket_rim_z = seat_floor_nominal_z + spring_socket_depth
 assert seat_floor_z - seat_bottom >= 1.0
 spring_length_closed = spring_top_closed-seat_floor_z
 spring_x_arm = spring_x-pivot_x
@@ -141,9 +148,9 @@ for number,y,d in holes:
     stop_x1=rail_x_min+1.0
     stop_top=pivot_z+math.tan(math.radians(open_angle))*(stop_x0-pivot_x)-(lever_thickness/2)/math.cos(math.radians(open_angle))
     frame=checked(frame.fuse(box_at(stop_x0,stop_x1,y-2,y+2,rail_top-0.5,stop_top)))
-    seat=box_at(spring_x-spring_seat_width/2,spring_x+spring_seat_width/2,y-spring_seat_width/2,y+spring_seat_width/2,seat_bottom,seat_floor_z+spring_pocket_depth)
+    seat=box_at(spring_x-spring_seat_width/2,spring_x+spring_seat_width/2,y-spring_seat_width/2,y+spring_seat_width/2,seat_bottom,spring_socket_rim_z)
     frame=checked(frame.fuse(seat))
-    frame=checked(frame-hole_z(spring_x,y,seat_floor_z,seat_floor_z+spring_pocket_depth+0.1,spring_od+spring_fit))
+    frame=checked(frame-hole_z(spring_x,y,seat_floor_z,spring_socket_rim_z+0.1,spring_od+spring_fit))
     # Sloping gussets eliminate the flat cantilever underside, clear of brass.
     seat_gusset=Pos(0,y+spring_seat_width/2,0)*extrude(Plane.XZ*Polygon((rail_x_max-0.1,seat_bottom-(seat_right-rail_x_max)-0.3),(seat_right,seat_bottom),(rail_x_max-0.1,seat_bottom),align=None),amount=spring_seat_width)
     frame=checked(frame.fuse(seat_gusset))
@@ -154,7 +161,9 @@ lever=box_at(pivot_x-4.5,1,-lever_width/2,lever_width/2,lever_bottom,lever_botto
 lever=checked(lever.fuse(hole_z(0,0,lever_bottom,lever_bottom+lever_thickness,pad_diameter)))
 lever=checked(lever.fuse(cyl_y(hub_radius,hub_length,pivot_x,0,pivot_z)))
 lever=checked(lever-cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
-lever=checked(lever-hole_z(spring_x,0,lever_bottom-0.1,spring_top_closed,spring_od+spring_fit))
+# Tapered peg enters the spring bore; spring bears on the flat key underside.
+spring_peg=Pos(spring_x,0,lever_bottom-spring_peg_length)*Cone(spring_peg_tip_diameter/2,spring_peg_diameter/2,spring_peg_length+0.01,align=(Align.CENTER,Align.CENTER,Align.MIN))
+lever=checked(lever.fuse(spring_peg))
 # Flat finger face is the print-bed face, including the hinge barrel.
 lever=checked(lever & box_at(pivot_x-10,pad_diameter,-pad_diameter,pad_diameter,lever_bottom-3,lever_bottom+lever_thickness))
 # Shallow retaining cup: glue the flat-backed TPU pad inside this ring.
