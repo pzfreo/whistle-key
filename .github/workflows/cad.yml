@@ -29,6 +29,10 @@ jobs:
         run: python -m compileall -q scripts tests
       - name: Regenerate STEP and STL files
         run: python scripts/build_ci.py
+      - name: Package oriented print projects
+        run: |
+          python scripts/package_3mf.py --source build --output build/whistle-key-P1S.3mf
+          python scripts/package_3mf.py --source build --dry-run --output build/whistle-key-P1S-dry-fit-PETG.3mf
       - name: Test geometry and exports
         run: python -m pytest -q --junitxml=build/test-results.xml
       - name: Upload verified CAD files

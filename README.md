@@ -9,6 +9,13 @@ hardware, provisional dimensions, manufacturing decisions and trial criteria.
 The [acceptance tests](docs/acceptance-tests.md) define engineering assertions
 and the usability requirements that need physical trials.
 
+## Print projects
+
+The [all-PETG dry-fit 3MF](exports/single-key/whistle-key-P1S-dry-fit-PETG.3mf)
+contains all six pieces on one plate for the P1S, including a rigid pad.
+See the [printing notes](docs/printing.md) for orientations, settings and the
+separate PETG/TPU version. Open as a project and slice in Bambu Studio.
+
 ## Current prototype
 
 Edit the parameter block in [scripts/single_key.py](scripts/single_key.py).

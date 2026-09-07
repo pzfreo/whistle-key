@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "name": "Pin fit coupon",
+    "source": "pin_fit_coupon.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      116.0,
+      124.0,
+      0.0
+    ],
+    "local_max": [
+      140.0,
+      132.0,
+      6.0
+    ],
+    "volume_mm3": 342.5548092579918
+  },
+  {
+    "id": 2,
+    "name": "Frame - split faces down",
+    "source": "frame_print.stl",
+    "plate": 2,
+    "filament": 1,
+    "local_min": [
+      93.0,
+      100.0,
+      0.0
+    ],
+    "local_max": [
+      123.20000076293945,
+      128.0,
+      12.799378395080566
+    ],
+    "volume_mm3": 2077.7489754482062
+  },
+  {
+    "id": 3,
+    "name": "Key - finger face down",
+    "source": "lever_print.stl",
+    "plate": 2,
+    "filament": 1,
+    "local_min": [
+      139.0,
+      106.0,
+      0.0
+    ],
+    "local_max": [
+      160.4950008392334,
+      117.4865837097168,
+      4.199999809265137
+    ],
+    "volume_mm3": 526.7724000125595
+  },
+  {
+    "id": 4,
+    "name": "Clamp cap 1 - end face down",
+    "source": "clamp_cap_print.stl",
+    "plate": 2,
+    "filament": 1,
+    "local_min": [
+      93.0,
+      145.0,
+      0.0
+    ],
+    "local_max": [
+      123.20000076293945,
+      155.19675254821777,
+      6.0
+    ],
+    "volume_mm3": 667.86099449069
+  },
+  {
+    "id": 5,
+    "name": "Clamp cap 2 - end face down",
+    "source": "clamp_cap_print.stl",
+    "plate": 2,
+    "filament": 1,
+    "local_min": [
+      139.0,
+      145.0,
+      0.0
+    ],
+    "local_max": [
+      169.20000076293945,
+      155.19675254821777,
+      6.0
+    ],
+    "volume_mm3": 667.86099449069
+  },
+  {
+    "id": 6,
+    "name": "TPU pad - flat back down",
+    "source": "tpu_pad_print.stl",
+    "plate": 3,
+    "filament": 2,
+    "local_min": [
+      123.0,
+      123.0,
+      0.0
+    ],
+    "local_max": [
+      132.5900001525879,
+      132.58948373794556,
+      4.738349337713622
+    ],
+    "volume_mm3": 234.4515463307016
+  }
+]
