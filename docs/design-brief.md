@@ -40,15 +40,15 @@ extending the design to all three.
 ## Mechanical layout
 
 Two split clamps, immediately above and below hole 4, carry a short side rail.
-The rail carries two pivot supports, spring seat and fixed movement stops.
+The rail carries two pivot supports, spring seat and a fixed opening stop.
 A lever pivots about an axis parallel to the whistle and reaches sideways over
 the hole. Its round upper contact accepts the finger; the pad beneath closes
 against the outside of the brass tube.
 
 The spring pushes the lever open against a fixed stop. Some compression remains
 at the open position to provide positive return. Deliberate finger pressure
-closes the key against the spring. The closing stop limits pad compression and
-takes additional finger load. Spring force at the finger depends on the lever
+closes the key against the spring. The TPU pad against the brass sets the closed
+position; there is no separate rigid closing stop. Spring force at the finger depends on the lever
 geometry as well as the unknown spring rate.
 
 The prototype retains two clamps for mounting stability. Check that their
@@ -103,7 +103,9 @@ Remaining unmeasured reference dimensions retain provisional high-D values.
 | Spring rate | Unknown | Establish suitability by physical trial |
 | Closed / open spring seat spacing | About 2.80 / 4.50 mm | Calculated from current geometry |
 
-The spring has about 0.80 mm clearance above its assumed solid length at closure.
+The spring has about 0.80 mm clearance above its assumed solid length at the
+nominal modelled closure. Actual pad compression depends on finger force; this
+is not a hard limit enforced by a rigid stop.
 Its actual safe working stroke and force are unverified. The model shows a
 cylindrical spring envelope, not a simulated coil; check retention and rubbing
 as the upper seat tilts.
@@ -137,7 +139,7 @@ Manufacturing changes included in the model:
   broad flat printing surface.
 - The pad has a recessed locator instead of a protruding peg, allowing its
   flat backing to lie on the bed with the contact face upwards.
-- Sloping gussets support the spring seat and closing-stop shelf.
+- A sloping gusset supports the spring seat.
 - Independent STEP/STL copies are oriented and placed at bed height.
 - A small coupon tests horizontal 0.9, 1.0, 1.1 and 1.25 mm bores. With its
   clipped base corner at lower left when viewed from above, sizes increase from

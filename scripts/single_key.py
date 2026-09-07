@@ -127,7 +127,7 @@ for i,cap in enumerate(caps): show(cap,'clamp_cap_'+str(i))
 
 
 
-# Bearings, fixed stops and spring seats; no spring adjustment hardware.
+# Bearings, opening stop and spring seats; the TPU pad stops closure.
 bearing_offsets = [-hub_length/2-axial_clearance-ear_thickness/2,hub_length/2+axial_clearance+ear_thickness/2]
 for number,y,d in holes:
     for dy in bearing_offsets:
@@ -139,15 +139,12 @@ for number,y,d in holes:
     stop_x1=rail_x_min+1.0
     stop_top=pivot_z+math.tan(math.radians(open_angle))*(stop_x0-pivot_x)-(lever_thickness/2)/math.cos(math.radians(open_angle))
     frame=checked(frame.fuse(box_at(stop_x0,stop_x1,y-2,y+2,rail_top-0.5,stop_top)))
-    frame=checked(frame.fuse(box_at(rail_x_max-0.3,rail_x_max+2,y+2,y+3,rail_top-0.5,lever_bottom)))
     seat=box_at(spring_x-spring_seat_width/2,spring_x+spring_seat_width/2,y-spring_seat_width/2,y+spring_seat_width/2,seat_bottom,seat_floor_z+spring_pocket_depth)
     frame=checked(frame.fuse(seat))
     frame=checked(frame-hole_z(spring_x,y,seat_floor_z,seat_floor_z+spring_pocket_depth+0.1,spring_od+spring_fit))
     # Sloping gussets eliminate the flat cantilever underside, clear of brass.
     seat_gusset=Pos(0,y+spring_seat_width/2,0)*extrude(Plane.XZ*Polygon((rail_x_max-0.1,seat_bottom-(seat_right-rail_x_max)-0.3),(seat_right,seat_bottom),(rail_x_max-0.1,seat_bottom),align=None),amount=spring_seat_width)
     frame=checked(frame.fuse(seat_gusset))
-    stop_gusset=Pos(0,y+3,0)*extrude(Plane.XZ*Polygon((rail_x_max-0.1,rail_top-2.8),(rail_x_max+2,rail_top-0.5),(rail_x_max-0.1,rail_top-0.5),align=None),amount=1.0)
-    frame=checked(frame.fuse(stop_gusset))
 show(frame,'frame')
 
 # Finger contact is circular; the narrower arm leaves room for bearing ears.

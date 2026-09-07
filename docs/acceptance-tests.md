@@ -8,9 +8,9 @@ engineering targets for this prototype, not clinically established values.
 
 | ID | Requirement | Evidence / pass criterion |
 |---|---|---|
-| E01 | The mechanism reaches open and closed stops without unintended collision. | At 21 equally spaced positions, rigid key clears frame/tube; pad clears frame and fits its locator. Intersection volume below 0.00001 mm³. Intended pad/brass compression is excluded. Sampling is not a continuous sweep proof. |
+| E01 | The mechanism reaches the opening stop and nominal pad-defined closure without unintended collision. | At 21 equally spaced positions, rigid key clears frame/tube; pad clears frame and fits its locator. Intersection volume below 0.00001 mm³. Intended pad/brass compression is excluded. Sampling is not a continuous sweep proof. |
 | E02 | The clamp body does not occupy the brass tube or its other half. | Nominal frame/cap/tube intersections below 0.00001 mm³. Actual lining compression and grip are physical tests. |
-| E03 | The spring returns the key and is not driven solid. | Open spacing less than 5 mm free length; closed spacing greater than assumed 2 mm solid plus 0.5 mm margin. This establishes preload displacement, not adequate return force. |
+| E03 | The spring returns the key and is not driven solid. | Open spacing less than 5 mm free length; nominal closed spacing greater than assumed 2 mm solid plus 0.5 mm margin. This establishes nominal preload/travel, not return force or the maximum compression of the TPU under finger load. |
 | E04 | The pin spans both supports and does not bind the moving key geometrically. | At least 0.5 mm pin projection at each end; no pin/key solid intersection and positive nominal bore clearance. Printed friction/running fits are physical tests. |
 | E05 | Parts can be exported as printable closed solids. | One valid positive-volume solid per part; flat bed-contact area over 10 mm²; STEP round-trip volume within 0.0001%; watertight, consistently wound STL with volume within 1%. These checks do not prove slicability or adhesion. |
 | E06 | The open pad/key do not occupy the immediate airway above the hole. | The hole's vertical projected opening stays clear through 1 mm above the tube crown. This is a geometric proxy; it does not guarantee unchanged tone or tuning. |
