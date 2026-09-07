@@ -62,12 +62,13 @@ The current trial pad is a separate TPU insert with a flat backing and a concave
 cylindrical face matching the nominal outside of the tube, with 0.2 mm radial
 interference for trial compression. The contact face is continuous across the
 centre: the earlier annular lip and central relief have been removed at the
-player’s request. A locating recess remains only on the opposite, flat backing.
+player’s request. The opposite backing is plain and flat.
 
-A rectangular boss on the rigid key fits a recess in the pad backing. It locates
-the pad and prevents it rotating out of alignment with the tube. The fit has
-clearance and is not a snap fastening: retention still requires selection and
-trial of a removable adhesive suitable for the actual PETG and TPU.
+A shallow retaining ring on the rigid key forms a flat-bottomed pad cup. Glue
+the pad into this ring, aligning its curved face with the whistle before the
+glue sets. The ring is 1.2 mm deep, with 0.8 mm walls and 0.3 mm total diametral
+clearance around the pad. The TPU projects beyond the rigid rim so it contacts
+the brass first. There is no central peg or recess in the pad backing.
 
 The player will trial available 95A TPU first. Its firmness, printed texture,
 seams and inaccurate alignment may cause leaks. The current dimensions are experimental; CAD validity does not prove
@@ -90,14 +91,14 @@ Remaining unmeasured reference dimensions retain provisional high-D values.
 | Clamp width, each | 6 mm | Prototype choice |
 | Nominal split gap | 0.8 mm | Must retain tightening travel when fitted |
 | Liner allowance, radial | 0.5 mm | Liner material/compression unselected |
-| Finger contact diameter | 11 mm | Prototype choice |
+| Finger contact diameter | 11.49 mm | Widened to support retaining-ring wall |
 | Pad-centre opening movement | 6 mm | Increased to clear the curved lip; acoustic/comfort trial required |
 | Pivot pin | 1 × 12 mm | User-identified steel dowel |
 | Support / moving-key bore | 1.0 / 1.25 mm | Tune printed fit using coupon |
 | M2 screw clearance | 2.4 mm | Prototype choice |
 | TPU pad outside diameter | 9.59 mm | Derived from measured hole plus trial sealing margins |
 | Nominal pad/tube radial interference closed | 0.2 mm | Intended elastic compression, not rigid clearance |
-| Pad locator boss | 3 × 2 × 0.8 mm | Rectangular; 0.2 mm total lateral clearance |
+| Pad retaining ring | 9.89 mm ID, 11.49 mm OD, 1.2 mm deep | 0.3 mm diametral pad clearance |
 | Compression spring OD / free length | 2 / 5 mm | User-found spring; treated as OD and free length |
 | Spring solid length | 2 mm | Explicit user assumption, not supplier data |
 | Spring rate | Unknown | Establish suitability by physical trial |
@@ -137,8 +138,8 @@ Manufacturing changes included in the model:
 
 - The hinge barrel is flattened flush with the finger face, giving the key a
   broad flat printing surface.
-- The pad has a recessed locator instead of a protruding peg, allowing its
-  flat backing to lie on the bed with the contact face upwards.
+- The pad has a plain flat backing for printing; the retaining ring prints
+  upwards on the inverted key.
 - A sloping gusset supports the spring seat.
 - Independent STEP/STL copies are oriented and placed at bed height.
 - A small coupon tests horizontal 0.9, 1.0, 1.1 and 1.25 mm bores. With its
@@ -149,7 +150,7 @@ Manufacturing changes included in the model:
 |---|---|
 | Frame | Split faces down; pivot supports up |
 | Lower clamp caps | Flat semicircular end down; tube axis vertical |
-| Lever | Flat finger face down; pad locator up |
+| Lever | Flat finger face down; retaining ring up |
 | TPU pad | Flat backing down; curved contact face up |
 | Fit coupon | Flat base down, as exported |
 

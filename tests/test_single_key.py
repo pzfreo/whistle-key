@@ -109,14 +109,14 @@ def test_closed_pad_has_continuous_sealing_band(model):
             assert m["pad_blank"].is_inside(Vector(x, y, z)), (offset, degree)
 
 
-def test_pad_socket_preserves_an_unbroken_roof(model):
-    """E08: retain at least a 1 mm solid roof below the locating socket."""
+def test_pad_preserves_an_unbroken_backing(model):
+    """E08: retain at least a 1 mm solid layer below the flat glue backing."""
     m = model
-    bottom_of_socket = m["lever_bottom"] - m["pad_locator_height"] - 0.1
+    backing_z = m["lever_bottom"]
     for x in [-1.5, 0, 1.5]:
         for y in [-1, 0, 1]:
             for depth in [0.01, 0.5, 1.0]:
-                assert m["pad_blank"].is_inside(Vector(x, y, bottom_of_socket - depth))
+                assert m["pad_blank"].is_inside(Vector(x, y, backing_z - depth))
 
 
 def test_lower_clamp_leaves_space_around_hole5(model):
@@ -134,3 +134,11 @@ def test_pad_contact_face_has_no_central_relief(model):
         for y in [-2, -1, 0, 1, 2]:
             z = math.sqrt((m["r"] - 0.1) ** 2 - x ** 2)
             assert m["pad_blank"].is_inside(Vector(x, y, z))
+
+
+def test_pad_ring_leaves_tpu_exposed_and_glue_clearance(model):
+    m = model
+    assert m["pad_ring_inner_diameter"] - m["tpu_outer_diameter"] >= 0.2
+    assert m["pad_ring_wall"] >= 0.8
+    # The rigid rim must remain at least 1 mm above the tube crown at closure.
+    assert m["lever_bottom"] - m["pad_ring_height"] - m["r"] >= 1.0

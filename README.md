@@ -19,7 +19,7 @@ export the changed parts. Geometry uses millimetres.
 - Fixed seats for a nominal 2 × 5 mm compression spring, assumed 2 mm solid.
 - A 1 × 12 mm steel dowel, friction held in the fixed supports.
 - Four M2 bolts and nuts, with a soft liner between clamps and brass.
-- Flat printing faces, a rectangular pad locator, sloping seat supports and
+- Flat printing faces, a glue-in pad retaining ring, sloping seat supports and
   a small pin-fit coupon.
 
 The [assembly STEP](exports/single-key/assembly-open.step) is for reviewing the

@@ -52,10 +52,12 @@ lug_width = 5.0
 lug_height = 3.5
 tpu_outer_diameter = hole4_d + 4.5
 tpu_interference = 0.2
-pad_locator_width = 3.0
-pad_locator_length = 2.0
-pad_locator_height = 0.8
-pad_locator_clearance = 0.2
+pad_ring_height = 1.2
+pad_ring_wall = 0.8
+pad_ring_clearance = 0.3 # Total diametral clearance for glue and printed fit
+pad_ring_inner_diameter = tpu_outer_diameter + pad_ring_clearance
+pad_ring_outer_diameter = pad_ring_inner_diameter + 2*pad_ring_wall
+pad_diameter = max(pad_diameter, pad_ring_outer_diameter)
 # Derived geometry; all lengths mm, angles degrees.
 r = tube_od/2
 tube_id = tube_od-2*tube_wall
@@ -155,16 +157,14 @@ lever=checked(lever-cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_
 lever=checked(lever-hole_z(spring_x,0,lever_bottom-0.1,spring_top_closed,spring_od+spring_fit))
 # Flat finger face is the print-bed face, including the hinge barrel.
 lever=checked(lever & box_at(pivot_x-10,pad_diameter,-pad_diameter,pad_diameter,lever_bottom-3,lever_bottom+lever_thickness))
-# Rectangular boss keeps the cylindrical TPU pad aligned with the tube.
-lever=checked(lever.fuse(box_at(-pad_locator_width/2,pad_locator_width/2,-pad_locator_length/2,pad_locator_length/2,lever_bottom-pad_locator_height,lever_bottom+0.1)))
+# Shallow retaining cup: glue the flat-backed TPU pad inside this ring.
+pad_ring=checked(hole_z(0,0,lever_bottom-pad_ring_height,lever_bottom+0.1,pad_ring_outer_diameter)-hole_z(0,0,lever_bottom-pad_ring_height-0.1,lever_bottom+0.2,pad_ring_inner_diameter))
+lever=checked(lever.fuse(pad_ring))
 show(lever,'lever_blank')
 
-# Continuous concave TPU contact face; recessed locator on the flat back.
+# Continuous concave TPU contact face and plain flat glue backing.
 pad_blank=hole_z(0,0,0,lever_bottom,tpu_outer_diameter)
 pad_blank=checked(pad_blank-cyl_y(r-tpu_interference,tpu_outer_diameter+2,0,0,0))
-locator_w=pad_locator_width+pad_locator_clearance
-locator_l=pad_locator_length+pad_locator_clearance
-pad_blank=checked(pad_blank-box_at(-locator_w/2,locator_w/2,-locator_l/2,locator_l/2,lever_bottom-pad_locator_height-0.1,lever_bottom+0.1))
 show(pad_blank,'tpu_pad')
 
 # Reference lower tube segment, not an acoustically designed whistle.
