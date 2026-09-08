@@ -21,7 +21,8 @@ These checks operate on regenerated geometry, not on hard-coded part volumes.
 For example, E01 exposed a collision between the curved pad and the original
 spring seat. Narrowing and moving the seat addressed that actual obstruction. E06 also
 exposed the curved lip occupying the airway at 4 mm lift. Increasing the
-prototype lift to 6 mm clears the specified region; the extra travel remains
+previous prototype lift to 6 mm cleared the specified region; that layout is superseded.
+The curved-arm revision uses 20° opening and about 3.25 mm lift plus sideways movement; comfort remains
 subject to the player’s comfort trial.
 
 The measured-instrument revision also checks a 1 mm axial margin between the
@@ -68,3 +69,10 @@ profile, PETG/TPU brand and condition, spring identity, pin-coupon outcome,
 adhesive/liner choice, and results for U01–U07. Record failures and changes as well
 as passes. Extend to three keys only after the single-key results are acceptable
 to the player.
+
+The curved-arm revision additionally checks actual stop contact at full opening
+and more than 0.1 mm³ interference one degree beyond it. The earlier travel
+test alone did not establish a functioning stop. A hinge-height check keeps
+the pivot hardware at least 2 mm below the tube crown; it cannot prove finger
+comfort. First dry fit: 1.0 mm bore accepted; post strength, opening stop and
+finger access failed. These three physical checks must be repeated.

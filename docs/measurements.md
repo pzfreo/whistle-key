@@ -25,3 +25,5 @@ this also leaves comfortable room for the right middle finger.
 
 The TPU pad outside diameter follows measured hole 4 size: 9.59 mm. Its
 contact face is continuously concave; the previous central relief is removed.
+
+- First PETG dry fit: player confirms 1.0 mm nominal pivot bore fits the steel dowel.

@@ -22,7 +22,7 @@ PLATES = [
         ('pin_fit_coupon', 'Pin fit coupon', (116, 124), 1),
     ]),
     ('2 PETG - frame key and two caps', (307.2, 0), [
-        ('frame_print', 'Frame - split faces down', (93, 100), 1),
+        ('frame_print', 'Frame - outer rail side down', (93, 100), 1),
         ('lever_print', 'Key - finger face down', (139, 106), 1),
         ('clamp_cap_print', 'Clamp cap 1 - end face down', (93, 145), 1),
         ('clamp_cap_print', 'Clamp cap 2 - end face down', (139, 145), 1),
@@ -104,7 +104,7 @@ def package(source, output, dry_run=False):
                 'name': label, 'extruder': filament,
                 'layer_height': '0.12' if filament == 2 else '0.16',
                 'wall_loops': '4', 'sparse_infill_density': '100%' if stem == 'tpu_pad_print' else '25%',
-                'enable_support': '1' if stem == 'frame_print' else '0',
+                'enable_support': '1' if stem in ['frame_print', 'lever_print'] else '0',
                 'support_type': 'normal(auto)',
                 'brim_type': 'outer_only' if stem in ['frame_print', 'clamp_cap_print'] else 'no_brim',
                 'brim_width': '3',

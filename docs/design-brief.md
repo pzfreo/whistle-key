@@ -41,8 +41,8 @@ extending the design to all three.
 
 Two split clamps, immediately above and below hole 4, carry a short side rail.
 The rail carries two pivot supports, spring seat and a fixed opening stop.
-A lever pivots about an axis parallel to the whistle and reaches sideways over
-the hole. Its round upper contact accepts the finger; the pad beneath closes
+A curved lever wraps around the tube from a low side hinge, whose axis runs
+parallel to the whistle at tube-centre height. Its round upper contact accepts the finger; the pad beneath closes
 against the outside of the brass tube.
 
 The spring pushes the lever open against a fixed stop. Some compression remains
@@ -92,7 +92,7 @@ Remaining unmeasured reference dimensions retain provisional high-D values.
 | Nominal split gap | 0.8 mm | Must retain tightening travel when fitted |
 | Liner allowance, radial | 0.5 mm | Liner material/compression unselected |
 | Finger contact diameter | 11.49 mm | Widened to support retaining-ring wall |
-| Pad-centre opening movement | 6 mm | Increased to clear the curved lip; acoustic/comfort trial required |
+| Pad-centre opening movement | 3.25 mm at 20° | Curved arm moves pad sideways as well as upwards; acoustic/comfort trial required |
 | Pivot pin | 1 × 12 mm | User-identified steel dowel |
 | Support / moving-key bore | 1.0 / 1.25 mm | Tune printed fit using coupon |
 | M2 screw clearance | 2.4 mm | Prototype choice |
@@ -102,23 +102,23 @@ Remaining unmeasured reference dimensions retain provisional high-D values.
 | Compression spring OD / free length | 2 / 5 mm | User-found spring; treated as OD and free length |
 | Spring solid length | 2 mm | Explicit user assumption, not supplier data |
 | Spring rate | Unknown | Establish suitability by physical trial |
-| Closed / open spring seat spacing | About 2.80 / 4.59 mm | Calculated from current geometry |
+| Closed / open spring seat spacing | About 2.80 / 3.70 mm | Calculated from current geometry |
 
 The spring has about 0.80 mm clearance above its assumed solid length at the
 nominal modelled closure. Actual pad compression depends on finger force; this
 is not a hard limit enforced by a rigid stop.
 Its actual safe working stroke and force are unverified. The model shows a
 cylindrical spring envelope, not a simulated coil; check retention and rubbing
-as the upper seat tilts.
+as the moving seat tilts.
 
-The spring is located in a 2.4 mm diameter lower socket, initially 1.5 mm deep,
-and by an upper peg, 1 mm long with a 1 mm base tapering to a 0.6 mm tip.
+The spring is located in a 2.4 mm diameter fixed sideways socket, initially 1.5 mm deep,
+and by a peg on the curved arm, 1 mm long with a 1 mm base tapering to a 0.6 mm tip.
 The user's 0.3 mm wire gives a nominal 1.4 mm spring bore. The raised socket wall
 provides retention without reducing initial preload. Increasing
-`spring_floor_extra_depth` lowers only the floor and reduces compression;
-currently it is zero. Open preload displacement is about 0.41 mm, so available
+`spring_floor_extra_depth` deepens only the floor towards the tube and reduces compression;
+currently it is zero. Open preload displacement is about 1.30 mm, so available
 floor-depth adjustment is limited. Retention and rubbing still need a trial.
-The coil in `spring-socket-section.png` is illustrative; turn count is not measured.
+The old `spring-socket-section.png` shows the superseded upright layout; turn count was illustrative.
 
 The clamp split gap alone does not guarantee gripping force. The liner and
 actual bore fit must allow the halves to compress the liner and hold the whistle
@@ -130,7 +130,7 @@ before the split faces meet. Tighten evenly and check both slipping and marking.
 |---|---:|---|
 | Frame | 1 | PETG |
 | Lever | 1 | PETG |
-| Identical lower clamp caps | 2 | PETG |
+| Identical upper clamp caps | 2 | PETG |
 | Curved pad insert | 1 | 95A TPU |
 | Pivot dowel | 1 | Steel, 1 × 12 mm |
 | Return spring | 1 | Compression coil, nominal 2 × 5 mm |
@@ -145,11 +145,13 @@ The hinge-fit coupon is an optional PETG test print, not an installed component.
 
 Manufacturing changes included in the model:
 
-- The hinge barrel is flattened flush with the finger face, giving the key a
-  broad flat printing surface.
+- The hinge has short 3 mm thick cheeks with 6 mm wide roots, replacing the
+  tall posts that broke in the first trial. The moving hub is 4 mm long.
 - The pad has a plain flat backing for printing; the retaining ring prints
   upwards on the inverted key.
-- A sloping gusset supports the spring seat.
+- A sideways spring housing keeps the spring below the playing surface.
+- A broad angled opening stop meets the rear tail at 20°, verified by contact
+  and overtravel tests. Physical strength and wear remain trial requirements.
 - Independent STEP/STL copies are oriented and placed at bed height.
 - A small coupon tests horizontal 0.9, 1.0, 1.1 and 1.25 mm bores. With its
   clipped base corner at lower left when viewed from above, sizes increase from
@@ -157,9 +159,9 @@ Manufacturing changes included in the model:
 
 | Part | Recommended orientation |
 |---|---|
-| Frame | Split faces down; pivot supports up |
-| Lower clamp caps | Flat semicircular end down; tube axis vertical |
-| Lever | Flat finger face down; retaining ring up |
+| Frame | Outer rail side down; supports enabled |
+| Upper clamp caps | Flat semicircular end down; tube axis vertical |
+| Lever | Flat finger face down; curved arm up; supports enabled |
 | TPU pad | Flat backing down; curved contact face up |
 | Fit coupon | Flat base down, as exported |
 
@@ -236,3 +238,19 @@ was investigated earlier; the current prototype instead follows the user's
 2 × 5 mm spring assumptions. For material handling, see
 [Bambu's TPU 95A guidance](https://uk.store.bambulab.com/collections/all/products/tpu-95a-hf),
 while using the actual filament manufacturer's settings for printing and drying.
+
+## First dry-fit feedback and curved-arm revision
+
+The player confirmed the 1.0 mm printed bore fits the purchased pin. The first
+frame's supports broke too easily, the opening stop did not work, and the tall
+hinge obstructed the finger reaching the hole. Those are failed physical
+requirements, not resolved by the earlier CAD collision tests.
+
+This revision lowers the hinge beside the shaft and curves the arm up to the
+pad, following the flageolet arrangement suggested by the player. The fixed
+frame now carries the lower clamp halves; the removable caps are above. The
+1 × 12 mm dowel, M2 fasteners and glued concave pad are retained. The spring
+now acts sideways. Its rate and the resulting finger force are still unknown.
+Repeat the PETG dry fit to assess finger access, cheek strength and the stop
+before evaluating the TPU seal. See `curved-key-layout.png` for an end view
+with the clamp rings omitted to expose the mechanism.

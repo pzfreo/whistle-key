@@ -16,11 +16,11 @@ Settings stored in the project:
 
 - 0.16 mm layers, four walls, five top and bottom layers.
 - 25% infill for rigid parts; solid infill for the pad.
-- Automatic normal supports enabled only for the frame.
+- Automatic normal supports enabled for the frame and curved key.
 - 3 mm outer brims for the frame and clamp caps.
 
-The frame is split-face down. The key is finger-face down, with its pad ring and
-spring peg upwards. Caps stand on semicircular end faces. The pad sits on its
+The frame rests on its outer rail side. The key is finger-face down, with its pad ring and
+curved arm upwards; inspect supports beneath its hinge and spring peg. Caps stand on semicircular end faces. The pad sits on its
 flat back; the curved contact face points up. The coupon sits on its flat base.
 
 ## PETG and TPU version

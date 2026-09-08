@@ -16,16 +16,16 @@ hole5_d = 6.0
 hole6_d = 5.0
 pad_back_height = 2.6 # Rigid key underside above tube crown
 lever_thickness = 3.0
-lever_width = 6.0
+lever_width = 4.0
 pad_diameter = 11.0
 pivot_offset = 4.15
 pivot_diameter = 1.0
 pivot_length = 12.0
 pivot_clearance = 0.25
-pivot_support_clearance = 0.0 # Tune using the PETG fit coupon
+pivot_support_clearance = 0.0 # 1.0 mm coupon confirmed in PETG, 2026-09-08
 hub_radius = 2.0
-hub_length = 6.0
-pad_centre_lift = 6.0 # Clears the curved lip above the open hole
+hub_length = 4.0
+opening_angle_degrees = 20.0 # Trial low-hinge opening; verify airway and comfort
 liner_thickness = 0.5
 clamp_width = 6.0
 clamp_wall = 3.0
@@ -33,8 +33,10 @@ clamp_split_gap = 0.8
 clamp_offset = 13.0
 adjacent_hole_margin = 1.0
 rail_width = 7.0
-rail_top = 5.0
-ear_thickness = 2.0
+rail_top = -3.2
+rail_bottom = -6.2
+ear_thickness = 3.0
+support_root_width = 6.0
 axial_clearance = 0.3
 spring_od = 2.0
 spring_fit = 0.4
@@ -67,10 +69,12 @@ pad_diameter = max(pad_diameter, pad_ring_outer_diameter)
 r = tube_od/2
 tube_id = tube_od-2*tube_wall
 assert 0 < tube_wall < r
-pivot_x = -(r+pivot_offset)
 lever_bottom = r+pad_back_height
-pivot_z = lever_bottom+lever_thickness/2
-open_angle = math.degrees(math.asin(pad_centre_lift/-pivot_x))
+arm_radius = lever_bottom+lever_thickness/2
+pivot_x = -arm_radius
+pivot_z = 0.0
+open_angle = opening_angle_degrees
+pad_centre_lift = arm_radius*math.sin(math.radians(open_angle))+lever_bottom*(math.cos(math.radians(open_angle))-1)
 rail_x_min = pivot_x-rail_width/2
 rail_x_max = pivot_x+rail_width/2
 holes = [(4,hole4_y,hole4_d)]
@@ -83,17 +87,15 @@ clamp_inner_r = r+liner_thickness
 clamp_outer_r = clamp_inner_r+clamp_wall
 lug_x = clamp_outer_r+lug_width/2-0.5
 
-spring_x = -(r + spring_lateral_offset)
-seat_right = spring_x + spring_seat_width/2
-seat_bottom = math.sqrt(max(0, r*r-seat_right*seat_right)) + spring_tube_clearance
-spring_top_closed = lever_bottom
-seat_floor_nominal_z = spring_top_closed - spring_closed_length
-seat_floor_z = seat_floor_nominal_z - spring_floor_extra_depth
-spring_socket_rim_z = seat_floor_nominal_z + spring_socket_depth
-assert seat_floor_z - seat_bottom >= 1.0
-spring_length_closed = spring_top_closed-seat_floor_z
-spring_x_arm = spring_x-pivot_x
-assert spring_length_closed > spring_solid_height + spring_solid_margin
+# Sideways compression spring keeps the key's top clear for the finger.
+spring_z = 2.6
+spring_floor_x = -(r+1.2) + spring_floor_extra_depth
+spring_moving_x = -(r+1.2) - spring_closed_length
+spring_socket_rim_x = -(r+1.2) - spring_socket_depth
+spring_length_closed = spring_floor_x-spring_moving_x
+spring_x = spring_moving_x
+rail_x_min = min(rail_x_min, -lug_x-lug_width/2)
+assert spring_length_closed > spring_solid_height+spring_solid_margin
 assert pad_diameter > max(hole4_d,hole5_d,hole6_d)+2
 assert min(hole4_y-hole5_y,hole5_y-hole6_y)>pad_diameter+1
 
@@ -111,7 +113,7 @@ def cyl_y(radius,length,x,y,z):
 def hole_z(x,y,z0,z1,diameter):
     return Pos(x,y,(z0+z1)/2)*Cylinder(diameter/2,z1-z0)
 
-frame=box_at(rail_x_min,rail_x_max,rail_y_min,rail_y_max,clamp_split_gap/2,rail_top)
+frame=box_at(rail_x_min,rail_x_max,rail_y_min,rail_y_max,rail_bottom,rail_top)
 show(frame,'frame')
 
 
@@ -119,11 +121,11 @@ show(frame,'frame')
 caps=[]
 for y in clamp_ys:
     ring=checked(cyl_y(clamp_outer_r,clamp_width,0,y,0)-cyl_y(clamp_inner_r,clamp_width+2,0,y,0))
-    upper=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,clamp_split_gap/2,20))
-    cap=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,-20,-clamp_split_gap/2))
+    upper=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,-20,-clamp_split_gap/2))
+    cap=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,clamp_split_gap/2,20))
     for x in [-lug_x,lug_x]:
-        upper=checked(upper.fuse(box_at(x-lug_width/2,x+lug_width/2,y-clamp_width/2,y+clamp_width/2,clamp_split_gap/2,clamp_split_gap/2+lug_height)))
-        cap=checked(cap.fuse(box_at(x-lug_width/2,x+lug_width/2,y-clamp_width/2,y+clamp_width/2,-clamp_split_gap/2-lug_height,-clamp_split_gap/2)))
+        upper=checked(upper.fuse(box_at(x-lug_width/2,x+lug_width/2,y-clamp_width/2,y+clamp_width/2,-clamp_split_gap/2-lug_height,-clamp_split_gap/2)))
+        cap=checked(cap.fuse(box_at(x-lug_width/2,x+lug_width/2,y-clamp_width/2,y+clamp_width/2,clamp_split_gap/2,clamp_split_gap/2+lug_height)))
         cap=checked(cap-hole_z(x,y,-15,15,screw_clearance_d))
     frame=checked(frame.fuse(upper))
     caps.append(cap)
@@ -142,30 +144,43 @@ for number,y,d in holes:
     for dy in bearing_offsets:
         ear=box_at(pivot_x-hub_radius,pivot_x+hub_radius,y+dy-ear_thickness/2,y+dy+ear_thickness/2,rail_top-0.5,pivot_z)
         ear=checked(ear.fuse(cyl_y(hub_radius,ear_thickness,pivot_x,y+dy,pivot_z)))
+        root=Pos(0,y+dy+ear_thickness/2,0)*extrude(Plane.XZ*Polygon((pivot_x-support_root_width/2,rail_top-0.5),(pivot_x+support_root_width/2,rail_top-0.5),(pivot_x+hub_radius,pivot_z-1),(pivot_x-hub_radius,pivot_z-1),align=None),amount=ear_thickness)
+        ear=checked(ear.fuse(root))
         frame=checked(frame.fuse(ear))
         frame=checked(frame-cyl_y((pivot_diameter+pivot_support_clearance)/2,ear_thickness+0.2,pivot_x,y+dy,pivot_z))
-    stop_x0=rail_x_min
-    stop_x1=rail_x_min+1.0
-    stop_top=pivot_z+math.tan(math.radians(open_angle))*(stop_x0-pivot_x)-(lever_thickness/2)/math.cos(math.radians(open_angle))
-    frame=checked(frame.fuse(box_at(stop_x0,stop_x1,y-2,y+2,rail_top-0.5,stop_top)))
-    seat=box_at(spring_x-spring_seat_width/2,spring_x+spring_seat_width/2,y-spring_seat_width/2,y+spring_seat_width/2,seat_bottom,spring_socket_rim_z)
+    # Broad positive opening stop matches the underside of the rear key tail.
+    stop_x0=pivot_x-2.5
+    stop_x1=pivot_x-1.0
+    def tail_plane_z(x):
+        return pivot_z+math.tan(math.radians(open_angle))*(x-pivot_x)-(lever_thickness/2)/math.cos(math.radians(open_angle))
+    opening_stop=Pos(0,y+1.8,0)*extrude(Plane.XZ*Polygon((stop_x0,rail_top-0.5),(stop_x1,rail_top-0.5),(stop_x1,tail_plane_z(stop_x1)),(stop_x0,tail_plane_z(stop_x0)),align=None),amount=3.6)
+    frame=checked(frame.fuse(opening_stop))
+    seat=box_at(spring_socket_rim_x,spring_floor_x+0.9,y-spring_seat_width/2,y+spring_seat_width/2,rail_top-0.2,spring_z+spring_seat_width/2)
+    # Recess the housing foot clear of the rotating hub.
+    seat=checked(seat-box_at(spring_socket_rim_x-0.1,pivot_x+hub_radius+0.3,y-spring_seat_width,y+spring_seat_width,rail_top-1,0.5))
     frame=checked(frame.fuse(seat))
-    frame=checked(frame-hole_z(spring_x,y,seat_floor_z,spring_socket_rim_z+0.1,spring_od+spring_fit))
-    # Sloping gussets eliminate the flat cantilever underside, clear of brass.
-    seat_gusset=Pos(0,y+spring_seat_width/2,0)*extrude(Plane.XZ*Polygon((rail_x_max-0.1,seat_bottom-(seat_right-rail_x_max)-0.3),(seat_right,seat_bottom),(rail_x_max-0.1,seat_bottom),align=None),amount=spring_seat_width)
-    frame=checked(frame.fuse(seat_gusset))
+    socket=Pos((spring_socket_rim_x+spring_floor_x)/2-0.05,y,spring_z)*Rot(0,90,0)*Cylinder((spring_od+spring_fit)/2,spring_floor_x-spring_socket_rim_x+0.1)
+    frame=checked(frame-socket)
 show(frame,'frame')
+show(opening_stop,'opening_stop')
 
-# Finger contact is circular; the narrower arm leaves room for bearing ears.
-lever=box_at(pivot_x-4.5,1,-lever_width/2,lever_width/2,lever_bottom,lever_bottom+lever_thickness)
+# Curved arm follows the tube from a low side pivot up to the pad cup.
+arm_outer=cyl_y(arm_radius+lever_thickness/2,lever_width,0,0,0)
+arm_inner=cyl_y(arm_radius-lever_thickness/2,lever_width+2,0,0,0)
+lever=checked(arm_outer-arm_inner)
+lever=checked(lever & box_at(-arm_radius-5,-0.2,-lever_width,lever_width,0,arm_radius+5))
 lever=checked(lever.fuse(hole_z(0,0,lever_bottom,lever_bottom+lever_thickness,pad_diameter)))
 lever=checked(lever.fuse(cyl_y(hub_radius,hub_length,pivot_x,0,pivot_z)))
+lever=checked(lever.fuse(box_at(pivot_x-3.5,pivot_x+0.5,-lever_width/2,lever_width/2,-lever_thickness/2,lever_thickness/2)))
 lever=checked(lever-cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
-# Tapered peg enters the spring bore; spring bears on the flat key underside.
-spring_peg=Pos(spring_x,0,lever_bottom-spring_peg_length)*Cone(spring_peg_tip_diameter/2,spring_peg_diameter/2,spring_peg_length+0.01,align=(Align.CENTER,Align.CENTER,Align.MIN))
+# Clearance around the fixed spring housing throughout the opening sweep.
+lever=checked(lever-box_at(spring_socket_rim_x-0.3,0,-lever_width,lever_width,-2,spring_z+spring_seat_width/2+0.3))
+# A sideways peg faces into the fixed spring socket.
+seat_tool=Pos(spring_moving_x+5,0,spring_z)*Rot(0,90,0)*Cylinder((spring_od+spring_fit)/2,10)
+lever=checked(lever-seat_tool)
+spring_peg=Pos(spring_moving_x,0,spring_z)*Rot(0,90,0)*Cone(spring_peg_diameter/2,spring_peg_tip_diameter/2,spring_peg_length,align=(Align.CENTER,Align.CENTER,Align.MIN))
 lever=checked(lever.fuse(spring_peg))
-# Flat finger face is the print-bed face, including the hinge barrel.
-lever=checked(lever & box_at(pivot_x-10,pad_diameter,-pad_diameter,pad_diameter,lever_bottom-3,lever_bottom+lever_thickness))
+lever=checked(lever-hole_z(0,0,0,lever_bottom,pad_ring_inner_diameter))
 # Shallow retaining cup: glue the flat-backed TPU pad inside this ring.
 pad_ring=checked(hole_z(0,0,lever_bottom-pad_ring_height,lever_bottom+0.1,pad_ring_outer_diameter)-hole_z(0,0,lever_bottom-pad_ring_height-0.1,lever_bottom+0.2,pad_ring_inner_diameter))
 lever=checked(lever.fuse(pad_ring))
@@ -200,10 +215,10 @@ for number,y,d in holes:
     show(pad,'pad'+str(number))
     # Straight cylindrical spring envelope follows both pocket centres.
     # Real compression spring flexes/tilts as the lever moves.
-    spring_start=Vector(spring_x,y,seat_floor_z)
+    spring_start=Vector(spring_floor_x,y,spring_z)
     theta=math.radians(open_angle)
-    dx=spring_x-pivot_x
-    dz=spring_top_closed-pivot_z
+    dx=spring_moving_x-pivot_x
+    dz=spring_z-pivot_z
     spring_end=Vector(pivot_x+dx*math.cos(theta)-dz*math.sin(theta),y,pivot_z+dx*math.sin(theta)+dz*math.cos(theta))
     axis_vector=spring_end-spring_start
     spring_length_open=axis_vector.length
@@ -227,7 +242,7 @@ def on_bed(part):
     bb=part.bounding_box()
     return part.moved(Location((-(bb.min.X+bb.max.X)/2,-(bb.min.Y+bb.max.Y)/2,-bb.min.Z)))
 print_parts={
-    'frame_print': on_bed(frame),
+    'frame_print': on_bed(frame.rotate(Axis.Y,-90)),
     'lever_print': on_bed(lever.rotate(Axis.X,180)),
     'clamp_cap_print': on_bed(caps[0].rotate(Axis.X,90)),
     'tpu_pad_print': on_bed(pad_blank.rotate(Axis.X,180)),

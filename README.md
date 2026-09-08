@@ -26,8 +26,8 @@ export the changed parts. Geometry uses millimetres.
 - Fixed seats for a nominal 2 × 5 mm compression spring, assumed 2 mm solid.
 - A 1 × 12 mm steel dowel, friction held in the fixed supports.
 - Four M2 bolts and nuts, with a soft liner between clamps and brass.
-- Flat printing faces, a glue-in pad retaining ring, sloping seat supports and
-  a small pin-fit coupon.
+- Low side hinge, curved arm around the tube, reinforced cheeks and a tested
+  opening stop; glue-in pad retaining ring and small pin-fit coupon.
 
 The [assembly STEP](exports/single-key/assembly-open.step) is for reviewing the
 mechanism. Use the separate files in
@@ -37,8 +37,10 @@ but do not contain slicer settings or supports.
 
 The [measured tube and hole 4 dimensions](docs/measurements.md) are now applied.
 Hole 5 diameter and the remaining reference dimensions are still provisional.
-The pad seal, printed pin fit, liner,
-spring response and comfort have not been physically tested. CAD validity and
+The player confirmed the 1.0 mm pin bore. The first dry fit exposed weak
+supports, an ineffective stop and finger obstruction; this curved-arm revision
+addresses those findings and needs another physical trial. Pad seal, liner and
+spring response remain unverified. CAD validity and
 sampled rigid movement checks passed; printability warnings and trial details
 are recorded in the brief.
 

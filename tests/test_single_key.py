@@ -149,5 +149,22 @@ def test_spring_locators_have_clearance_and_do_not_bottom_out(model):
     spring_id = m["spring_od"] - 2*m["spring_wire_diameter"]
     assert spring_id - m["spring_peg_diameter"] >= 0.3
     assert m["spring_length_closed"] - m["spring_peg_length"] >= 0.5
-    assert m["spring_top_closed"] - m["spring_socket_rim_z"] >= 0.5
-    assert m["spring_socket_rim_z"] - m["seat_floor_z"] >= 1.0
+    assert m["spring_socket_rim_x"] - m["spring_moving_x"] >= 0.5
+    assert m["spring_floor_x"] - m["spring_socket_rim_x"] >= 1.0
+
+
+def test_opening_stop_contacts_and_blocks_overtravel(model):
+    m = model
+    axis = Axis((m["pivot_x"], m["hole4_y"], m["pivot_z"]), (0, 1, 0))
+    closed = m["lever"].moved(Location((0, m["hole4_y"], 0)))
+    assert closed.distance_to(m["opening_stop"]) > 0.2
+    assert m["keys"][4].distance_to(m["opening_stop"]) < 1e-5
+    beyond = closed.rotate(axis, -(m["open_angle"] + 1))
+    assert overlap_volume(beyond, m["opening_stop"]) > 0.1
+
+
+def test_hinge_stays_below_playing_surface(model):
+    m = model
+    # Hardware envelope at the pivot stays at least 2 mm below tube crown.
+    assert m["pivot_z"] + m["hub_radius"] <= m["r"] - 2
+    assert m["pivot_support_clearance"] == 0  # Player-confirmed 1.0 mm bore.
