@@ -1,0 +1,5 @@
+# Separate environment: Draftwright currently requires build123d <0.11.
+# Pin the inspected upstream revision for reproducible generation.
+draftwright @ git+https://github.com/pzfreo/draftwright.git@c365452ac4603f7d86b3c45545ce6c312be4e16b
+build123d==0.10.0
+build123d-drafting-helpers==0.15.1

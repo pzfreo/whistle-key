@@ -1,0 +1,765 @@
+{
+  "before_repair": {
+    "passed": true,
+    "score": 0.0,
+    "diagnostic_score": 0.0,
+    "quality": {
+      "completeness": {
+        "available": true,
+        "audited_score": 0.0,
+        "scope": "audited_recognized_requirements",
+        "coverage": "partial",
+        "reason": "audited_score covers recognized requirements in audited families only; it is not evidence that the drawing is complete",
+        "excludes": [
+          "physical geometry that recognition did not identify",
+          "recognized families without a semantic outcome ledger"
+        ],
+        "unrecognised_geometry_reports": 0,
+        "denominator": "recognition",
+        "audited_families": [
+          "outer_profile_angles",
+          "section_recesses",
+          "angled_steps",
+          "blends",
+          "chamfers",
+          "channels",
+          "circular_blind_steps",
+          "fillets",
+          "paired_ramp_steps",
+          "flats",
+          "grooves",
+          "hole_patterns",
+          "holes",
+          "oriented_slots",
+          "passages",
+          "pads",
+          "plates",
+          "polygonal_bosses",
+          "polygonal_stock",
+          "pockets",
+          "pocket_patterns",
+          "prismatic_pockets",
+          "rectangular_blind_slots",
+          "round_bottom_blind_slots",
+          "slot_patterns",
+          "slots",
+          "through_steps",
+          "turned_steps"
+        ],
+        "unscored_recognized_families": [],
+        "requirements": 58,
+        "placed": 0,
+        "satisfied_by_structured_note": 0,
+        "suppressed": 0,
+        "dropped": 0,
+        "missing": 0,
+        "unverifiable": 52,
+        "inapplicable": 0,
+        "unsupported": 6,
+        "by_family": {
+          "section_recesses": 6,
+          "chamfers": 0,
+          "blends": 6,
+          "channels": 0,
+          "circular_blind_steps": 0,
+          "fillets": 0,
+          "paired_ramp_steps": 0,
+          "through_steps": 0,
+          "turned_steps": 0,
+          "flats": 10,
+          "grooves": 0,
+          "holes": 14,
+          "hole_patterns": 6,
+          "oriented_slots": 0,
+          "pads": 15,
+          "plates": 1,
+          "polygonal_bosses": 0,
+          "polygonal_stock": 0,
+          "pockets": 0,
+          "pocket_patterns": 0,
+          "rectangular_blind_slots": 0,
+          "round_bottom_blind_slots": 0,
+          "slots": 0,
+          "slot_patterns": 0,
+          "outer_profile_angles": 0
+        }
+      },
+      "restraint": {
+        "available": false,
+        "score": null,
+        "reason": "measurement provenance and physical requirement equivalence are incomplete"
+      },
+      "legibility": {
+        "available": true,
+        "score": 1.0,
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0,
+        "placement_drops": 0,
+        "by_code": {},
+        "raw_issues": 0,
+        "primary_issues": 0,
+        "primary_errors": 0,
+        "primary_warnings": 0,
+        "primary_infos": 0,
+        "primary_by_code": {},
+        "affected_pairs": 0,
+        "basis": "layout_issue_severity_with_info_floor",
+        "score_inventory": "primary_issues"
+      },
+      "fidelity": {
+        "available": true,
+        "score": 1.0,
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0,
+        "placement_drops": 0,
+        "by_code": {},
+        "raw_issues": 0,
+        "primary_issues": 0,
+        "primary_errors": 0,
+        "primary_warnings": 0,
+        "primary_infos": 0,
+        "primary_by_code": {},
+        "affected_pairs": 0,
+        "basis": "drawn_assertion_contradicted_by_its_source",
+        "score_inventory": "primary_issues"
+      },
+      "unscored": {
+        "available": true,
+        "score": null,
+        "issues": 35,
+        "by_code": {
+          "blend_requirement_unverifiable": 6,
+          "feature_no_centermark": 1,
+          "feature_not_dimensioned": 2,
+          "feature_not_located": 1,
+          "flat_requirement_unverifiable": 10,
+          "hole_requirement_unverifiable": 4,
+          "pad_footprint_not_defined": 1,
+          "pad_requirement_unverifiable": 3,
+          "plate_requirement_unverifiable": 1,
+          "prismatic_pocket_requirement_unsupported": 6
+        },
+        "unclassified": [],
+        "reason": "reported by lint and deliberately scored on no quality component"
+      }
+    },
+    "errors": 0,
+    "warnings": 35,
+    "infos": 0,
+    "by_code": {
+      "feature_not_dimensioned": 2,
+      "feature_no_centermark": 1,
+      "feature_not_located": 1,
+      "pad_footprint_not_defined": 1,
+      "pad_requirement_unverifiable": 3,
+      "plate_requirement_unverifiable": 1,
+      "prismatic_pocket_requirement_unsupported": 6,
+      "flat_requirement_unverifiable": 10,
+      "blend_requirement_unverifiable": 6,
+      "hole_requirement_unverifiable": 4
+    },
+    "geometry_issues": 29,
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "feature_not_dimensioned",
+        "message": "cylindrical feature \u00f81.1 has no diameter callout on the sheet",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "feature_not_dimensioned",
+        "message": "cylindrical feature \u00f82.4 has no diameter callout on the sheet",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "feature_no_centermark",
+        "message": "10 hole(s) have no centre mark",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "feature_not_located",
+        "message": "6 hole(s) have no locating dimension",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "pad_footprint_not_defined",
+        "message": "3 rectangular raised pad(s) lack footprint size, attachment-axis height, or in-plane location dimensions",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "pad_requirement_unverifiable",
+        "message": "raised pad at (-7.7, 11.0, 9.3) all 5 physical measurements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "pad_requirement_unverifiable",
+        "message": "raised pad at (-7.7, 37.85, 9.3) all 5 physical measurements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "pad_requirement_unverifiable",
+        "message": "raised pad at (-7.7, 53.595, 9.3) all 5 physical measurements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "plate_requirement_unverifiable",
+        "message": "plate at (-11.2, 33.368, 4.846) its sole physical measurement, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (1 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (2 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (3 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (4 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (5 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (6 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.05 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 0.0), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.5 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 0.0), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.05 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 24.375), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.05 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 64.595), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.5 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 64.595), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 0.0), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.5 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 0.0), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 24.375), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 64.595), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.5 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 64.595), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 7.2, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 14.8, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 34.05, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 41.65, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 49.795, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 57.395, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "hole_requirement_unverifiable",
+        "message": "hole at (12.15, 64.595, 0.0) all 5 physical requirements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "hole_requirement_unverifiable",
+        "message": "hole at (-11.2, 0.0, 11.1) all 4 physical requirements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "hole_requirement_unverifiable",
+        "message": "hole at (-9.8, 11.0, 13.7) all 5 physical requirements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "hole_requirement_unverifiable",
+        "message": "4-hole pattern at (0.0, 12.188, 3.5) all 6 physical requirements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      }
+    ]
+  },
+  "after_repair": {
+    "passed": true,
+    "score": 0.0,
+    "diagnostic_score": 0.0,
+    "quality": {
+      "completeness": {
+        "available": true,
+        "audited_score": 0.0,
+        "scope": "audited_recognized_requirements",
+        "coverage": "partial",
+        "reason": "audited_score covers recognized requirements in audited families only; it is not evidence that the drawing is complete",
+        "excludes": [
+          "physical geometry that recognition did not identify",
+          "recognized families without a semantic outcome ledger"
+        ],
+        "unrecognised_geometry_reports": 0,
+        "denominator": "recognition",
+        "audited_families": [
+          "outer_profile_angles",
+          "section_recesses",
+          "angled_steps",
+          "blends",
+          "chamfers",
+          "channels",
+          "circular_blind_steps",
+          "fillets",
+          "paired_ramp_steps",
+          "flats",
+          "grooves",
+          "hole_patterns",
+          "holes",
+          "oriented_slots",
+          "passages",
+          "pads",
+          "plates",
+          "polygonal_bosses",
+          "polygonal_stock",
+          "pockets",
+          "pocket_patterns",
+          "prismatic_pockets",
+          "rectangular_blind_slots",
+          "round_bottom_blind_slots",
+          "slot_patterns",
+          "slots",
+          "through_steps",
+          "turned_steps"
+        ],
+        "unscored_recognized_families": [],
+        "requirements": 58,
+        "placed": 0,
+        "satisfied_by_structured_note": 0,
+        "suppressed": 0,
+        "dropped": 0,
+        "missing": 0,
+        "unverifiable": 52,
+        "inapplicable": 0,
+        "unsupported": 6,
+        "by_family": {
+          "section_recesses": 6,
+          "chamfers": 0,
+          "blends": 6,
+          "channels": 0,
+          "circular_blind_steps": 0,
+          "fillets": 0,
+          "paired_ramp_steps": 0,
+          "through_steps": 0,
+          "turned_steps": 0,
+          "flats": 10,
+          "grooves": 0,
+          "holes": 14,
+          "hole_patterns": 6,
+          "oriented_slots": 0,
+          "pads": 15,
+          "plates": 1,
+          "polygonal_bosses": 0,
+          "polygonal_stock": 0,
+          "pockets": 0,
+          "pocket_patterns": 0,
+          "rectangular_blind_slots": 0,
+          "round_bottom_blind_slots": 0,
+          "slots": 0,
+          "slot_patterns": 0,
+          "outer_profile_angles": 0
+        }
+      },
+      "restraint": {
+        "available": false,
+        "score": null,
+        "reason": "measurement provenance and physical requirement equivalence are incomplete"
+      },
+      "legibility": {
+        "available": true,
+        "score": 1.0,
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0,
+        "placement_drops": 0,
+        "by_code": {},
+        "raw_issues": 0,
+        "primary_issues": 0,
+        "primary_errors": 0,
+        "primary_warnings": 0,
+        "primary_infos": 0,
+        "primary_by_code": {},
+        "affected_pairs": 0,
+        "basis": "layout_issue_severity_with_info_floor",
+        "score_inventory": "primary_issues"
+      },
+      "fidelity": {
+        "available": true,
+        "score": 1.0,
+        "errors": 0,
+        "warnings": 0,
+        "infos": 0,
+        "placement_drops": 0,
+        "by_code": {},
+        "raw_issues": 0,
+        "primary_issues": 0,
+        "primary_errors": 0,
+        "primary_warnings": 0,
+        "primary_infos": 0,
+        "primary_by_code": {},
+        "affected_pairs": 0,
+        "basis": "drawn_assertion_contradicted_by_its_source",
+        "score_inventory": "primary_issues"
+      },
+      "unscored": {
+        "available": true,
+        "score": null,
+        "issues": 35,
+        "by_code": {
+          "blend_requirement_unverifiable": 6,
+          "feature_no_centermark": 1,
+          "feature_not_dimensioned": 2,
+          "feature_not_located": 1,
+          "flat_requirement_unverifiable": 10,
+          "hole_requirement_unverifiable": 4,
+          "pad_footprint_not_defined": 1,
+          "pad_requirement_unverifiable": 3,
+          "plate_requirement_unverifiable": 1,
+          "prismatic_pocket_requirement_unsupported": 6
+        },
+        "unclassified": [],
+        "reason": "reported by lint and deliberately scored on no quality component"
+      }
+    },
+    "errors": 0,
+    "warnings": 35,
+    "infos": 0,
+    "by_code": {
+      "feature_not_dimensioned": 2,
+      "feature_no_centermark": 1,
+      "feature_not_located": 1,
+      "pad_footprint_not_defined": 1,
+      "pad_requirement_unverifiable": 3,
+      "plate_requirement_unverifiable": 1,
+      "prismatic_pocket_requirement_unsupported": 6,
+      "flat_requirement_unverifiable": 10,
+      "blend_requirement_unverifiable": 6,
+      "hole_requirement_unverifiable": 4
+    },
+    "geometry_issues": 29,
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "feature_not_dimensioned",
+        "message": "cylindrical feature \u00f81.1 has no diameter callout on the sheet",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "feature_not_dimensioned",
+        "message": "cylindrical feature \u00f82.4 has no diameter callout on the sheet",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "feature_no_centermark",
+        "message": "10 hole(s) have no centre mark",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "feature_not_located",
+        "message": "6 hole(s) have no locating dimension",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "pad_footprint_not_defined",
+        "message": "3 rectangular raised pad(s) lack footprint size, attachment-axis height, or in-plane location dimensions",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "pad_requirement_unverifiable",
+        "message": "raised pad at (-7.7, 11.0, 9.3) all 5 physical measurements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "pad_requirement_unverifiable",
+        "message": "raised pad at (-7.7, 37.85, 9.3) all 5 physical measurements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "pad_requirement_unverifiable",
+        "message": "raised pad at (-7.7, 53.595, 9.3) all 5 physical measurements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "plate_requirement_unverifiable",
+        "message": "plate at (-11.2, 33.368, 4.846) its sole physical measurement, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (1 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (2 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (3 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (4 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (5 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "prismatic_pocket_requirement_unsupported",
+        "message": "recognised 6-sided blind prismatic recess 1.9 mm deep (6 of 6) is not represented by Draftwright dimensions: profile has no supported drafting grammar; review and define its manufacturing section outside automatic drawing approval",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.05 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 0.0), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.5 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 0.0), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.05 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 24.375), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.05 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 64.595), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.5 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (-12.15, 64.595), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 0.0), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.5 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 0.0), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 24.375), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 64.595), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "flat_requirement_unverifiable",
+        "message": "machined flat 6.5 A/F on Z stock along (0.0, 0.0, 1.0) at axis line (12.15, 64.595), span (0.0, 3.5) cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 7.2, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 14.8, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 34.05, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 41.65, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 49.795, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "blend_requirement_unverifiable",
+        "message": "blend at (-11.2, 57.395, 11.1) cannot be joined to exact Blend provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "hole_requirement_unverifiable",
+        "message": "hole at (12.15, 64.595, 0.0) all 5 physical requirements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "hole_requirement_unverifiable",
+        "message": "hole at (-11.2, 0.0, 11.1) all 4 physical requirements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "hole_requirement_unverifiable",
+        "message": "hole at (-9.8, 11.0, 13.7) all 5 physical requirements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      },
+      {
+        "severity": "warning",
+        "code": "hole_requirement_unverifiable",
+        "message": "4-hole pattern at (0.0, 12.188, 3.5) all 6 physical requirements, which no IR feature claimed, cannot be joined to measurement provenance without guessing",
+        "location": null
+      }
+    ]
+  },
+  "section_checks": {
+    "hatched_face_areas_mm2": [
+      6.244999999998574,
+      89.18622552457455,
+      6.244999999998637
+    ],
+    "excluded_uncut_faces": 17
+  },
+  "scale": 2.0,
+  "page": [
+    594.0,
+    420.0
+  ]
+}
