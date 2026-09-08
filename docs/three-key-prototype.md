@@ -41,14 +41,14 @@ check establishes seat contact before the clamp faces bottom out; it does not
 establish actual gripping force. Fit without a liner and verify the printed
 clamp holds. The previously requested cap-only fix for the old single-key frame
 is not needed to assemble this longer three-key frame; the old single-key files
-remain separate. Captive M2 nuts remain a lower-priority follow-up.
+remain separate. Underside hex pockets now stop the M2 nuts turning.
 
 ## Hardware and assembly
 
 - Three steel pins, 1 mm diameter × 12 mm long.
 - Three compression springs, nominal 2 mm OD × 5 mm free length, assumed 2 mm
   solid length and 0.3 mm wire. Spring rates are still unknown.
-- Six M2 bolts and six external M2 nuts; check the existing bolt lengths fit.
+- Six M2 bolts and six M2 nuts seated in underside hex pockets; check the existing bolt lengths fit.
 - PETG frame, three caps and three keys; three 95A TPU pads and pad adhesive.
 
 Each fixed bearing bore is 1.1 mm for the requested fit trial; each moving bore
@@ -132,3 +132,28 @@ cap, and add two M2 bolts and nuts. Existing keys, pads and two caps are reusabl
 Both 3MF projects now contain eleven pieces and orient the frame flat on its base.
 
 The raised hinge-side spine steps down locally at the middle clamp, with 0.2 mm axial clearance at each side, so the cap can seat and tighten. Both lower rails remain continuous.
+
+## Underside M2 nut pockets
+
+All six bolt positions have hexagonal pockets opening from the bottom of the
+frame. Each pocket is 4.30 mm across flats and 1.90 mm deep. The default nut
+is 4.00 mm across flats and 1.60 mm thick, matching this
+[Accu M2 DIN 934 specification](https://www.accu.co.uk/hexagon-nuts/766417-NUT202M2).
+Actual nut dimensions have not yet been confirmed by the player. Dimensions
+and print clearance are parameters near the top of `scripts/three_key.py`.
+
+Local 7 mm diameter bosses leave at least 1 mm material outside pocket corners
+and a 1.6 mm bearing roof above each nut. Bolt centres and clamp interfaces are
+unchanged. The frame stays flat on the bed; inspect and remove any support
+inside the pockets before inserting nuts. Only the frame needs reprinting.
+
+Insert nuts from underneath, flat against the pocket roofs, then engage the
+bolts from above. The hex walls prevent rotation once engaged. These are open
+pockets, not snap-fit retainers: a small piece of tape can hold a nut while
+starting its bolt. Bolts can protrude farther below the frame with recessed nuts.
+
+Tests check the full nut insertion sweep, fit at the seated position, contact
+with the bearing roof, blocked rotation and material around each pocket.
+Printed nut fit and resistance to tightening torque still need a physical trial.
+Key/pad sizing is unchanged by this revision; the requested common parts for
+holes 5 and 6 are pending the player's axial and transverse remeasurements.

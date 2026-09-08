@@ -69,3 +69,5 @@ The bare-brass fit and finger-clearance revision requires a new frame and both c
 For the three-hole extension, use the separate [three-key printing and assembly instructions](three-key-prototype.md) and files under `exports/three-key/`.
 
 The three-key frame now has an opposite-side rail and a third clamp between keys 5 and 6. Print its frame flat on the base as supplied, and print three identical caps. It uses six M2 bolts/nuts. The updated projects include all eleven pieces.
+
+The M2 nut-pocket revision changes only the three-key frame. Fit six nuts from underneath after clearing any pocket supports; hex pockets resist rotation while tightening. Current defaults are 4 mm across-flats nuts, 1.6 mm thick. Existing caps, keys and pads remain usable.

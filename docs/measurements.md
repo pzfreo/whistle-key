@@ -67,8 +67,10 @@ Neighbouring-hole clearances must use the reconciled positions above.
 No liner was installed. Clamp faces met without gripping adequately. The
 spring and hinge were assembled and operated, and the TPU pad made a
 reasonable seal. Finger interference and key catching remain P1 issues.
-Captive M2 nuts are a lower-priority request.
+M2 nut pockets have now been added to the three-key frame, using unconfirmed standard 4 mm across-flats × 1.6 mm nut dimensions.
 
 The latest pin-fit trial uses 1.1 mm fixed bores for a 1.0 × 12 mm steel pin;
 the moving bore is 1.25 mm. The hole 4 pad remains 9.59 mm diameter with a
 continuous concave contact face, based on the confirmed 5.09 mm hole diameter.
+
+The player has questioned hole 5/6 sizes again and will remeasure axial and transverse diameters. Common interchangeable key/pad sizing is on hold; no pad dimensions or engravings were changed in the nut-pocket revision.

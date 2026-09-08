@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 import trimesh
-from build123d import Axis, Compound, Location, ShapeList, Vector, import_step
+from build123d import Axis, Compound, Location, Pos, RegularPolygon, ShapeList, Vector, extrude, import_step
 from scripts.build_ci import load_model
 
 
@@ -163,3 +163,24 @@ def test_all_six_clamp_bolts_have_clear_passages(model):
             bolt=m['hole_z'](x,y,-15,15,2.0)
             for part in [m['frame'],*m['caps']]:
                 assert volume(bolt,part)<1e-5,(x,y,'M2 bolt passage')
+
+
+def test_nuts_insert_from_below_seat_and_cannot_spin(model):
+    m=model
+    assert m['nut_boss_diameter']/2-(m['nut_across_flats']+m['nut_pocket_clearance'])/math.sqrt(3)>=1.0
+    assert m['lug_height']-m['nut_pocket_depth']>=1.5
+    for y in m['clamp_ys']:
+        for x in [-m['lug_x'],m['lug_x']]:
+            ceiling=m['rail_bottom']+m['nut_pocket_depth']
+            profile=RegularPolygon(m['nut_across_flats']/math.sqrt(3),6,rotation=30)
+            nut=Pos(x,y,ceiling-m['nut_thickness'])*extrude(profile,amount=m['nut_thickness'])
+            assert volume(nut,m['frame'])<1e-5
+            sweep=Pos(x,y,m['rail_bottom']-3)*extrude(profile,amount=m['nut_pocket_depth']+3)
+            assert volume(sweep,m['frame'])<1e-5
+            assert volume(nut.moved(Location((0,0,0.05))),m['frame'])>0.01 # Bearing roof.
+            assert volume(nut.rotate(Axis((x,y,0),(0,0,1)),30),m['frame'])>0.1 # Anti-rotation.
+            # Solid material surrounds every pocket corner, including external bosses.
+            probe_radius=(m['nut_across_flats']+m['nut_pocket_clearance'])/math.sqrt(3)+0.5
+            for angle in range(0,360,30):
+                a=math.radians(angle)
+                assert m['frame'].is_inside(Vector(x+probe_radius*math.cos(a),y+probe_radius*math.sin(a),m['rail_bottom']+0.8))

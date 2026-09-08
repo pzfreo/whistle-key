@@ -66,6 +66,11 @@ spring_closed_length = 2.8 # Fixed CAD seat spacing, not an adjustment screw
 spring_tube_clearance = 0.3
 spring_lateral_offset = 1.25
 screw_clearance_d = 2.4
+nut_across_flats = 4.0 # Standard M2 DIN 934 default; confirm actual nuts
+nut_thickness = 1.6
+nut_pocket_clearance = 0.3 # Total across-flats allowance for PETG fit
+nut_pocket_depth = 1.9
+nut_boss_diameter = 7.0 # >= 1 mm wall at hex corners
 lug_width = 5.0
 lug_height = 3.5
 rail_bottom = clamp_split_z-clamp_split_gap/2-lug_height # Flush base for flat printing
@@ -222,6 +227,17 @@ for y in clamp_ys:
 # Drill through the completed spine as well as the clamp bases.
 for y in clamp_ys:
     for x in [-lug_x,lug_x]:
+        frame=checked(frame-hole_z(x,y,-15,15,screw_clearance_d))
+# Open-bottom hex pockets prevent the six M2 nuts turning once engaged.
+# Local bosses preserve wall thickness without moving existing bolt centres.
+for y in clamp_ys:
+    for x in [-lug_x,lug_x]:
+        boss=hole_z(x,y,rail_bottom,rail_top,nut_boss_diameter)
+        frame=checked(frame.fuse(boss))
+        pocket=Pos(x,y,rail_bottom-0.01)*extrude(
+            RegularPolygon((nut_across_flats+nut_pocket_clearance)/math.sqrt(3),6,rotation=30),
+            amount=nut_pocket_depth+0.01)
+        frame=checked(frame-pocket)
         frame=checked(frame-hole_z(x,y,-15,15,screw_clearance_d))
 show(frame,'frame')
 show(opening_stop,'opening_stop')
