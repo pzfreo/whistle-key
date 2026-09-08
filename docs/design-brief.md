@@ -344,3 +344,7 @@ unmeasured, so comfort requires a playing trial.
 
 Reprint the frame and both caps together; key, spring, pin and TPU pad are
 reusable. Captive M2 nuts remain a lower-priority follow-up.
+
+## Three-hole extension
+
+The current development prototype is described in [three-key-prototype.md](three-key-prototype.md). It extends the working curved mechanism to holes 4–6 using the reconciled independent measurements, larger pads for holes 5/6, a continuous supporting spine and two end clamps. Single-key geometry and print files remain available separately.

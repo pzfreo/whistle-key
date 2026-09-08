@@ -14,12 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 @pytest.mark.parametrize('dry_run', [False, True])
-def test_project_preserves_meshes_and_material_plates(tmp_path, dry_run):
+@pytest.mark.parametrize('three_key', [False, True])
+def test_project_preserves_meshes_and_material_plates(tmp_path, dry_run, three_key):
     output = tmp_path/'project.3mf'
-    source = ROOT/'build'
-    package(source, output, dry_run)
+    source = ROOT/('build/three-key' if three_key else 'build')
+    package(source, output, dry_run, three_key)
     report = json.loads(output.with_suffix('.json').read_text())
-    assert len(report) == 6
+    assert len(report) == (10 if three_key else 6)
     assert sum(r['source'] == 'clamp_cap_print.stl' for r in report) == 2
     with zipfile.ZipFile(output) as archive:
         xml = ET.fromstring(archive.read('3D/3dmodel.model'))
@@ -30,7 +31,7 @@ def test_project_preserves_meshes_and_material_plates(tmp_path, dry_run):
     assert settings['filament_type'] == (['PETG'] if dry_run else ['PETG', 'TPU'])
     objects = {int(o.attrib['id']): o for o in xml.findall(f'{{{CORE}}}resources/{{{CORE}}}object')}
     items = {int(i.attrib['objectid']): i for i in xml.findall(f'{{{CORE}}}build/{{{CORE}}}item')}
-    assert len(items) == 6
+    assert len(items) == (10 if three_key else 6)
     for record in report:
         obj = objects[record['id']]
         vertices = np.array([[float(v.attrib[a]) for a in ['x','y','z']]

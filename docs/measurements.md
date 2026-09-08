@@ -57,10 +57,10 @@ are not adopted; prior calculations remain available in repository history.
 
 ## Prototype status and pending geometry
 
-The current CAD source and exports have not yet been updated to this reconciled
-measurement set. The player wants to retain the existing printed frame and
-shorten replacement cap legs for tightening travel. That cap-only revision is
-pending; the recent full-frame redesign is not the intended replacement.
+The three-key source `scripts/three_key.py` and its exports now use this
+reconciled measurement set. The earlier single-key source is retained unchanged.
+The player previously requested a cap-only revision to retain the printed
+single-key frame; the subsequent three-hole extension uses a new longer frame.
 The existing printed frame uses clamp offsets +13 and -9 from hole 4.
 Neighbouring-hole clearances must use the reconciled positions above.
 

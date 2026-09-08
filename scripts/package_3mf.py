@@ -32,19 +32,41 @@ PLATES = [
     ]),
 ]
 
+THREE_KEY_PLATES = [
+    ('1 PETG - pin fit coupon', (0,0), [('pin_fit_coupon','Pin fit coupon',(116,124),1)]),
+    ('2 PETG - three-key mechanism', (307.2,0), [
+        ('frame_print','Three-key frame - outer rail side down',(60,80),1),
+        *[(f'lever{n}_print',f'Key {n} - finger face down',(105,80+30*i),1)
+          for i,n in enumerate([4,5,6])],
+        ('clamp_cap_print','Clamp cap 1 - end face down',(150,80),1),
+        ('clamp_cap_print','Clamp cap 2 - end face down',(150,115),1),
+    ]),
+    ('3 TPU 95A - three pads', (0,-307.2), [
+        (f'tpu_pad{n}_print',f'Pad {n} - flat back down',(85+35*i,120),2)
+        for i,n in enumerate([4,5,6])
+    ]),
+]
+
 
 def meta(parent, key, value):
     ET.SubElement(parent, 'metadata', key=key, value=str(value))
 
 
-def package(source, output, dry_run=False):
-    plates = PLATES
+def package(source, output, dry_run=False, three_key=False):
+    plates = THREE_KEY_PLATES if three_key else PLATES
     if dry_run:
         entries = list(PLATES[1][2]) + [
             ("tpu_pad_print", "Rigid pad - PETG dry fit", (139, 125), 1),
             ("pin_fit_coupon", "Pin fit coupon", (93, 170), 1),
         ]
         plates = [("PETG dry fit - all six parts", (0, 0), entries)]
+    if three_key and dry_run:
+        entries=list(THREE_KEY_PLATES[1][2])+[
+            (f'tpu_pad{n}_print',f'Rigid pad {n} - PETG dry fit',(135+25*i,175),1)
+            for i,n in enumerate([4,5,6])
+        ]+[('pin_fit_coupon','Pin fit coupon',(160,210),1)]
+        plates=[('PETG dry fit - three keys, ten parts',(0,0),entries)]
+    expected_count=sum(len(entries) for _,_,entries in plates)
     wrapper = lib3mf.Wrapper()
     model = wrapper.CreateModel()
     config = ET.Element('config')
@@ -103,8 +125,8 @@ def package(source, output, dry_run=False):
             settings = {
                 'name': label, 'extruder': filament,
                 'layer_height': '0.12' if filament == 2 else '0.16',
-                'wall_loops': '4', 'sparse_infill_density': '100%' if stem == 'tpu_pad_print' else '25%',
-                'enable_support': '1' if stem in ['frame_print', 'lever_print'] else '0',
+                'wall_loops': '4', 'sparse_infill_density': '100%' if stem.startswith('tpu_pad') else '25%',
+                'enable_support': '1' if (stem == 'frame_print' or stem.startswith('lever')) else '0',
                 'support_type': 'normal(auto)',
                 'brim_type': 'outer_only' if stem in ['frame_print', 'clamp_cap_print'] else 'no_brim',
                 'brim_width': '3',
@@ -134,7 +156,7 @@ def package(source, output, dry_run=False):
     xml.set('xmlns:BambuStudio', 'http://schemas.bambulab.com/package/2021')
     for name, text in [('Application', 'BambuStudio-02.05.00.66'),
                        ('BambuStudio:3mfVersion', '1'),
-                       ('Description', ('All-PETG dry-fit prototype including rigid pad. ' if dry_run else 'Burke single-key prototype. PETG and TPU on separate plates. ') +
+                       ('Description', ('All-PETG dry-fit prototype including rigid pad. ' if dry_run else ('Burke three-key prototype. ' if three_key else 'Burke single-key prototype. ') + 'PETG and TPU on separate plates. ') +
                         'P1S 0.4 mm nozzle. Unsliced: select actual filament and bed profiles before slicing.')]:
         element = ET.Element(f'{{{CORE}}}metadata', name=name)
         element.text = text
@@ -169,7 +191,7 @@ def package(source, output, dry_run=False):
     it = check.GetBuildItems()
     while it.MoveNext():
         count += 1
-    assert count == len(report) == 6
+    assert count == len(report) == expected_count
     output.with_suffix('.json').write_text(json.dumps(report, indent=2)+'\n')
     print(f'Created {output}: {len(plates)} plate(s), {count} correctly oriented parts')
 
@@ -179,5 +201,6 @@ if __name__ == '__main__':
     parser.add_argument('--source', type=Path, default=ROOT/'exports/single-key/print-oriented')
     parser.add_argument('--output', type=Path, default=ROOT/'exports/single-key/whistle-key-P1S.3mf')
     parser.add_argument("--dry-run", action="store_true", help="All-PETG single plate, including rigid pad")
+    parser.add_argument("--three-key", action="store_true", help="Package the measured three-key extension")
     args = parser.parse_args()
-    package(args.source, args.output, args.dry_run)
+    package(args.source, args.output, args.dry_run, args.three_key)

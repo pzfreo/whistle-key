@@ -65,3 +65,5 @@ The next friction-fit trial uses 1.1 mm fixed hinge bores with the existing 1.0 
 The joined-pillar pedestal revision changes only the frame, retaining the 1.1 mm fixed-bores trial. Reuse the current key, caps and pad.
 
 The bare-brass fit and finger-clearance revision requires a new frame and both caps. Fit without a liner. Reuse the key, pin, spring and TPU pad; verify grip before playing.
+
+For the three-hole extension, use the separate [three-key printing and assembly instructions](three-key-prototype.md) and files under `exports/three-key/`.

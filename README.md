@@ -1,22 +1,30 @@
 # Burke whistle key attachment
 
-A parametric build123d prototype of a normally open key for a brass high-D
-Burke whistle. The eventual goal is three keys; development currently focuses
-on hole 4, operated by the right index finger.
+A parametric build123d attachment for a brass high-D Burke whistle. The current
+prototype extends the working single key to holes **4, 5 and 6**, with three
+independent curved keys, springs and TPU pads.
+
+See the [three-key prototype](docs/three-key-prototype.md),
+[assembly STEP](exports/three-key/assembly-open.step), and
+[P1S PETG/TPU print project](exports/three-key/whistle-three-key-P1S.3mf).
+An [all-PETG dry-fit project](exports/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf)
+is also supplied. The new source is [scripts/three_key.py](scripts/three_key.py).
+
+The earlier single-key prototype is retained below for reference.
 
 Start with the [design brief](docs/design-brief.md) for player needs, agreed
 hardware, provisional dimensions, manufacturing decisions and trial criteria.
 The [acceptance tests](docs/acceptance-tests.md) define engineering assertions
 and the usability requirements that need physical trials.
 
-## Print projects
+## Single-key print projects
 
 The [all-PETG dry-fit 3MF](exports/single-key/whistle-key-P1S-dry-fit-PETG.3mf)
 contains all six pieces on one plate for the P1S, including a rigid pad.
 See the [printing notes](docs/printing.md) for orientations, settings and the
 separate PETG/TPU version. Open as a project and slice in Bambu Studio.
 
-## Current prototype
+## Single-key prototype
 
 Edit the parameter block in [scripts/single_key.py](scripts/single_key.py).
 Regenerate through the build123d MCP `execute_file` tool, then validate and
