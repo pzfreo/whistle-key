@@ -168,3 +168,33 @@ def test_hinge_stays_below_playing_surface(model):
     # Hardware envelope at the pivot stays at least 2 mm below tube crown.
     assert m["pivot_z"] + m["hub_radius"] <= m["r"] - 2
     assert m["pivot_support_clearance"] == 0  # Player-confirmed 1.0 mm bore.
+
+
+def test_full_pin_insertion_path_clears_frame_caps_and_bolt_heads(model):
+    m = model
+    # Union of every position of a 12 mm pin fed from below the lower clamp.
+    start = m['rail_y_min'] - m['pivot_length'] - 2
+    end = m['hole4_y'] + m['pivot_length']/2
+    sweep = m['cyl_y'](m['pivot_diameter']/2, end-start,
+                        m['pivot_x'], (start+end)/2, m['pivot_z'])
+    for obstacle in [m['frame'], *m['caps'], m['keys'][4], m['tube']]:
+        assert overlap_volume(sweep, obstacle) < 1e-5
+    # Oversize corridor outside the bearings also allows alignment clearance.
+    end = m['hole4_y'] + min(m['bearing_offsets']) - m['ear_thickness']/2 - 0.01
+    corridor = m['cyl_y'](m['pivot_diameter']/2 + m['pin_access_clearance'],
+                          end-start, m['pivot_x'], (start+end)/2, m['pivot_z'])
+    for obstacle in [m['frame'], *m['caps'], m['tube']]:
+        assert overlap_volume(corridor, obstacle) < 1e-5
+    for y in m['clamp_ys']:
+        for x in [-m['lug_x'], m['lug_x']]:
+            top = m['clamp_split_z']+m['clamp_split_gap']/2+m['lug_height']
+            head = m['hole_z'](x, y, top, top+m['bolt_head_height'], 4.0)
+            assert overlap_volume(corridor, head) < 1e-5
+
+
+def test_lowered_joint_caps_can_lift_off_tube(model):
+    m = model
+    for cap in m['caps']:
+        bb = cap.bounding_box()
+        throat = m['box_at'](-m['r'], m['r'], bb.min.Y-1, bb.max.Y+1, -20, 0)
+        assert overlap_volume(cap, throat) < 1e-5

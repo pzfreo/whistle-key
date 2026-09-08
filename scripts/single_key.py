@@ -30,11 +30,14 @@ liner_thickness = 0.5
 clamp_width = 6.0
 clamp_wall = 3.0
 clamp_split_gap = 0.8
+clamp_split_z = -7.0 # Lower joint and M2 heads below the pivot insertion line
+pin_access_clearance = 0.1
+bolt_head_height = 2.0 # M2 socket-head envelope; verify purchased hardware
 clamp_offset = 13.0
 adjacent_hole_margin = 1.0
 rail_width = 7.0
-rail_top = -3.2
-rail_bottom = -6.2
+rail_top = clamp_split_z-clamp_split_gap/2
+rail_bottom = rail_top-3.0
 ear_thickness = 3.0
 support_root_width = 6.0
 axial_clearance = 0.3
@@ -86,6 +89,7 @@ rail_y_max = clamp_ys[1]+clamp_width/2
 clamp_inner_r = r+liner_thickness
 clamp_outer_r = clamp_inner_r+clamp_wall
 lug_x = clamp_outer_r+lug_width/2-0.5
+lug_inner_x = min(lug_x-lug_width/2, math.sqrt(clamp_outer_r**2-(clamp_split_z-clamp_split_gap/2)**2)-0.8)
 
 # Sideways compression spring keeps the key's top clear for the finger.
 spring_z = 2.6
@@ -121,12 +125,14 @@ show(frame,'frame')
 caps=[]
 for y in clamp_ys:
     ring=checked(cyl_y(clamp_outer_r,clamp_width,0,y,0)-cyl_y(clamp_inner_r,clamp_width+2,0,y,0))
-    upper=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,-20,-clamp_split_gap/2))
-    cap=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,clamp_split_gap/2,20))
+    upper=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,-20,clamp_split_z-clamp_split_gap/2))
+    cap=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,clamp_split_z+clamp_split_gap/2,20))
     for x in [-lug_x,lug_x]:
-        upper=checked(upper.fuse(box_at(x-lug_width/2,x+lug_width/2,y-clamp_width/2,y+clamp_width/2,-clamp_split_gap/2-lug_height,-clamp_split_gap/2)))
-        cap=checked(cap.fuse(box_at(x-lug_width/2,x+lug_width/2,y-clamp_width/2,y+clamp_width/2,clamp_split_gap/2,clamp_split_gap/2+lug_height)))
+        upper=checked(upper.fuse(box_at((-lug_x-lug_width/2 if x<0 else lug_inner_x),(-lug_inner_x if x<0 else lug_x+lug_width/2),y-clamp_width/2,y+clamp_width/2,clamp_split_z-clamp_split_gap/2-lug_height,clamp_split_z-clamp_split_gap/2)))
+        cap=checked(cap.fuse(box_at((-lug_x-lug_width/2 if x<0 else lug_inner_x),(-lug_inner_x if x<0 else lug_x+lug_width/2),y-clamp_width/2,y+clamp_width/2,clamp_split_z+clamp_split_gap/2,clamp_split_z+clamp_split_gap/2+lug_height)))
         cap=checked(cap-hole_z(x,y,-15,15,screw_clearance_d))
+    # Open throat lets the deeper cap lift off the tube without sliding from its end.
+    cap=checked(cap-box_at(-clamp_inner_r,clamp_inner_r,y-clamp_width,y+clamp_width,-20,0))
     frame=checked(frame.fuse(upper))
     caps.append(cap)
 for y in clamp_ys:

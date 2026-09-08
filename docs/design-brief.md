@@ -254,3 +254,23 @@ now acts sideways. Its rate and the resulting finger force are still unknown.
 Repeat the PETG dry fit to assess finger access, cheek strength and the stop
 before evaluating the TPU seal. See `curved-key-layout.png` for an end view
 with the clamp rings omitted to expose the mechanism.
+
+## Pin insertion access revision
+
+The clamp joint now sits 7 mm below the pivot axis. Its tabs and the connecting
+rail are lowered together; the rail top is 7.4 mm below the pivot. The upper
+caps consequently extend farther down beside the tube. An open throat lets
+them lift straight off rather than requiring sliding from the whistle end. Wider inward tab connections
+join the clamp arcs without changing the M2 bolt centres or 0.8 mm split gap.
+The existing key, 1 mm fixed bores and 1 × 12 mm pin are unchanged.
+
+A continuous cylindrical sweep checks the entire 12 mm pin insertion from
+beyond the lower clamp through the hinge. An additional 0.1 mm radial approach
+allowance clears the frame, caps and tube; nominal 4 mm diameter × 2 mm tall
+M2 head envelopes also clear. Actual head dimensions and hand access need a
+dry fit. The lower rail lengthens the bearing supports; their 3 mm cheeks and
+6 mm roots are retained, but printed strength must be checked again.
+
+Print the updated frame and both caps together; the previous caps do not fit
+the lowered joint. Insert the pin from the foot end, along the path illustrated
+in `pin-insertion.png`. This revision checks pin access, not spring installation.

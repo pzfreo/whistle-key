@@ -76,3 +76,10 @@ test alone did not establish a functioning stop. A hinge-height check keeps
 the pivot hardware at least 2 mm below the tube crown; it cannot prove finger
 comfort. First dry fit: 1.0 mm bore accepted; post strength, opening stop and
 finger access failed. These three physical checks must be repeated.
+
+The pin-access test sweeps the full 12 mm dowel continuously from outside the
+lower clamp into its seated position, checking frame, both caps, key and tube.
+Outside the bearings it also checks a 0.1 mm radial alignment allowance and
+4 mm diameter × 2 mm tall bolt-head envelopes. This prevents accepting a pin
+that fits only after assembly but cannot be inserted. Physical manipulation
+and printed support strength remain trial checks.

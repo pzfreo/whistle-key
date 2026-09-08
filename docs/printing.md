@@ -20,7 +20,7 @@ Settings stored in the project:
 - 3 mm outer brims for the frame and clamp caps.
 
 The frame rests on its outer rail side. The key is finger-face down, with its pad ring and
-curved arm upwards; inspect supports beneath its hinge and spring peg. Caps stand on semicircular end faces. The pad sits on its
+curved arm upwards; inspect supports beneath its hinge and spring peg. Caps stand on flat end faces. The pad sits on its
 flat back; the curved contact face points up. The coupon sits on its flat base.
 
 ## PETG and TPU version
@@ -51,3 +51,5 @@ contents. JSON files alongside the projects record part/plate assignments and
 bounding boxes. Bambu project metadata follows the application's
 [3MF importer](https://github.com/bambulab/BambuStudio/blob/v02.08.02.61/src/libslic3r/Format/bbs_3mf.cpp)
 and plate layout conventions.
+
+The lowered clamp-joint revision requires the new frame and both new caps. The key, pad and pin are reusable.
