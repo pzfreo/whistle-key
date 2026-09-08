@@ -35,11 +35,12 @@ PLATES = [
 THREE_KEY_PLATES = [
     ('1 PETG - pin fit coupon', (0,0), [('pin_fit_coupon','Pin fit coupon',(116,124),1)]),
     ('2 PETG - three-key mechanism', (307.2,0), [
-        ('frame_print','Three-key frame - outer rail side down',(60,80),1),
+        ('frame_print','Three-key frame - flat base down',(60,80),1),
         *[(f'lever{n}_print',f'Key {n} - finger face down',(105,80+30*i),1)
           for i,n in enumerate([4,5,6])],
         ('clamp_cap_print','Clamp cap 1 - end face down',(150,80),1),
         ('clamp_cap_print','Clamp cap 2 - end face down',(150,115),1),
+        ('clamp_cap_print','Clamp cap 3 - end face down',(150,150),1),
     ]),
     ('3 TPU 95A - three pads', (0,-307.2), [
         (f'tpu_pad{n}_print',f'Pad {n} - flat back down',(85+35*i,120),2)
@@ -65,7 +66,7 @@ def package(source, output, dry_run=False, three_key=False):
             (f'tpu_pad{n}_print',f'Rigid pad {n} - PETG dry fit',(135+25*i,175),1)
             for i,n in enumerate([4,5,6])
         ]+[('pin_fit_coupon','Pin fit coupon',(160,210),1)]
-        plates=[('PETG dry fit - three keys, ten parts',(0,0),entries)]
+        plates=[('PETG dry fit - three keys, eleven parts',(0,0),entries)]
     expected_count=sum(len(entries) for _,_,entries in plates)
     wrapper = lib3mf.Wrapper()
     model = wrapper.CreateModel()

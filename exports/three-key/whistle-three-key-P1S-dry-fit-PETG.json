@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Three-key frame - outer rail side down",
+    "name": "Three-key frame - flat base down",
     "source": "frame_print.stl",
     "plate": 1,
     "filament": 1,
@@ -11,11 +11,11 @@
       0.0
     ],
     "local_max": [
-      75.30000019073486,
+      89.35000038146973,
       150.59500122070312,
-      29.350000381469727
+      15.300000190734863
     ],
-    "volume_mm3": 4909.269049967254
+    "volume_mm3": 6359.146981088151
   },
   {
     "id": 2,
@@ -109,6 +109,24 @@
   },
   {
     "id": 7,
+    "name": "Clamp cap 3 - end face down",
+    "source": "clamp_cap_print.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      150.0,
+      150.0,
+      0.0
+    ],
+    "local_max": [
+      179.29999923706055,
+      166.54584217071533,
+      6.0
+    ],
+    "volume_mm3": 675.6298123308853
+  },
+  {
+    "id": 8,
     "name": "Rigid pad 4 - PETG dry fit",
     "source": "tpu_pad4_print.stl",
     "plate": 1,
@@ -126,7 +144,7 @@
     "volume_mm3": 234.43607864925028
   },
   {
-    "id": 8,
+    "id": 9,
     "name": "Rigid pad 5 - PETG dry fit",
     "source": "tpu_pad5_print.stl",
     "plate": 1,
@@ -144,7 +162,7 @@
     "volume_mm3": 425.4130477954663
   },
   {
-    "id": 9,
+    "id": 10,
     "name": "Rigid pad 6 - PETG dry fit",
     "source": "tpu_pad6_print.stl",
     "plate": 1,
@@ -162,7 +180,7 @@
     "volume_mm3": 408.28201060878064
   },
   {
-    "id": 10,
+    "id": 11,
     "name": "Pin fit coupon",
     "source": "pin_fit_coupon.stl",
     "plate": 1,

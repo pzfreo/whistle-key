@@ -67,3 +67,5 @@ The joined-pillar pedestal revision changes only the frame, retaining the 1.1 mm
 The bare-brass fit and finger-clearance revision requires a new frame and both caps. Fit without a liner. Reuse the key, pin, spring and TPU pad; verify grip before playing.
 
 For the three-hole extension, use the separate [three-key printing and assembly instructions](three-key-prototype.md) and files under `exports/three-key/`.
+
+The three-key frame now has an opposite-side rail and a third clamp between keys 5 and 6. Print its frame flat on the base as supplied, and print three identical caps. It uses six M2 bolts/nuts. The updated projects include all eleven pieces.

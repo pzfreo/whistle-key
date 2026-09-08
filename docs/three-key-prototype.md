@@ -28,7 +28,8 @@ The new pads require a sealing trial; only the hole-4 TPU pad has been tried.
 
 ## Frame and clamps
 
-Two end clamps sit at 28.100 and 92.695 mm from the foot. The raised bands are
+End clamps sit at 28.100 and 92.695 mm from the foot, with a third clamp
+between keys 5 and 6 at 52.475 mm. The raised bands are
 4 mm wide and the bolt supports 6 mm wide. The upper band stops at 94.695 mm,
 leaving 5.305 mm to hole 3's bottom edge. Actual finger comfort remains a trial.
 A continuous low spine joins the three reinforced hinge pedestals. The pin
@@ -47,8 +48,8 @@ remain separate. Captive M2 nuts remain a lower-priority follow-up.
 - Three steel pins, 1 mm diameter × 12 mm long.
 - Three compression springs, nominal 2 mm OD × 5 mm free length, assumed 2 mm
   solid length and 0.3 mm wire. Spring rates are still unknown.
-- Four M2 bolts and four external M2 nuts; check the existing bolt lengths fit.
-- PETG frame, two caps and three keys; three 95A TPU pads and pad adhesive.
+- Six M2 bolts and six external M2 nuts; check the existing bolt lengths fit.
+- PETG frame, three caps and three keys; three 95A TPU pads and pad adhesive.
 
 Each fixed bearing bore is 1.1 mm for the requested fit trial; each moving bore
 is 1.25 mm. Each peg is 1.5 mm long, tapering from 1.2 to 1.0 mm diameter. The
@@ -69,13 +70,13 @@ profiles, then slice and inspect supports. These files contain no G-code.
 
 - `exports/three-key/whistle-three-key-P1S.3mf`: PETG coupon plate, PETG mechanism
   plate, and a separate TPU plate containing all three pads.
-- `exports/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf`: all ten pieces on
+- `exports/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf`: all eleven pieces on
   one PETG plate, including rigid pads for a mechanical trial only.
 - `exports/three-key/assembly-open.step`: complete assembly for review.
 - `exports/three-key/print-oriented/`: separate STEP/STL parts; print the cap
-  twice. Key and pad filenames identify the intended hole number.
+  three times. Key and pad filenames identify the intended hole number.
 
-The frame rests on its outer rail side. Keys rest on their finger faces, caps
+The frame rests flat on its base. Keys rest on their finger faces, caps
 on end faces, and pads on their flat backs. Supports are enabled for the frame
 and keys. PETG uses 0.16 mm layers and four walls; TPU pads use 0.12 mm layers
 and solid infill. Use ordinary 95A TPU from the external spool. Keep the parts
@@ -110,3 +111,24 @@ The assembly STEP contains solid cylindrical spring envelopes for illustration.
 They deliberately overlap the locating pegs and sockets; they are not printable
 parts or a model of the coil wire. The separate printable parts pass solid and
 mesh validation.
+
+## Opposite-side frame rail
+
+A 5 mm wide rail joins the two clamp bases on the side opposite the keys,
+closing the frame to resist twisting. Both lower rails are flush with the
+clamp-base bottoms, giving a continuous flat printing base. The rail stays
+below the tube and outside its surface, preserving the cap split and pin route.
+Only the frame needs reprinting relative to the first three-key version.
+Physical stiffness and thumb comfort remain trial checks.
+
+## Middle clamp between keys 5 and 6
+
+A third clamp at 52.475 mm is centred in the measured 19.15 mm edge gap
+between holes 5 and 6. Its cap is identical to the end caps. Six M2 bolt
+passages are drilled through the completed frame, including the raised spine.
+The movement, mounting and insertion checks include all three clamps.
+Compared with the first three-key prototype, reprint the frame and one extra
+cap, and add two M2 bolts and nuts. Existing keys, pads and two caps are reusable.
+Both 3MF projects now contain eleven pieces and orient the frame flat on its base.
+
+The raised hinge-side spine steps down locally at the middle clamp, with 0.2 mm axial clearance at each side, so the cap can seat and tighten. Both lower rails remain continuous.

@@ -41,6 +41,8 @@ def test_measured_holes_and_independent_spacing(model):
     assert m['hole_axial_diameters']=={3:5.8,4:5.09,5:7.8,6:7.6}
     assert [m['hole_centres'][n] for n in [4,5,6]]==pytest.approx([81.695,65.95,39.1])
     assert set(m['keys'])==set(m['pads'])==set(m['pins'])=={4,5,6}
+    assert len(m['caps'])==3
+    assert m['middle_clamp_y']==pytest.approx(52.475)
 
 
 @pytest.mark.parametrize('n',[4,5,6])
@@ -141,7 +143,7 @@ def test_spring_preload_and_solid_margin(model):
 def test_print_parts_and_round_trips(model):
     m=model
     output=Path(__file__).resolve().parents[1]/'build/three-key'
-    assert len(m['print_parts'])==9 # One cap mesh printed twice.
+    assert len(m['print_parts'])==9 # One cap mesh printed three times.
     for name,part in m['print_parts'].items():
         assert part.is_valid and len(part.solids())==1
         assert abs(part.bounding_box().min.Z)<1e-5
@@ -152,3 +154,12 @@ def test_print_parts_and_round_trips(model):
         mesh=trimesh.load_mesh(output/f'{name}.stl')
         assert mesh.is_watertight and mesh.is_winding_consistent
         assert mesh.volume==pytest.approx(part.volume,rel=0.01)
+
+
+def test_all_six_clamp_bolts_have_clear_passages(model):
+    m=model
+    for y in m['clamp_ys']:
+        for x in [-m['lug_x'],m['lug_x']]:
+            bolt=m['hole_z'](x,y,-15,15,2.0)
+            for part in [m['frame'],*m['caps']]:
+                assert volume(bolt,part)<1e-5,(x,y,'M2 bolt passage')

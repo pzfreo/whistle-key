@@ -41,8 +41,8 @@ bolt_head_height = 2.0 # M2 socket-head envelope; verify purchased hardware
 clamp_offset = 11.0 # Bring mouthpiece-side clamp 2 mm towards test hole
 adjacent_hole_margin = 1.0
 rail_width = 7.0
+return_rail_width = 5.0 # Opposite-side connection between the two clamp bases
 rail_top = clamp_split_z-clamp_split_gap/2
-rail_bottom = rail_top-3.0
 ear_thickness = 3.0
 support_root_width = 6.0
 support_bridge_drop = 2.3 # 0.3 mm below the rotating 2 mm radius hub
@@ -68,6 +68,7 @@ spring_lateral_offset = 1.25
 screw_clearance_d = 2.4
 lug_width = 5.0
 lug_height = 3.5
+rail_bottom = clamp_split_z-clamp_split_gap/2-lug_height # Flush base for flat printing
 tpu_outer_diameter = hole4_d + 4.5
 tpu_interference = 0.2
 pad_ring_height = 1.2
@@ -90,9 +91,10 @@ rail_x_min = pivot_x-rail_width/2
 rail_x_max = pivot_x+rail_width/2
 holes = [(n,hole_centres[n],hole_axial_diameters[n]) for n in [4,5,6]]
 lower_clamp_offset = 11.0
-clamp_ys = [hole6_y-lower_clamp_offset,hole4_y+clamp_offset]
-rail_y_min = clamp_ys[0]-clamp_width/2
-rail_y_max = clamp_ys[1]+clamp_width/2
+middle_clamp_y = (hole_bottoms[5]+hole_bottoms[6]+hole_axial_diameters[6])/2
+clamp_ys = [hole6_y-lower_clamp_offset,middle_clamp_y,hole4_y+clamp_offset]
+rail_y_min = min(clamp_ys)-clamp_width/2
+rail_y_max = max(clamp_ys)+clamp_width/2
 clamp_inner_r = r+liner_thickness+clamp_radial_clearance
 clamp_outer_r = clamp_inner_r+clamp_wall
 lug_x = clamp_outer_r+lug_width/2-0.5
@@ -128,7 +130,7 @@ frame=box_at(rail_x_min,rail_x_max,rail_y_min,rail_y_max,rail_bottom,rail_top)
 show(frame,'frame')
 
 
-# Split clamp rings, joined to spine only at the two ends.
+# Three split clamps: two ends and one between holes 5 and 6.
 caps=[]
 for y in clamp_ys:
     ring=checked(cyl_y(clamp_outer_r,clamp_width,0,y,0)-cyl_y(clamp_inner_r,clamp_width+2,0,y,0))
@@ -153,6 +155,10 @@ for y in clamp_ys:
     cap=checked(cap-box_at(-clamp_inner_r,clamp_inner_r,y-clamp_width,y+clamp_width,-20,0))
     frame=checked(frame.fuse(upper))
     caps.append(cap)
+# Close the frame on the opposite side, below the tube and moving keys.
+return_rail=box_at(lug_x+lug_width/2-return_rail_width,lug_x+lug_width/2,
+                   rail_y_min,rail_y_max,rail_bottom,rail_top)
+frame=checked(frame.fuse(return_rail))
 for y in clamp_ys:
     for x in [-lug_x,lug_x]:
         frame=checked(frame-hole_z(x,y,-15,15,screw_clearance_d))
@@ -207,6 +213,16 @@ for number,y,d in holes:
                          pivot_z-support_tail_bridge_drop,pivot_z+1)
     bridge=checked(bridge-tail_clearance)
     frame=checked(frame.fuse(bridge))
+# Let each cap seat and tighten: the raised spine must step down at clamps.
+for y in clamp_ys:
+    cap_clearance=box_at(rail_x_min-0.1,rail_x_max+0.1,
+                         y-clamp_width/2-0.2,y+clamp_width/2+0.2,
+                         rail_top,pivot_z+5)
+    frame=checked(frame-cap_clearance)
+# Drill through the completed spine as well as the clamp bases.
+for y in clamp_ys:
+    for x in [-lug_x,lug_x]:
+        frame=checked(frame-hole_z(x,y,-15,15,screw_clearance_d))
 show(frame,'frame')
 show(opening_stop,'opening_stop')
 
@@ -307,7 +323,7 @@ def on_bed(part):
     bb=part.bounding_box()
     return part.moved(Location((-(bb.min.X+bb.max.X)/2,-(bb.min.Y+bb.max.Y)/2,-bb.min.Z)))
 print_parts={
-    'frame_print': on_bed(frame.rotate(Axis.Y,-90)),
+    'frame_print': on_bed(frame),
     'clamp_cap_print': on_bed(caps[0].rotate(Axis.X,90)),
 }
 for number,y,d in holes:
