@@ -308,3 +308,12 @@ measured strength rating. Only the key needs reprinting for this revision.
 See `key-arm-transition.png`.
 
 The next friction-fit trial uses 1.1 mm fixed hinge bores with the existing 1.0 × 12 mm steel pin. The moving key bore remains 1.25 mm. This supersedes the 1.0 mm frame bore for the next print; retention is not yet confirmed. Only the frame changes.
+
+## Joined lower pillar gaps
+
+The lower gaps between the two bearing pillars and spring-seat base are now
+filled by a solid pedestal across the rail width. Its top lies 2.3 mm below
+the pivot, giving the 2 mm radius moving hub 0.3 mm nominal clearance. The
+rear tail region is relieved to 2.9 mm below the pivot to preserve opening
+travel and stop contact. Approximately 122 mm³ is added to the frame. The
+1.1 mm fixed bores are retained. Only the frame needs reprinting.

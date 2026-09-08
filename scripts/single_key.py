@@ -41,6 +41,8 @@ rail_top = clamp_split_z-clamp_split_gap/2
 rail_bottom = rail_top-3.0
 ear_thickness = 3.0
 support_root_width = 6.0
+support_bridge_drop = 2.3 # 0.3 mm below the rotating 2 mm radius hub
+support_tail_bridge_drop = 2.9 # Clears the tail at full opening
 support_shoulder_drop = 1.2 # Broad pillar starts below pin approach clearance
 axial_clearance = 0.3
 spring_od = 2.0
@@ -178,6 +180,17 @@ for number,y,d in holes:
     frame=checked(frame.fuse(seat))
     socket=Pos((spring_socket_rim_x+spring_floor_x)/2-0.05,y,spring_z)*Rot(0,90,0)*Cylinder((spring_od+spring_fit)/2,spring_floor_x-spring_socket_rim_x+0.1)
     frame=checked(frame-socket)
+# Join the lower bearing pillars and spring-seat base into one solid pedestal.
+for number,y,d in holes:
+    bridge=box_at(rail_x_min,rail_x_max,
+                  y+min(bearing_offsets)-ear_thickness/2,
+                  y+max(bearing_offsets)+ear_thickness/2,
+                  rail_top-0.5,pivot_z-support_bridge_drop)
+    tail_clearance=box_at(rail_x_min-1,pivot_x-1,
+                         y-hub_length,y+hub_length,
+                         pivot_z-support_tail_bridge_drop,pivot_z+1)
+    bridge=checked(bridge-tail_clearance)
+    frame=checked(frame.fuse(bridge))
 show(frame,'frame')
 show(opening_stop,'opening_stop')
 
