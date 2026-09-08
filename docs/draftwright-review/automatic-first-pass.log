@@ -1,0 +1,58 @@
+plan/side right strip: 1 of 2 bore callouts skipped (strip full)
+plan/side right strip: 1 of 2 bore callouts skipped (strip full)
+plan/side right strip: 1 of 2 bore callouts skipped (strip full)
+plan/side right strip: 1 of 2 bore callouts skipped (strip full)
+plan/side right strip: 1 of 2 bore callouts skipped (strip full)
+Traceback (most recent call last):
+  File "/tmp/whistle-first-drawing.py", line 4, in <module>
+    d=build_drawing(p,title='THREE-KEY FRAME - TITANIUM REVIEW',number='WK-TI-001',material='TITANIUM - GRADE TBD',tolerance='SEE REVIEW NOTES',page='A2',scale=2,projection='third',date='2026-09-08',revision='P1',reproducible=True)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/builder.py", line 2696, in build_drawing
+    fallback = _build(candidate, views=settled_principal_views)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/builder.py", line 1977, in _build
+    built = one_pass(
+            ^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/builder.py", line 1448, in _build_drawing_once
+    dwg = _assemble(
+          ^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/builder.py", line 737, in _assemble
+    _diagnostics = _auto_annotate(dwg, a, detail_view=detail_view)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/orchestrator.py", line 907, in _auto_annotate
+    run_stages(
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/orchestrator.py", line 332, in run_stages
+    fn()
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/orchestrator.py", line 856, in _s_feature_leaders
+    drain_feature_leaders(dwg, a, ctx)
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/leaders.py", line 1189, in drain_feature_leaders
+    return place_feature_leader_jobs(dwg, analysis, ctx, jobs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/leaders.py", line 1935, in place_feature_leader_jobs
+    return greedy(
+           ^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/leaders.py", line 1661, in greedy
+    annotation = _materialize(dwg, job, candidate)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/leaders.py", line 543, in _materialize
+    if not _rendered_ink_matches(candidate, annotation):
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/leaders.py", line 518, in _rendered_ink_matches
+    mesh = _validated_face_mesh(face, 0.01)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/draftwright/annotations/leaders.py", line 481, in _validated_face_mesh
+    getattr(getattr(edge, "geom_type", None), "name", "") for edge in face.edges()
+                                                                      ^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/build123d/topology/one_d.py", line 699, in edges
+    edge_list = Shape.get_shape_list(self, "Edge")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/build123d/topology/shape_core.py", line 811, in get_shape_list
+    [shape.__class__.cast(i) for i in shape.entities(entity_type)]
+     ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/build123d/topology/two_d.py", line 203, in cast
+    return constructor_lut[shape_type](downcast(obj))
+                                       ^^^^^^^^^^^^^
+  File "/app/workspaces-codex/pzfreo/whistle-key/.venv/lib/python3.12/site-packages/build123d/topology/shape_core.py", line 3029, in downcast
+    def downcast(obj: TopoDS_Shape) -> TopoDS_Shape:
+    
+KeyboardInterrupt

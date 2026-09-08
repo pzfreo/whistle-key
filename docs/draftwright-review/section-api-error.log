@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/app/workspaces-codex/pzfreo/whistle-key/scripts/draw_titanium_frame.py", line 136, in <module>
+    main()
+  File "/app/workspaces-codex/pzfreo/whistle-key/scripts/draw_titanium_frame.py", line 119, in main
+    d = s.build()
+        ^^^^^^^^^
+  File "/tmp/whistle-drawing-venv/lib/python3.12/site-packages/draftwright/sheet.py", line 3047, in build
+    principal_views, include_iso = self._view_build_request()
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/tmp/whistle-drawing-venv/lib/python3.12/site-packages/draftwright/sheet.py", line 2547, in _view_build_request
+    raise ValueError(
+ValueError: add_section_view()/add_detail_view() at /app/workspaces-codex/pzfreo/whistle-key/scripts/draw_titanium_frame.py:63 augment automatic derived views; call auto_views() first
