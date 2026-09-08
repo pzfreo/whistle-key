@@ -14,18 +14,23 @@ Axial positions are measured from the open bottom end towards the mouthpiece.
 | Hole 4 axial diameter | 5.09 | Measured |
 | Hole 4 transverse diameter | 5.09 | Measured; modelled as circular |
 | Hole 4 centre from foot | 81.68 | Measured |
-| Hole 4–5 centre spacing | 16 | Measured |
-| Hole 5 centre from foot | 65.68 | Derived from measured spacing |
+| Hole 5 diameter | 6.5 | Measured; treated as axial diameter for centre calculation |
+| Hole 5 footward edge from foot | 60.87 | Measured; player corrected 61 to 60.87 |
+| Hole 5 centre from foot | 64.12 | Derived: 60.87 + 6.5/2 |
+| Hole 4–5 centre spacing | 17.56 | Derived: 81.68 - 64.12; supersedes earlier 16 mm |
 
-Still provisional: tube wall/bore, hole 5 diameter, hole 6 size and position,
+Still provisional: tube wall/bore, hole 6 size and position,
 and alignment around the tube. These are not needed to size the main clamp
 bore or hole 4 pad, but neighbouring-hole clearances remain subject to checking.
-The hole 5 diameter remains a conservative trial value of 6 mm, not a measurement.
+The latest hole 5 dimensions supersede the earlier assumed 6 mm diameter and
+65.68 mm centre. They are recorded here for the pending cap-only revision;
+the current CAD source has not yet been updated to these measurements.
 
-The measured 16 mm spacing requires moving the lower clamp closer to hole 4.
-Its centre is now 9 mm below hole 4, leaving 1 mm axial clearance from the
-assumed 6 mm hole 5. The upper clamp remains 13 mm above hole 4. Confirm that
-this also leaves comfortable room for the right middle finger.
+The existing printed frame has its lower clamp centre 9 mm below hole 4,
+at 72.68 mm. Its 6 mm band begins at 69.68 mm. The measured mouthpiece-side
+edge of hole 5 is 67.37 mm, leaving 2.31 mm axial edge clearance. The upper
+clamp on that frame is 13 mm above hole 4. Edge clearance alone does not
+establish comfortable finger access.
 
 The TPU pad outside diameter follows measured hole 4 size: 9.59 mm. Its
 contact face is continuously concave; the previous central relief is removed.
