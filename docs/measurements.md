@@ -14,8 +14,8 @@ Absolute bottom-edge readings need reconciliation before updating the CAD.
 | Hole | Previously measured bottom edge from foot | Next measurement |
 |---|---:|---|
 | 3 | 100.00 | Rechecked directly from foot; replaces 98.7 |
-| 4 | Not supplied directly | Measure bottom edge directly from foot |
-| 5 | 60.87 | Recheck directly from foot |
+| 4 | 79.15 | Rechecked directly from foot; replaces dictated 79.23 |
+| 5 | 62.05 | Rechecked directly from foot; replaces 60.87 |
 | 6 | 34.1 | Recheck directly from foot |
 
 Hole 4's earlier 81.68 mm reading was recorded as a centre, not a bottom edge.
@@ -87,3 +87,5 @@ hole 4's confirmed 5.09 mm diameter, with a continuous concave contact face.
 Tube wall/bore and circumferential hole alignment remain provisional.
 
 Hole 3 bottom edge rechecked independently from the foot: 100.00 mm. With the recorded axial diameter of 5.8 mm, its centre is 102.90 mm and top edge 105.80 mm. This supersedes the earlier 98.7 mm bottom-edge reading; the gap-chain table above remains a non-adopted cross-check only.
+
+Latest independent readings: hole 4 bottom edge 79.15 mm (dictation corrected from 79.23), hole 5 bottom edge 62.05 mm. Derived separately from the recorded diameters: hole 4 centre 81.695 mm and top 84.24 mm; hole 5 centre 65.30 mm and top 68.55 mm. Hole 6 bottom edge 34.1 mm remains awaiting independent recheck.
