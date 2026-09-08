@@ -107,3 +107,12 @@ of truth; direct gaps are cross-checks only. Derived edge gaps are 15.76 mm
 (3–4), 10.60 mm (4–5), and 20.38 mm (5–6), compared with direct gap readings
 15.6, 9.22, and 19.2. These discrepancies are retained rather than averaging
 or shifting the independent positions. CAD updates remain pending.
+
+## Additional direct span check
+
+Player measured hole 4 bottom to hole 6 top: 36.30 mm. Independent bottom-edge
+positions and hole 6 diameter predict 79.15 - (35.30 + 6.37) = 37.48 mm,
+a 1.18 mm discrepancy. Combining the new span with the direct 5–6 gap 19.20
+and hole 5 diameter 6.50 implies a 4–5 gap of 10.60 mm, agreeing with the
+independent positions and differing from the earlier direct 9.22 mm reading.
+This is a cross-check, not authority to alter hole positions or diameters.
