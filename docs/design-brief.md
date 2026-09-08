@@ -306,3 +306,5 @@ is controlled by `arm_transition_radius`; the housing clearance and movement
 checks still apply. This is a local stress-concentration improvement, not a
 measured strength rating. Only the key needs reprinting for this revision.
 See `key-arm-transition.png`.
+
+The next friction-fit trial uses 1.1 mm fixed hinge bores with the existing 1.0 × 12 mm steel pin. The moving key bore remains 1.25 mm. This supersedes the 1.0 mm frame bore for the next print; retention is not yet confirmed. Only the frame changes.

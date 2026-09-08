@@ -168,7 +168,7 @@ def test_hinge_stays_below_playing_surface(model):
     m = model
     # Hardware envelope at the pivot stays at least 2 mm below tube crown.
     assert m["pivot_z"] + m["hub_radius"] <= m["r"] - 2
-    assert m["pivot_support_clearance"] == 0  # Player-confirmed 1.0 mm bore.
+    assert m["pivot_diameter"] + m["pivot_support_clearance"] == pytest.approx(1.1)  # Requested friction-fit trial.
 
 
 def test_full_pin_insertion_path_clears_frame_caps_and_bolt_heads(model):
