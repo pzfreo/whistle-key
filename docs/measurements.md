@@ -28,7 +28,7 @@ The hole diameters and rechecked gaps below remain recorded observations.
 | Hole 4 axial diameter | 5.09 | Remeasured and confirmed |
 | Hole 4 transverse diameter | 5.09 | Earlier measurement; circular model |
 | Hole 5 axial diameter | 6.5 | Supplied diameter, treated as axial |
-| Hole 6 axial diameter | 6.37 | Supplied diameter, treated as axial |
+| Hole 6 axial diameter | 7.60 | Remeasured along whistle; replaces 6.37 for axial calculations |
 | Hole 6 bottom edge from foot | 34.1 | Measured reference, not rechecked in latest message |
 | Hole 3 bottom to hole 4 top | 15.6 | Rechecked; replaces 15.7 |
 | Hole 4 bottom to hole 5 top | 9.22 | Rechecked; replaces 9.2 |
@@ -100,7 +100,7 @@ This table supersedes the historical calculations and pending-recheck notes abov
 | 3 | 100.00 | 5.80 | 102.90 | 105.80 |
 | 4 | 79.15 | 5.09 | 81.695 | 84.24 |
 | 5 | 62.05 | 6.50 | 65.30 | 68.55 |
-| 6 | 35.30 | 6.37 | 38.485 | 41.67 |
+| 6 | 35.30 | 7.60 | 39.10 | 42.90 |
 
 Hole 6 bottom edge 35.30 replaces 34.10. Independent positions are the source
 of truth; direct gaps are cross-checks only. Derived edge gaps are 15.76 mm
@@ -116,3 +116,22 @@ a 1.18 mm discrepancy. Combining the new span with the direct 5–6 gap 19.20
 and hole 5 diameter 6.50 implies a 4–5 gap of 10.60 mm, agreeing with the
 independent positions and differing from the earlier direct 9.22 mm reading.
 This is a cross-check, not authority to alter hole positions or diameters.
+
+## Resolved hole 6 axial diameter — latest reference
+
+The player remeasured hole 6 along the whistle: 7.60 mm. This replaces the
+earlier 6.37 mm value for axial calculations; its transverse diameter is not
+confirmed by this correction. Do not assume a circular 7.60 mm hole.
+With bottom edge 35.30, hole 6 top is 42.90 and centre is 39.10 mm.
+
+| Edge span | From independent positions and latest axial diameters | Direct reading | Difference |
+|---|---:|---:|---:|
+| Hole 4 bottom to hole 6 top | 36.25 | 36.30 | -0.05 |
+| Hole 5 bottom to hole 6 top | 19.15 | 19.20 | -0.05 |
+
+The corrected diameter resolves the previous 1.18 mm discrepancies to 0.05 mm.
+Latest derived centre spacings: hole 4–5 = 16.395 mm; hole 5–6 = 26.20 mm.
+Hole 4–5 edge gap from independent positions remains 10.60 mm, supported by
+the direct 4–6 span minus hole 5 diameter and the direct 5–6 gap. The earlier
+9.22 mm direct 4–5 gap remains inconsistent and is not used for CAD positioning.
+Historical gap-chain tables above are retained as diagnostic history only.
