@@ -83,3 +83,5 @@ Outside the bearings it also checks a 0.1 mm radial alignment allowance and
 4 mm diameter × 2 mm tall bolt-head envelopes. This prevents accepting a pin
 that fits only after assembly but cannot be inserted. Physical manipulation
 and printed support strength remain trial checks.
+
+Bare-tube closure check: translate each clamp half inward by 0.06 mm and require seat/tube intersection, no frame/cap intersection, and at least 0.8 mm remaining nominal split gap. Key travel now checks both caps as obstacles and requires at least 1 mm key/pad distance from them at all 21 sampled positions. These address observed bottoming-out and catching; they do not establish grip force or finger comfort.

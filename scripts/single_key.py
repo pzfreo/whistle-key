@@ -27,14 +27,16 @@ pivot_support_clearance = 0.1 # Trial 1.1 mm fixed bores for the 1.0 mm steel pi
 hub_radius = 2.0
 hub_length = 4.0
 opening_angle_degrees = 20.0 # Trial low-hinge opening; verify airway and comfort
-liner_thickness = 0.5
+liner_thickness = 0.0 # Player uses direct contact with brass
+clamp_radial_clearance = 0.05 # 14.3 mm nominal seat for measured 14.2 mm tube
+clamp_band_width = 4.0 # Raised band; bolt supports retain full clamp_width
 clamp_width = 6.0
 clamp_wall = 3.0
-clamp_split_gap = 0.8
+clamp_split_gap = 1.2
 clamp_split_z = -7.0 # Lower joint and M2 heads below the pivot insertion line
 pin_access_clearance = 0.1
 bolt_head_height = 2.0 # M2 socket-head envelope; verify purchased hardware
-clamp_offset = 13.0
+clamp_offset = 11.0 # Bring mouthpiece-side clamp 2 mm towards test hole
 adjacent_hole_margin = 1.0
 rail_width = 7.0
 rail_top = clamp_split_z-clamp_split_gap/2
@@ -90,7 +92,7 @@ assert lower_clamp_offset-clamp_width/2 > hub_length/2+axial_clearance+ear_thick
 clamp_ys = [hole4_y-lower_clamp_offset,hole4_y+clamp_offset]
 rail_y_min = clamp_ys[0]-clamp_width/2
 rail_y_max = clamp_ys[1]+clamp_width/2
-clamp_inner_r = r+liner_thickness
+clamp_inner_r = r+liner_thickness+clamp_radial_clearance
 clamp_outer_r = clamp_inner_r+clamp_wall
 lug_x = clamp_outer_r+lug_width/2-0.5
 lug_inner_x = min(lug_x-lug_width/2, math.sqrt(clamp_outer_r**2-(clamp_split_z-clamp_split_gap/2)**2)-0.8)
@@ -135,9 +137,13 @@ for y in clamp_ys:
                 y-clamp_width/2,y+clamp_width/2,
                 clamp_split_z-clamp_split_gap/2-lug_height,
                 clamp_split_z-clamp_split_gap/2)
+    # Raise the central cradle so the lowered bolt joint still seats on the tube.
+    cradle=box_at(-clamp_inner_r,clamp_inner_r,y-clamp_width/2,y+clamp_width/2,
+                  clamp_split_z-clamp_split_gap/2-lug_height,-r+1.0)
+    base=checked(base.fuse(cradle))
     base=checked(base-cyl_y(clamp_inner_r,clamp_width+2,0,y,0))
     upper=checked(upper.fuse(base))
-    cap=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,clamp_split_z+clamp_split_gap/2,20))
+    cap=checked(ring & box_at(-20,20,y-clamp_band_width/2,y+clamp_band_width/2,clamp_split_z+clamp_split_gap/2,20))
     for x in [-lug_x,lug_x]:
         upper=checked(upper.fuse(box_at((-lug_x-lug_width/2 if x<0 else lug_inner_x),(-lug_inner_x if x<0 else lug_x+lug_width/2),y-clamp_width/2,y+clamp_width/2,clamp_split_z-clamp_split_gap/2-lug_height,clamp_split_z-clamp_split_gap/2)))
         cap=checked(cap.fuse(box_at((-lug_x-lug_width/2 if x<0 else lug_inner_x),(-lug_inner_x if x<0 else lug_x+lug_width/2),y-clamp_width/2,y+clamp_width/2,clamp_split_z+clamp_split_gap/2,clamp_split_z+clamp_split_gap/2+lug_height)))

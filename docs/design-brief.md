@@ -87,14 +87,14 @@ Remaining unmeasured reference dimensions retain provisional high-D values.
 | Hole 4 centre from open foot | 81.68 mm | Measured |
 | Hole 5 / 6 centres from foot | 65.68 / 43 mm | Hole 5 derived from measured 16 mm spacing; hole 6 provisional |
 | Hole 4 / 5 / 6 diameters | 5.09 / 6 / 5 mm | Hole 4 measured circular; holes 5/6 provisional |
-| Single-key frame length | 28 mm | Lower clamp moved to clear hole 5 |
-| Clamp width, each | 6 mm | Prototype choice |
-| Nominal split gap | 0.8 mm | Must retain tightening travel when fitted |
-| Liner allowance, radial | 0.5 mm | Liner material/compression unselected |
+| Single-key frame length | 26 mm | Upper clamp moved inward for finger clearance |
+| Clamp width, each | 4 mm raised band; 6 mm bolt supports | Clearance revision |
+| Nominal split gap | 1.2 mm | Bare-tube seat contact before bottoming checked |
+| Liner allowance, radial | 0 mm | Direct brass contact; 0.05 mm radial seat clearance |
 | Finger contact diameter | 11.49 mm | Widened to support retaining-ring wall |
 | Pad-centre opening movement | 3.25 mm at 20° | Curved arm moves pad sideways as well as upwards; acoustic/comfort trial required |
 | Pivot pin | 1 × 12 mm | User-identified steel dowel |
-| Support / moving-key bore | 1.0 / 1.25 mm | Tune printed fit using coupon |
+| Support / moving-key bore | 1.1 / 1.25 mm | Current printed-fit trial |
 | M2 screw clearance | 2.4 mm | Prototype choice |
 | TPU pad outside diameter | 9.59 mm | Derived from measured hole plus trial sealing margins |
 | Nominal pad/tube radial interference closed | 0.2 mm | Intended elastic compression, not rigid clearance |
@@ -120,9 +120,10 @@ currently it is zero. Open preload displacement is about 1.30 mm, so available
 floor-depth adjustment is limited. Retention and rubbing still need a trial.
 The old `spring-socket-section.png` shows the superseded upright layout; turn count was illustrative.
 
-The clamp split gap alone does not guarantee gripping force. The liner and
-actual bore fit must allow the halves to compress the liner and hold the whistle
-before the split faces meet. Tighten evenly and check both slipping and marking.
+The clamp split gap alone does not guarantee gripping force. The current
+14.3 mm seat is sized for direct contact with the measured 14.2 mm tube, with
+no liner. A geometric closure test establishes seat contact before the split
+faces meet; real grip still depends on the printed fit and tightening. Tighten evenly and check both slipping and marking.
 
 ## Prototype bill of materials
 
@@ -136,7 +137,7 @@ before the split faces meet. Tighten evenly and check both slipping and marking.
 | Return spring | 1 | Compression coil, nominal 2 × 5 mm |
 | Clamp bolts | 4 | M2; 12 mm length proposed, confirm with actual nuts |
 | Clamp nuts | 4 | M2 external nuts |
-| Clamp lining | As needed | Soft, non-marking material; nominal 0.5 mm |
+| Clamp lining | None | Current seats sized for bare brass |
 | Pad attachment | As needed | Removable adhesive, type to be selected |
 
 The hinge-fit coupon is an optional PETG test print, not an installed component.
@@ -317,3 +318,29 @@ the pivot, giving the 2 mm radius moving hub 0.3 mm nominal clearance. The
 rear tail region is relieved to 2.9 mm below the pivot to preserve opening
 travel and stop contact. Approximately 122 mm³ is added to the frame. The
 1.1 mm fixed bores are retained. Only the frame needs reprinting.
+
+## Working prototype feedback: grip and playing clearance
+
+The player successfully installed the spring and hinge, operated the key, and
+reports a reasonable TPU seal. Three P1 failures remain from that trial: the
+mouthpiece-side band obstructs the neighbouring finger, the foot-side band
+catches the key, and the clamp bottoms out without gripping. No liner was used.
+The previous design retained a 0.5 mm radial liner allowance; claiming that its
+split gap assured tightening clearance for the bare tube was incorrect.
+
+The current revision uses a 14.3 mm seat diameter, zero liner allowance and a
+1.2 mm split gap. The central lower cradle is raised into contact range while
+the bolt tabs remain below the pin insertion path. At 0.06 mm inward movement
+of each half, the CAD seats intersect the reference tube (contact established),
+the halves do not collide, and the nominal split gap remains 1.08 mm. This is
+a contact-before-bottoming test, not a simulation of gripping force.
+
+Raised upper bands narrow from 6 to 4 mm; bolt supports remain 6 mm wide. The
+mouthpiece-side clamp moves from 13 to 11 mm above hole 4, retracting its raised
+outer edge by 3 mm. The foot-side band gains 1 mm clearance to the key. The
+21-position motion check now includes both caps and requires at least 1 mm
+key/pad clearance to them. Hole 3 position and actual finger envelope remain
+unmeasured, so comfort requires a playing trial.
+
+Reprint the frame and both caps together; key, spring, pin and TPU pad are
+reusable. Captive M2 nuts remain a lower-priority follow-up.

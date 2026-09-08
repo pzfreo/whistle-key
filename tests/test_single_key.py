@@ -49,10 +49,13 @@ def test_rigid_key_movement_and_pad_locator_fit(model):
         angle = -m["open_angle"] * step / 20
         key = m["lever"].moved(Location((0, m["hole4_y"], 0))).rotate(axis, angle)
         pad = m["pad_blank"].moved(Location((0, m["hole4_y"], 0))).rotate(axis, angle)
-        for obstacle in [m["frame"], m["tube"]]:
+        for obstacle in [m["frame"], *m["caps"], m["tube"]]:
             assert overlap_volume(key, obstacle) < 1e-5, (step, "key interference")
         assert overlap_volume(key, pad) < 1e-5, (step, "locator interference")
         assert overlap_volume(pad, m["frame"]) < 1e-5, (step, "pad/frame")
+        for cap in m["caps"]:
+            assert key.distance_to(cap) >= 1.0, (step, "key/cap manufacturing clearance")
+            assert pad.distance_to(cap) >= 1.0, (step, "pad/cap manufacturing clearance")
     assert overlap_volume(m["pads"][4], m["tube"]) < 1e-5
 
 
@@ -199,3 +202,17 @@ def test_lowered_joint_caps_can_lift_off_tube(model):
         bb = cap.bounding_box()
         throat = m['box_at'](-m['r'], m['r'], bb.min.Y-1, bb.max.Y+1, -20, 0)
         assert overlap_volume(cap, throat) < 1e-5
+
+
+def test_bare_tube_contacts_seats_before_clamp_faces_bottom_out(model):
+    m = model
+    assert m['liner_thickness'] == 0
+    # Slightly beyond first ideal seat contact; not a simulation of PETG deformation.
+    travel = m['clamp_radial_clearance'] + 0.01
+    tightened_frame = m['frame'].moved(Location((0, 0, travel)))
+    assert overlap_volume(tightened_frame, m['tube']) > 1e-4
+    assert m['clamp_split_gap'] - 2*travel >= 0.8
+    for cap in m['caps']:
+        tightened_cap = cap.moved(Location((0, 0, -travel)))
+        assert overlap_volume(tightened_cap, m['tube']) > 1e-4
+        assert overlap_volume(tightened_frame, tightened_cap) < 1e-5

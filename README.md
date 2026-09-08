@@ -25,7 +25,7 @@ export the changed parts. Geometry uses millimetres.
 - PETG frame, lever and two identical clamp caps; separate 95A TPU sealing pad.
 - Fixed seats for a nominal 2 × 5 mm compression spring, assumed 2 mm solid.
 - A 1 × 12 mm steel dowel, friction held in the fixed supports.
-- Four M2 bolts and nuts, with a soft liner between clamps and brass.
+- Four M2 bolts and nuts; revised clamps sized for direct contact with brass.
 - Low side hinge, curved arm around the tube, reinforced cheeks and a tested
   opening stop; glue-in pad retaining ring and small pin-fit coupon.
 
@@ -39,8 +39,9 @@ The [measured tube and hole 4 dimensions](docs/measurements.md) are now applied.
 Hole 5 diameter and the remaining reference dimensions are still provisional.
 The player confirmed the 1.0 mm pin bore. The first dry fit exposed weak
 supports, an ineffective stop and finger obstruction; this curved-arm revision
-addresses those findings and needs another physical trial. Pad seal, liner and
-spring response remain unverified. CAD validity and
+addresses those findings and needs another physical trial. The player has assembled the spring and hinge and reports that the TPU makes
+a reasonable seal. Grip and finger/key clearance failed that trial and are
+addressed in the current revision; physical rechecking is still required. CAD validity and
 sampled rigid movement checks passed; printability warnings and trial details
 are recorded in the brief.
 

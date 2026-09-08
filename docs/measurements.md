@@ -29,3 +29,5 @@ contact face is continuously concave; the previous central relief is removed.
 - First PETG dry fit: player confirms 1.0 mm nominal pivot bore fits the steel dowel.
 
 The next friction-fit trial uses 1.1 mm fixed hinge bores with the existing 1.0 × 12 mm steel pin. The moving key bore remains 1.25 mm. This supersedes the 1.0 mm frame bore for the next print; retention is not yet confirmed. Only the frame changes.
+
+Player confirms no liner was installed, clamp faces met without adequate grip, spring/hinge assembly worked and TPU seal was reasonable. Current upper clamp centre is 11 mm above hole 4; raised band width is 4 mm.
