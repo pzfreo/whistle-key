@@ -1,7 +1,7 @@
 {
   "source_sha256": "078d0abd52b618a1a9180bb27a162a8fd1b8ae1a74a52571adfdbf3914f23d71",
   "model_sha256": "a731b3961240de9f9940496728599faa84647035f714cbd65ce1e2c0bba9d373",
-  "generator_sha256": "5b52a8b3598152174e61f9169cf3ca504d0d44f9df7d443c0a71052e1b0578a8",
+  "generator_sha256": "70cca6b38cd8076ec42c5d86723131747bff5c7055b296bb30da9440ae8de669",
   "draftwright": "0.4.25.dev0",
   "build123d": "0.10.0",
   "bbox_mm": [

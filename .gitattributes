@@ -2,3 +2,9 @@
 *.stl binary linguist-generated=true
 *.png binary
 *.3mf binary linguist-generated=true
+
+# Generated technical drawing sheets are reviewed visually.
+drawings/**/*.dxf binary
+drawings/**/*.svg -diff
+*.pdf binary
+*.zip binary

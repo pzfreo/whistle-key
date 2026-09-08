@@ -257,6 +257,8 @@ def main():
                     package.write(path, 'drawings/titanium/'+path.name)
             package.write(Path(__file__), 'scripts/draw_titanium_frame.py')
             package.write(ROOT/'scripts/three_key.py', 'scripts/three_key.py')
+            package.write(ROOT/'exports/three-key/print-oriented/frame_print.step',
+                          'exports/three-key/print-oriented/frame_print.step')
         print('Packaged frame-machining-review.pdf and frame-titanium-review.zip',flush=True)
 
 
