@@ -57,3 +57,5 @@ The lowered clamp-joint revision requires the new frame and both new caps. The k
 The subsequent full-width pillar reinforcement changes only the frame; reuse the lowered-joint caps and the existing key and pad.
 
 The joined clamp base and enlarged spring peg revision requires a new frame and key. Reuse the current caps and pad; trial the larger peg in the actual spring.
+
+The rounded arm-shoulder revision changes only the key. Reuse the joined-base frame and current caps and pad.

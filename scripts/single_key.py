@@ -17,6 +17,7 @@ hole6_d = 5.0
 pad_back_height = 2.6 # Rigid key underside above tube crown
 lever_thickness = 3.0
 lever_width = 4.0
+arm_transition_radius = 0.8 # Filled inside corner above spring housing
 pad_diameter = 11.0
 pivot_offset = 4.15
 pivot_diameter = 1.0
@@ -191,6 +192,13 @@ lever=checked(lever.fuse(box_at(pivot_x-3.5,pivot_x+0.5,-lever_width/2,lever_wid
 lever=checked(lever-cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
 # Clearance around the fixed spring housing throughout the opening sweep.
 lever=checked(lever-box_at(spring_socket_rim_x-0.3,0,-lever_width,lever_width,-2,spring_z+spring_seat_width/2+0.3))
+# A concave fillet fills the stress-concentrating inside shoulder with material.
+transition_edges=[e for e in lever.edges()
+                  if abs(e.center().X-(spring_socket_rim_x-0.3))<1e-6
+                  and abs(e.center().Z-(spring_z+spring_seat_width/2+0.3))<1e-6
+                  and abs(e.length-lever_width)<1e-6]
+assert len(transition_edges)==1
+lever=checked(fillet(transition_edges,arm_transition_radius))
 # A sideways peg faces into the fixed spring socket.
 seat_tool=Pos(spring_moving_x+5,0,spring_z)*Rot(0,90,0)*Cylinder((spring_od+spring_fit)/2,10)
 lever=checked(lever-seat_tool)

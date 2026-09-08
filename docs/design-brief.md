@@ -296,3 +296,13 @@ long. Against the assumed 1.4 mm spring bore this leaves 0.2 mm diametral
 clearance, reduced from 0.4 mm. The larger peg needs a printed fit trial; spring
 force settings are unchanged. Reprint the frame and key for this revision;
 reuse the current caps and pad.
+
+## Rounded key-arm shoulder
+
+The sharp inside shoulder above the spring housing now has a 0.8 mm concave
+fillet across the full 4 mm arm width. This adds material into the corner and
+replaces the abrupt change of direction with a tangent radius. The CAD radius
+is controlled by `arm_transition_radius`; the housing clearance and movement
+checks still apply. This is a local stress-concentration improvement, not a
+measured strength rating. Only the key needs reprinting for this revision.
+See `key-arm-transition.png`.
