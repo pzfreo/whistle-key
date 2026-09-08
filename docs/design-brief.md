@@ -112,7 +112,7 @@ cylindrical spring envelope, not a simulated coil; check retention and rubbing
 as the moving seat tilts.
 
 The spring is located in a 2.4 mm diameter fixed sideways socket, initially 1.5 mm deep,
-and by a peg on the curved arm, 1 mm long with a 1 mm base tapering to a 0.6 mm tip.
+and by a peg on the curved arm, 1.5 mm long with a 1.2 mm base tapering to a 1.0 mm tip.
 The user's 0.3 mm wire gives a nominal 1.4 mm spring bore. The raised socket wall
 provides retention without reducing initial preload. Increasing
 `spring_floor_extra_depth` deepens only the floor towards the tube and reduces compression;
@@ -283,3 +283,16 @@ tapered lower stems, adding about 91 mm³ of material to the frame. The pin
 bores, insertion corridor, key and caps are unchanged. CAD verifies clearance
 and solid continuity; improved printed strength still needs a physical trial.
 Only the frame needs reprinting relative to the lowered-joint revision.
+
+## Joined clamp base and enlarged spring peg
+
+The notches where each lower clamp arc meets its rectangular tabs are filled
+with a continuous base across the clamp width. The liner recess is retained.
+This joins the arc and rectangular sections directly, as requested, without
+changing the split gap, bolt holes or pin approach.
+
+The spring peg is enlarged to 1.2 mm at its base, 1.0 mm at its tip and 1.5 mm
+long. Against the assumed 1.4 mm spring bore this leaves 0.2 mm diametral
+clearance, reduced from 0.4 mm. The larger peg needs a printed fit trial; spring
+force settings are unchanged. Reprint the frame and key for this revision;
+reuse the current caps and pad.

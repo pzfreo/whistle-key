@@ -51,9 +51,9 @@ spring_solid_margin = 0.5
 spring_socket_depth = 1.5
 spring_floor_extra_depth = 0.0 # Increase to reduce preload; keep return at full opening
 spring_wire_diameter = 0.3
-spring_peg_diameter = 1.0
-spring_peg_tip_diameter = 0.6
-spring_peg_length = 1.0
+spring_peg_diameter = 1.2
+spring_peg_tip_diameter = 1.0
+spring_peg_length = 1.5
 spring_seat_width = 3.2
 spring_closed_length = 2.8 # Fixed CAD seat spacing, not an adjustment screw
 spring_tube_clearance = 0.3
@@ -127,6 +127,13 @@ caps=[]
 for y in clamp_ys:
     ring=checked(cyl_y(clamp_outer_r,clamp_width,0,y,0)-cyl_y(clamp_inner_r,clamp_width+2,0,y,0))
     upper=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,-20,clamp_split_z-clamp_split_gap/2))
+    # Fill the notches beneath the arc-to-tab junctions with one continuous base.
+    base=box_at(-lug_x-lug_width/2,lug_x+lug_width/2,
+                y-clamp_width/2,y+clamp_width/2,
+                clamp_split_z-clamp_split_gap/2-lug_height,
+                clamp_split_z-clamp_split_gap/2)
+    base=checked(base-cyl_y(clamp_inner_r,clamp_width+2,0,y,0))
+    upper=checked(upper.fuse(base))
     cap=checked(ring & box_at(-20,20,y-clamp_width,y+clamp_width,clamp_split_z+clamp_split_gap/2,20))
     for x in [-lug_x,lug_x]:
         upper=checked(upper.fuse(box_at((-lug_x-lug_width/2 if x<0 else lug_inner_x),(-lug_inner_x if x<0 else lug_x+lug_width/2),y-clamp_width/2,y+clamp_width/2,clamp_split_z-clamp_split_gap/2-lug_height,clamp_split_z-clamp_split_gap/2)))

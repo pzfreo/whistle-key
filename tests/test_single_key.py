@@ -147,7 +147,8 @@ def test_pad_ring_leaves_tpu_exposed_and_glue_clearance(model):
 def test_spring_locators_have_clearance_and_do_not_bottom_out(model):
     m = model
     spring_id = m["spring_od"] - 2*m["spring_wire_diameter"]
-    assert spring_id - m["spring_peg_diameter"] >= 0.3
+    # Larger peg requested after dry fit: retain 0.2 mm diametral clearance.
+    assert spring_id - m["spring_peg_diameter"] >= 0.2 - 1e-9
     assert m["spring_length_closed"] - m["spring_peg_length"] >= 0.5
     assert m["spring_socket_rim_x"] - m["spring_moving_x"] >= 0.5
     assert m["spring_floor_x"] - m["spring_socket_rim_x"] >= 1.0
