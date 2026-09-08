@@ -53,3 +53,5 @@ bounding boxes. Bambu project metadata follows the application's
 and plate layout conventions.
 
 The lowered clamp-joint revision requires the new frame and both new caps. The key, pad and pin are reusable.
+
+The subsequent full-width pillar reinforcement changes only the frame; reuse the lowered-joint caps and the existing key and pad.

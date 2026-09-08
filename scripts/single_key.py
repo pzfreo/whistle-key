@@ -40,6 +40,7 @@ rail_top = clamp_split_z-clamp_split_gap/2
 rail_bottom = rail_top-3.0
 ear_thickness = 3.0
 support_root_width = 6.0
+support_shoulder_drop = 1.2 # Broad pillar starts below pin approach clearance
 axial_clearance = 0.3
 spring_od = 2.0
 spring_fit = 0.4
@@ -150,7 +151,9 @@ for number,y,d in holes:
     for dy in bearing_offsets:
         ear=box_at(pivot_x-hub_radius,pivot_x+hub_radius,y+dy-ear_thickness/2,y+dy+ear_thickness/2,rail_top-0.5,pivot_z)
         ear=checked(ear.fuse(cyl_y(hub_radius,ear_thickness,pivot_x,y+dy,pivot_z)))
-        root=Pos(0,y+dy+ear_thickness/2,0)*extrude(Plane.XZ*Polygon((pivot_x-support_root_width/2,rail_top-0.5),(pivot_x+support_root_width/2,rail_top-0.5),(pivot_x+hub_radius,pivot_z-1),(pivot_x-hub_radius,pivot_z-1),align=None),amount=ear_thickness)
+        # Full rail-width buttress below the pin; no slender tapered lower stem.
+        root=box_at(rail_x_min,rail_x_max,y+dy-ear_thickness/2,y+dy+ear_thickness/2,
+                    rail_top-0.5,pivot_z-support_shoulder_drop)
         ear=checked(ear.fuse(root))
         frame=checked(frame.fuse(ear))
         frame=checked(frame-cyl_y((pivot_diameter+pivot_support_clearance)/2,ear_thickness+0.2,pivot_x,y+dy,pivot_z))

@@ -274,3 +274,12 @@ dry fit. The lower rail lengthens the bearing supports; their 3 mm cheeks and
 Print the updated frame and both caps together; the previous caps do not fit
 the lowered joint. Insert the pin from the foot end, along the path illustrated
 in `pin-insertion.png`. This revision checks pin access, not spring installation.
+
+## Full-width hinge pillar reinforcement
+
+Both pillars now broaden to the full 7.4 mm rail width from 1.2 mm below the
+pivot axis down into the rail. These solid 3 mm thick buttresses replace the
+tapered lower stems, adding about 91 mm³ of material to the frame. The pin
+bores, insertion corridor, key and caps are unchanged. CAD verifies clearance
+and solid continuity; improved printed strength still needs a physical trial.
+Only the frame needs reprinting relative to the lowered-joint revision.
