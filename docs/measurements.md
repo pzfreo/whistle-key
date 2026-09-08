@@ -13,7 +13,7 @@ Absolute bottom-edge readings need reconciliation before updating the CAD.
 
 | Hole | Previously measured bottom edge from foot | Next measurement |
 |---|---:|---|
-| 3 | 98.7 | Recheck directly from foot |
+| 3 | 100.00 | Rechecked directly from foot; replaces 98.7 |
 | 4 | Not supplied directly | Measure bottom edge directly from foot |
 | 5 | 60.87 | Recheck directly from foot |
 | 6 | 34.1 | Recheck directly from foot |
@@ -60,7 +60,8 @@ source of truth for absolute positions.
 
 ## Unresolved discrepancies
 
-The independent bottom-edge readings (98.7, 60.87 and 34.1) and the earlier
+The independent bottom-edge readings (hole 3 now rechecked at 100.00, plus
+hole 5 at 60.87 and hole 6 at 34.1 awaiting recheck) and the earlier
 hole 4 centre reading (81.68) conflict with the gap-chain calculation. Neither
 set is silently substituted for the other. Await rechecked independent bottom
 edges, then calculate each centre separately using its diameter. Hole 6's old
@@ -84,3 +85,5 @@ The current pin-fit trial is 1.1 mm fixed bores for a 1.0 × 12 mm steel pin;
 the moving bore remains 1.25 mm. The pad diameter remains 9.59 mm, based on
 hole 4's confirmed 5.09 mm diameter, with a continuous concave contact face.
 Tube wall/bore and circumferential hole alignment remain provisional.
+
+Hole 3 bottom edge rechecked independently from the foot: 100.00 mm. With the recorded axial diameter of 5.8 mm, its centre is 102.90 mm and top edge 105.80 mm. This supersedes the earlier 98.7 mm bottom-edge reading; the gap-chain table above remains a non-adopted cross-check only.
