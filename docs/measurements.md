@@ -4,11 +4,22 @@ Instrument: brass Burke high-D whistle. All lengths are millimetres.
 Hole numbers count from the mouthpiece. Positions are measured from the open
 foot towards the mouthpiece. Bottom means footward; top means mouthpieceward.
 
-## Accepted measurement basis
+## Measurement basis
 
-Use the player's rechecked edge gaps and hole 4 diameter. Derive positions
-from hole 6's bottom edge at 34.1 mm; do not require calipers to locate centres.
-This is the working basis agreed after the earlier measurements conflicted.
+The player requires independent positions measured from the physical whistle
+foot to each hole's bottom edge. Do not chain the gaps to establish positions:
+that accumulates measurement errors. Retain the rechecked gaps as cross-checks.
+Absolute bottom-edge readings need reconciliation before updating the CAD.
+
+| Hole | Previously measured bottom edge from foot | Next measurement |
+|---|---:|---|
+| 3 | 98.7 | Recheck directly from foot |
+| 4 | Not supplied directly | Measure bottom edge directly from foot |
+| 5 | 60.87 | Recheck directly from foot |
+| 6 | 34.1 | Recheck directly from foot |
+
+Hole 4's earlier 81.68 mm reading was recorded as a centre, not a bottom edge.
+The hole diameters and rechecked gaps below remain recorded observations.
 
 | Measurement | Value | Status |
 |---|---:|---|
@@ -23,7 +34,7 @@ This is the working basis agreed after the earlier measurements conflicted.
 | Hole 4 bottom to hole 5 top | 9.22 | Rechecked; replaces 9.2 |
 | Hole 5 bottom to hole 6 top | 19.2 | Rechecked and confirmed |
 
-## Derived positions
+## Gap-chain calculation: cross-check only, not adopted
 
 | Hole | Bottom edge | Centre | Top edge |
 |---|---:|---:|---:|
@@ -44,21 +55,22 @@ Centres are bottom edge plus half the axial diameter.
 | Hole 5–6 | 25.635 |
 
 Decimal precision reflects arithmetic, not additional measurement accuracy.
-Relative spacing follows the direct gaps; any error in the foot reference
-shifts all absolute positions together without changing those spacings.
+Chaining also accumulates diameter and gap errors, so this table is not the
+source of truth for absolute positions.
 
-## Superseded measurements
+## Unresolved discrepancies
 
-Do not combine the following earlier readings with the accepted edge chain:
-hole 3 bottom 98.7; hole 4 centre 81.68; hole 5 bottom 60.87; hole 4–5 centre
-spacing 16 (and later derived 17.56). Hole 6's old CAD diameter 5 and centre 43
-were provisional. Earlier derived clearance claims based on these positions
-must be recalculated before the next geometry revision.
+The independent bottom-edge readings (98.7, 60.87 and 34.1) and the earlier
+hole 4 centre reading (81.68) conflict with the gap-chain calculation. Neither
+set is silently substituted for the other. Await rechecked independent bottom
+edges, then calculate each centre separately using its diameter. Hole 6's old
+CAD diameter 5 and centre 43 were provisional. Earlier clearance claims must
+be recalculated using the reconciled measurements.
 
 ## Prototype status and pending geometry
 
-The current CAD source and exports have not yet been updated to this edge-chain
-measurement set. The player prefers retaining the existing printed frame and
+The current CAD source and exports have not yet been updated to the latest
+measurements. The player prefers retaining the existing printed frame and
 shortening replacement cap legs to recover tightening travel. That cap-only
 revision is pending; the recent full-frame redesign is not the intended replacement.
 The existing printed frame uses clamp offsets of +13 and -9 from hole 4.
