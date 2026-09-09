@@ -19,6 +19,12 @@ hole45_spacing = hole4_y-hole5_y
 pad_back_height = 2.6 # Rigid key underside above tube crown
 lever_thickness = 3.0
 lever_width = 4.0
+upper_arm_width = 6.0 # Broader load path into the pad cup; hinge remains 4 mm
+upper_arm_radial_extra = 1.0 # Added on the outside, clear of the whistle
+arm_reinforcement_start_z = 3.4 # Above fixed bearing heads
+arm_reinforcement_full_z = 6.0
+arm_width_blend_start_z = 5.5 # Preserve the spring shoulder and hinge interfaces
+arm_width_blend_end_z = 7.5
 arm_transition_radius = 0.8 # Filled inside corner above spring housing
 pad_diameter = 11.0
 pivot_offset = 4.15
@@ -294,6 +300,27 @@ for number,y,d in holes:
     arm_inner=cyl_y(arm_radius-lever_thickness/2,lever_width+2,0,0,0)
     lever=checked(arm_outer-arm_inner)
     lever=checked(lever & box_at(-arm_radius-5,-0.2,-lever_width,lever_width,0,arm_radius+5))
+    # Reinforce the curved arm outward and fan it into the existing pad cup.
+    # Both ramps start on the old arm; avoid an abrupt added shoulder.
+    outer_r=arm_radius+lever_thickness/2
+    reinforced_r=outer_r+upper_arm_radial_extra
+    root_x=-math.sqrt(outer_r**2-arm_reinforcement_start_z**2)
+    reinforcement=cyl_y(reinforced_r,upper_arm_width,0,0,0)-cyl_y(
+        arm_radius-lever_thickness/2,upper_arm_width+2,0,0,0)
+    radial_ramp=Pos(0,upper_arm_width/2,0)*extrude(Plane.XZ*Polygon(
+        (root_x,arm_reinforcement_start_z),(-reinforced_r,arm_reinforcement_full_z),
+        (-reinforced_r,lever_bottom+lever_thickness),
+        (-0.2,lever_bottom+lever_thickness),(-0.2,arm_reinforcement_start_z),
+        align=None),amount=upper_arm_width,dir=(0,-1,0))
+    width_ramp=Pos(-reinforced_r-1,0,0)*extrude(Plane.YZ*Polygon(
+        (-lever_width/2,arm_reinforcement_start_z),(lever_width/2,arm_reinforcement_start_z),
+        (lever_width/2,arm_width_blend_start_z),(upper_arm_width/2,arm_width_blend_end_z),
+        (upper_arm_width/2,lever_bottom+lever_thickness),
+        (-upper_arm_width/2,lever_bottom+lever_thickness),
+        (-upper_arm_width/2,arm_width_blend_end_z),(-lever_width/2,arm_width_blend_start_z),
+        align=None),amount=reinforced_r+2,dir=(1,0,0))
+    reinforcement=checked(reinforcement & radial_ramp & width_ramp)
+    lever=checked(lever.fuse(reinforcement))
     lever=checked(lever.fuse(hole_z(0,0,lever_bottom,lever_bottom+lever_thickness,pad_diameter)))
     lever=checked(lever.fuse(cyl_y(hub_radius,hub_length,pivot_x,0,pivot_z)))
     lever=checked(lever.fuse(box_at(pivot_x-3.5,pivot_x+0.5,-lever_width/2,lever_width/2,-lever_thickness/2,lever_thickness/2)))

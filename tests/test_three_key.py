@@ -276,3 +276,19 @@ def test_spring_holder_backs_are_flush_and_socket_shelves_are_braced(model):
         # Continuous material below the old shelf, sloping down towards its root.
         for x,z in [(-9.6,0.4),(-9.3,0.0),(-9.0,-0.3)]:
             assert m['frame'].is_inside(Vector(x,y,z))
+
+
+def test_upper_key_arm_has_stock_across_the_reinforced_bend(model):
+    m=model
+    # Physical stock checks at two sections of the bend, including near both
+    # side faces: the former 4 mm wide / 3 mm radial arm fails these probes.
+    for key in m['levers'].values():
+        for x,z in [(-11.0,7.5),(-10.5,8.5)]:
+            for y in (-2.8,0,2.8):
+                assert key.is_inside(Vector(x,y,z))
+        # The hinge still fits the existing bearing gap.
+        hinge_region=m['box_at'](-20,0,-10,10,-2,3.0)
+        lower=key.intersect(hinge_region)
+        if isinstance(lower,ShapeList):
+            lower=Compound(children=list(lower))
+        assert lower.bounding_box().size.Y==pytest.approx(4.0)
