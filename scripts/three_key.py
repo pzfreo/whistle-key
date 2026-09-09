@@ -66,6 +66,7 @@ spring_peg_length = 1.5
 spring_seat_width = 3.2
 spring_web_overlap = 0.8 # Extend each side web into its fixed hinge pillar
 spring_web_hub_clearance = 0.3
+spring_socket_brace_angle = 50.0 # Rising underside replaces the socket-mouth shelf
 spring_closed_length = 2.8 # Fixed CAD seat spacing, not an adjustment screw
 spring_tube_clearance = 0.3
 spring_lateral_offset = 1.25
@@ -122,6 +123,7 @@ spring_moving_x = -(r+1.2) - spring_closed_length
 spring_socket_rim_x = -(r+1.2) - spring_socket_depth
 spring_length_closed = spring_floor_x-spring_moving_x
 spring_x = spring_moving_x
+spring_holder_back_x = rail_x_max # Flush back; no ledge beyond the frame rail
 rail_x_min = min(rail_x_min, -lug_x-lug_width/2)
 assert spring_length_closed > spring_solid_height+spring_solid_margin
 assert pad_diameter > max(hole4_d,hole5_d,hole6_d)+2
@@ -215,14 +217,22 @@ for number,y,d in holes:
     opening_stops[number]=opening_stop
     show(opening_stop,"opening_stop"+str(number))
     frame=checked(frame.fuse(opening_stop))
-    seat=box_at(spring_socket_rim_x,spring_floor_x+0.9,y-spring_seat_width/2,y+spring_seat_width/2,rail_top-0.2,spring_z+spring_seat_width/2)
-    # Recess the housing foot clear of the rotating hub.
-    seat=checked(seat-box_at(spring_socket_rim_x-0.1,pivot_x+hub_radius+0.3,y-spring_seat_width,y+spring_seat_width,rail_top-1,0.5))
+    seat=box_at(spring_socket_rim_x,spring_holder_back_x,y-spring_seat_width/2,y+spring_seat_width/2,rail_top-0.2,spring_z+spring_seat_width/2)
+    # A sloping underside braces the socket mouth without a flat support shelf.
+    # The full key sweep checks this added stock against the rotating hub.
+    recess_back_x=pivot_x+hub_radius+spring_web_hub_clearance
+    recess_top_z=0.5
+    recess_low_z=recess_top_z-(recess_back_x-spring_socket_rim_x)*math.tan(math.radians(spring_socket_brace_angle))
+    recess=Pos(0,y+spring_seat_width,0)*extrude(Plane.XZ*Polygon(
+        (spring_socket_rim_x-0.1,rail_top-1),(recess_back_x,rail_top-1),
+        (recess_back_x,recess_low_z),(spring_socket_rim_x,recess_top_z),
+        (spring_socket_rim_x-0.1,recess_top_z),align=None),amount=2*spring_seat_width)
+    seat=checked(seat-recess)
     frame=checked(frame.fuse(seat))
     # Tie the upright to both bearings on the tube-facing side of the hub.
     # Keep the spring-facing mouth accessible and the pin approach unobstructed.
     web_half_width=hub_length/2+axial_clearance+spring_web_overlap
-    web=box_at(pivot_x+hub_radius+spring_web_hub_clearance,spring_floor_x+0.9,
+    web=box_at(pivot_x+hub_radius+spring_web_hub_clearance,spring_holder_back_x,
                y-web_half_width,y+web_half_width,
                rail_top-0.2,spring_z+spring_seat_width/2)
     frame=checked(frame.fuse(web))

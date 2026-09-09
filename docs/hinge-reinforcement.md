@@ -29,3 +29,13 @@ Following the user's marked screenshot, each spring upright now has a solid web 
 Frame volume is now 6636.1026 mm³. MCP solid validity and STEP export gates pass. A focused regression verifies continuous stock across both former gaps and a clear spring insertion envelope. Printability analysis still reports 17 warnings and no errors; the three existing 0.3 mm overhang ledges have larger areas because of the webs. Existing frame support settings are retained. Printed strength remains to be confirmed by a physical trial.
 
 All 18 existing three-key checks passed after this change, including each key's 21-position motion sweep and pin insertion. The new web/spring-access regression passed separately; all four print-package checks passed.
+
+## Remove the two spring-holder overhangs
+
+The user identified the rear lip and the flat shelf below the spring socket as unnecessary support generators. The back of each holder and its connecting web is now flush with the frame rail at X = −7.7 mm, removing the former 0.3 mm projection. This leaves 0.6 mm of material behind the unchanged blind socket floor at X = −8.3 mm. The webs still overlap both bearing pillars.
+
+The second flat shelf, beneath the socket mouth, is replaced by a 50° sloping brace. It adds material beneath the mouth while retaining the original socket diameter and depth. The key-motion tests check the added brace against the rotating key.
+
+Frame volume is 6573.7761 mm³. MCP validity and STEP export gates pass. Printability warnings decrease from 17 to 11: the three rear-lip and three socket-shelf overhang findings disappear. Remaining findings concern the nut-pocket roofs, spring bores, a small feature and an unlocated thin wall. The frame is not certified support-free; existing slicing settings are retained. A physical trial is still needed to confirm strength and printed spring fit.
+
+Validation: all 19 existing three-key tests passed, including complete travel and pin/spring-access checks. The new flush-back/brace regression passed separately, and all four print-package tests passed.

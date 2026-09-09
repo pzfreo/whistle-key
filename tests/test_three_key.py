@@ -262,3 +262,17 @@ def test_spring_uprights_are_tied_to_both_bearings(model):
                                   Align.CENTER,
                                   Align.MIN))
         assert volume(approach,m['frame'])<1e-5
+
+
+def test_spring_holder_backs_are_flush_and_socket_shelves_are_braced(model):
+    m=model
+    for n,y,d in m['holes']:
+        # No lip outside the rail over the full height of the spring upright.
+        outside=m['box_at'](m['rail_x_max']+0.001,m['rail_x_max']+1,
+                            y-3.1,y+3.1,m['rail_top']-0.2,4.3)
+        assert volume(outside,m['frame'])<1e-6
+        # Retain material behind the blind socket after trimming its back.
+        assert m['frame'].is_inside(Vector(m['spring_floor_x']+0.3,y,m['spring_z']))
+        # Continuous material below the old shelf, sloping down towards its root.
+        for x,z in [(-9.6,0.4),(-9.3,0.0),(-9.0,-0.3)]:
+            assert m['frame'].is_inside(Vector(x,y,z))
