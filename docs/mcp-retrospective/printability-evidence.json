@@ -1,0 +1,20 @@
+{
+  "date": "2026-09-09",
+  "parameters": {
+    "build_volume": "256 256 256",
+    "other_parameters": "tool defaults"
+  },
+  "old_step": "https://github.com/pzfreo/whistle-key/blob/cbce323/exports/three-key/print-oriented/clamp_cap_print.step",
+  "new_step": "https://github.com/pzfreo/whistle-key/blob/d6b1df1/exports/three-key/print-oriented/clamp_cap_print.step",
+  "old": "2 finding(s): 1 error, 1 warning\n\n{\"findings\": [{\"kind\": \"overhang\", \"severity\": \"warning\", \"message\": \"Flat 98.1 mm2 ceiling at 0.0 deg, 13.1 mm span needs support\", \"area\": 98.11327155801007, \"location\": [-1.0912244803037777e-15, -2.5073992709343735, 1.000000000000001]}, {\"kind\": \"tip_over\", \"severity\": \"error\", \"message\": \"Centre of mass (-0.0, 1.3) projects outside the bed-contact footprint; the part will topple\", \"area\": null, \"location\": null}]}",
+  "new": "1 finding(s): 1 error\n\n{\"findings\": [{\"kind\": \"tip_over\", \"severity\": \"error\", \"message\": \"Centre of mass (-0.0, 0.8) projects outside the bed-contact footprint; the part will topple\", \"area\": null, \"location\": null}]}",
+  "vertex_only_hull": "OLD {'bed_faces': 2, 'contact_vertices_hull': [(-14.65, 4.775), (14.65, 4.775), (14.65, 8.275), (-14.65, 8.275)], 'centre_of_mass_xy': (-2.1205277190232155e-13, 1.279561577624773), 'inside_contact_vertices_hull': False}\nNEW {'bed_faces': 1, 'contact_vertices_hull': [(-14.65, 4.775), (-7.15, 1.875), (7.15, 1.875), (14.65, 4.775), (14.65, 8.275), (-14.65, 8.275)], 'centre_of_mass_xy': (-2.3032459089749477e-13, 0.8377329607835267), 'inside_contact_vertices_hull': False}",
+  "sampled_hull": "OLD {'bed_faces': 2, 'sample_count': 258, 'centre_of_mass_xy': (-2.1205277190232155e-13, 1.279561577624773), 'hull_y_limits': (4.775, 8.275), 'inside_sampled_contact_hull': False}\nNEW {'bed_faces': 1, 'sample_count': 326, 'centre_of_mass_xy': (-2.3032459089749477e-13, 0.8377329607835267), 'hull_y_limits': (-8.274999999999999, 8.275000000000002), 'inside_sampled_contact_hull': True}\n",
+  "versions": {
+    "build123d-mcp": "0.3.84",
+    "build123d": "0.11.1",
+    "build123d-drafting-helpers": "0.14.2",
+    "bd_warehouse": "0.3.0",
+    "augura": "0.1.7"
+  }
+}
