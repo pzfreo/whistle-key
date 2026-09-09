@@ -274,7 +274,7 @@ def test_spring_holder_backs_are_flush_and_socket_shelves_are_braced(model):
         # Retain material behind the blind socket after trimming its back.
         assert m['frame'].is_inside(Vector(m['spring_floor_x']+0.3,y,m['spring_z']))
         # Continuous material below the old shelf, sloping down towards its root.
-        for x,z in [(-9.6,0.4),(-9.3,0.0),(-9.0,-0.3)]:
+        for x,z in [(-9.6,0.95),(-9.3,0.55),(-9.0,0.25)]:
             assert m['frame'].is_inside(Vector(x,y,z))
 
 
@@ -292,3 +292,27 @@ def test_upper_key_arm_has_stock_across_the_reinforced_bend(model):
         if isinstance(lower,ShapeList):
             lower=Compound(children=list(lower))
         assert lower.bounding_box().size.Y==pytest.approx(4.0)
+
+
+def test_hinge_bore_has_continuous_stock_and_clears_frame(model):
+    m=model
+    # 0.9 mm radial material around the full 1.25 mm working bore, across
+    # the complete bearing length. The old spring-side cut failed this check.
+    ring=m['cyl_y'](1.525,4.0,m['pivot_x'],0,0)-m['cyl_y'](0.625,6,m['pivot_x'],0,0)
+    for n,y,d in m['holes']:
+        assert volume(ring,m['levers'][n])==pytest.approx(ring.volume,abs=1e-5)
+        installed=ring.moved(Location((0,y,0)))
+        # A concentric collar has the same clearance at every rotation angle.
+        assert installed.distance_to(m['frame'])>=0.2-1e-5
+        # Check the tilting spring throughout travel, not only when closed.
+        for step in range(21):
+            theta=math.radians(m['open_angle']*step/20)
+            start=Vector(m['spring_floor_x'],y,m['spring_z'])
+            dx=m['spring_moving_x']-m['pivot_x']
+            end=Vector(m['pivot_x']+dx*math.cos(theta)-m['spring_z']*math.sin(theta),
+                       y,dx*math.sin(theta)+m['spring_z']*math.cos(theta))
+            delta=end-start
+            spring=Plane(origin=start,z_dir=delta)*Cylinder(m['spring_od']/2,delta.length,
+                       align=(Align.CENTER,Align.CENTER,Align.MIN))
+            assert installed.distance_to(spring)>=0.2-1e-5
+    assert m['spring_z']-(m['spring_od']+m['spring_fit'])/2-m['recess_top_z']>=0.6

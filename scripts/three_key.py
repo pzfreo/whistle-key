@@ -34,6 +34,8 @@ pivot_clearance = 0.25
 pivot_support_clearance = 0.1 # Trial 1.1 mm fixed bores for the 1.0 mm steel pin
 hub_radius = 2.0
 hub_length = 4.0
+hinge_bore_min_wall = 0.9 # Continuous collar survives the spring-clearance cut
+hinge_collar_frame_clearance = 0.2
 opening_angle_degrees = 20.0 # Trial low-hinge opening; verify airway and comfort
 liner_thickness = 0.0 # Player uses direct contact with brass
 clamp_radial_clearance = 0.05 # 14.3 mm nominal seat for measured 14.2 mm tube
@@ -123,7 +125,8 @@ lug_x = clamp_outer_r+lug_width/2-0.5
 lug_inner_x = min(lug_x-lug_width/2, math.sqrt(clamp_outer_r**2-(clamp_split_z-clamp_split_gap/2)**2)-0.8)
 
 # Sideways compression spring keeps the key's top clear for the finger.
-spring_z = 2.6
+spring_z = 2.9 # Raise both seats 0.3 mm; preserve clearance as the spring tilts
+hinge_collar_radius = (pivot_diameter+pivot_clearance)/2+hinge_bore_min_wall
 spring_floor_x = -(r+1.2) + spring_floor_extra_depth
 spring_moving_x = -(r+1.2) - spring_closed_length
 spring_socket_rim_x = -(r+1.2) - spring_socket_depth
@@ -227,7 +230,9 @@ for number,y,d in holes:
     # A sloping underside braces the socket mouth without a flat support shelf.
     # The full key sweep checks this added stock against the rotating hub.
     recess_back_x=pivot_x+hub_radius+spring_web_hub_clearance
-    recess_top_z=0.5
+    # Tangent underside leaves a known radial clearance around the new collar.
+    brace_angle=math.radians(spring_socket_brace_angle)
+    recess_top_z=(hinge_collar_radius+hinge_collar_frame_clearance)/math.cos(brace_angle)-(spring_socket_rim_x-pivot_x)*math.tan(brace_angle)
     recess_low_z=recess_top_z-(recess_back_x-spring_socket_rim_x)*math.tan(math.radians(spring_socket_brace_angle))
     recess=Pos(0,y+spring_seat_width,0)*extrude(Plane.XZ*Polygon(
         (spring_socket_rim_x-0.1,rail_top-1),(recess_back_x,rail_top-1),
@@ -339,6 +344,11 @@ for number,y,d in holes:
     lever=checked(lever-seat_tool)
     spring_peg=Pos(spring_moving_x,0,spring_z)*Rot(0,90,0)*Cone(spring_peg_diameter/2,spring_peg_tip_diameter/2,spring_peg_length,align=(Align.CENTER,Align.CENTER,Align.MIN))
     lever=checked(lever.fuse(spring_peg))
+    # Restore a full annular collar after the clearance and spring-seat cuts.
+    # Its concentric shape has the same envelope at every key angle.
+    collar=checked(cyl_y(hinge_collar_radius,hub_length,pivot_x,0,pivot_z)-
+                   cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
+    lever=checked(lever.fuse(collar))
     lever=checked(lever-hole_z(0,0,0,lever_bottom,pad_ring_inner_diameter))
     # Shallow retaining cup: glue the flat-backed TPU pad inside this ring.
     pad_ring=checked(hole_z(0,0,lever_bottom-pad_ring_height,lever_bottom+0.1,pad_ring_outer_diameter)-hole_z(0,0,lever_bottom-pad_ring_height-0.1,lever_bottom+0.2,pad_ring_inner_diameter))
