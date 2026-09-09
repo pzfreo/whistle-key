@@ -195,3 +195,18 @@ def test_all_three_keys_and_pads_are_interchangeable(model):
             common_volume = volume(reference, candidate)
             assert reference.volume + candidate.volume - 2*common_volume < 1e-5
     assert list(model['pad_sizes'].values()) == pytest.approx([12.3]*3)
+
+
+def test_pad_tabs_guide_insertion_and_prevent_crosswise_seating(model):
+    m=model
+    pad,key=m['pad_blanks'][4],m['levers'][4]
+    # Both equivalent axial orientations seat and insert without bending the tabs.
+    for angle in (0,180):
+        oriented=pad.rotate(Axis.Z,angle)
+        for drop in (0,0.2,0.6,1.2,2.0):
+            assert volume(oriented.moved(Location((0,0,-drop))),key)<1e-5
+    assert volume(pad.rotate(Axis.Z,90),key)>0.1
+    assert volume(pad.moved(Location((0,0,0.05))),key)>0.1 # Cup roof limits insertion.
+    assert m['lever_bottom']-m['pad_tab_height']>m['r']+1
+    assert pad.bounding_box().size.Y<key.bounding_box().size.Y
+    # Continuous seal-band assertions above still apply to each larger, tabbed pad.

@@ -76,3 +76,9 @@ As of 2026-09-09, all three numbered keys have identical geometry, and all three
 numbered pads have identical geometry (12.30 mm pad OD / 14.20 mm head OD).
 Print three copies of either key file and three copies of either pad file, or use
 the updated three-key 3MF. Existing frame, caps, pins and springs are reusable.
+
+The latest pad/retaining-ring revision adds two locating tabs and matching
+notches to every key. Pad body OD remains 12.30 mm; overall tab-to-tab length
+is 13.80 mm. Print the pad flat backing and tabs together on the bed. Align the
+tabs, seat the backing against the cup roof and glue. Reprint keys and pads
+for this revision; the frame and hardware are reusable.

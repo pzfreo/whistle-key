@@ -80,6 +80,11 @@ tpu_interference = 0.2
 pad_ring_height = 1.2
 pad_ring_wall = 0.8
 pad_ring_clearance = 0.3 # Total diametral clearance for glue and printed fit
+pad_tab_width = 1.6
+pad_tab_height = 0.9 # Flush with glue backing; clear of the sealing face
+pad_tab_extension = 0.75
+pad_tab_root_overlap = 0.5
+pad_notch_side_clearance = 0.2 # Each side, PETG/TPU trial fit
 pad_ring_inner_diameter = tpu_outer_diameter + pad_ring_clearance
 pad_ring_outer_diameter = pad_ring_inner_diameter + 2*pad_ring_wall
 pad_diameter = max(pad_diameter, pad_ring_outer_diameter)
@@ -280,11 +285,28 @@ for number,y,d in holes:
     # Shallow retaining cup: glue the flat-backed TPU pad inside this ring.
     pad_ring=checked(hole_z(0,0,lever_bottom-pad_ring_height,lever_bottom+0.1,pad_ring_outer_diameter)-hole_z(0,0,lever_bottom-pad_ring_height-0.1,lever_bottom+0.2,pad_ring_inner_diameter))
     lever=checked(lever.fuse(pad_ring))
+    # Opposed axial notches open toward the pad; the solid cup roof sets seating.
+    # 180-degree reversal is equivalent for the cylindrical sealing face.
+    for sign in (-1, 1):
+        notch=box_at(-(pad_tab_width/2+pad_notch_side_clearance),
+                      pad_tab_width/2+pad_notch_side_clearance,
+                      tpu_outer_diameter/2-pad_tab_root_overlap,
+                      pad_ring_outer_diameter/2+0.1,
+                      lever_bottom-pad_ring_height-0.01,lever_bottom)
+        if sign < 0: notch=notch.rotate(Axis.Z,180)
+        lever=checked(lever-notch)
     show(lever,'lever_blank'+str(number))
 
     # Continuous concave TPU contact face and plain flat glue backing.
     pad_blank=hole_z(0,0,0,lever_bottom,tpu_outer_diameter)
     pad_blank=checked(pad_blank-cyl_y(r-tpu_interference,tpu_outer_diameter+2,0,0,0))
+    for sign in (-1, 1):
+        tab=box_at(-pad_tab_width/2,pad_tab_width/2,
+                    tpu_outer_diameter/2-pad_tab_root_overlap,
+                    tpu_outer_diameter/2+pad_tab_extension,
+                    lever_bottom-pad_tab_height,lever_bottom)
+        if sign < 0: tab=tab.rotate(Axis.Z,180)
+        pad_blank=checked(pad_blank.fuse(tab))
     show(pad_blank,'tpu_pad'+str(number))
 
     levers[number]=lever

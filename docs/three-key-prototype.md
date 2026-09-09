@@ -163,3 +163,27 @@ The shared pad is 12.30 mm OD; cup ID is 12.60 mm and head OD is 14.20 mm.
 Minimum axial head-to-head clearance is 1.545 mm throughout rotation. The
 common geometry is tested for interchangeability, travel and sealing coverage.
 The larger hole-4 head still needs a playing trial for finger comfort.
+
+
+## Pad locating tabs — 2026-09-09
+
+![Pad tabs and retaining-ring notches](pad-locating-tabs.png)
+
+All three common keys now have two opposed notches in the retaining ring,
+aligned along the whistle axis. Each TPU pad has matching tabs, 1.6 mm wide,
+0.9 mm thick and extending 0.75 mm beyond its 12.30 mm circular body. Overall
+pad length across tabs is 13.80 mm, within the 14.20 mm key-head envelope.
+Notches are 2.0 mm wide, giving 0.20 mm nominal clearance on each side.
+
+The notches open from the pad side through the ring's 1.2 mm height. The tabs
+are flush with the flat glue backing; the solid cup roof remains the seating
+stop. Align the tabs with the notches and press the backing fully against the
+roof before gluing. A 180-degree reversal is equivalent; a 90-degree rotation
+is blocked. These are locating features, not snap-fit retainers.
+
+The tabs sit above the tube crown and do not interrupt the curved sealing
+face. Printing orientation stays the same: keys finger-face down, pads flat
+back down. Print the new keys and pads together; reuse the frame and hardware.
+Tests cover tab insertion, correct/incorrect orientation, full seating,
+interchangeability, key travel and the continuous sealing band. Confirm the
+nominal tab clearance in the PETG/95A TPU printing trial.
