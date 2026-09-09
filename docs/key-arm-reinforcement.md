@@ -25,3 +25,13 @@ Key volume is 732.9761 mm³; frame volume is 6578.6130 mm³. Both pass MCP valid
 The new regression verifies a complete 0.9 mm annular wall, at least 0.2 mm clearance from the frame, and at least 0.2 mm from the spring envelopes at all 21 sampled positions through the key travel (measured minimum 0.26566 mm). Existing full key-travel and interface tests also apply.
 
 Final validation: all 22 three-key geometry tests and all four print-package tests passed with the spring at Z = 2.9 mm. The initial 2.8 mm trial was rejected because the open spring envelope had only 0.1695 mm clearance; the delivered geometry meets the 0.2 mm requirement across the sampled travel.
+
+## Fill the unused rear notch
+
+The user marked the concave step between the hinge tail and the back of the curved arm. It came from joining the wider tail to the curved strip, rather than from a dedicated clearance feature. A 4 mm wide solid web now fills this notch. Its outer edge runs from the tail's upper rear corner to a tangent on the reinforced arm's outer arc, giving a continuous back profile.
+
+No material is removed from the previous key. Added volume is 17.5525 mm³ per key; the revised key volume is 750.5286 mm³. The frame, hinge bore, spring position, pad seat and opening stop remain unchanged. This key is intended for the latest matching frame with spring height Z = 2.9 mm.
+
+MCP validity and STEP export gates pass. Printability warnings decrease from three to two: the flat rear shelf is no longer reported. The remaining overhang and thin-wall findings mean the existing key support settings are retained. A new regression checks solid material across the former notch; physical strength still needs a print trial.
+
+Validation completed: all 23 three-key geometry tests and all four print-package tests passed. The full travel checks found no frame, clamp or tube collision from the added rear web. Existing pin, spring, pad and stop checks also pass.

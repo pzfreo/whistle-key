@@ -19,6 +19,8 @@ hole45_spacing = hole4_y-hole5_y
 pad_back_height = 2.6 # Rigid key underside above tube crown
 lever_thickness = 3.0
 lever_width = 4.0
+lever_tail_extension = 3.5
+back_web_overlap = 0.1
 upper_arm_width = 6.0 # Broader load path into the pad cup; hinge remains 4 mm
 upper_arm_radial_extra = 1.0 # Added on the outside, clear of the whistle
 arm_reinforcement_start_z = 3.4 # Above fixed bearing heads
@@ -328,7 +330,22 @@ for number,y,d in holes:
     lever=checked(lever.fuse(reinforcement))
     lever=checked(lever.fuse(hole_z(0,0,lever_bottom,lever_bottom+lever_thickness,pad_diameter)))
     lever=checked(lever.fuse(cyl_y(hub_radius,hub_length,pivot_x,0,pivot_z)))
-    lever=checked(lever.fuse(box_at(pivot_x-3.5,pivot_x+0.5,-lever_width/2,lever_width/2,-lever_thickness/2,lever_thickness/2)))
+    lever=checked(lever.fuse(box_at(pivot_x-lever_tail_extension,pivot_x+0.5,-lever_width/2,lever_width/2,-lever_thickness/2,lever_thickness/2)))
+    # Fill the unused rear notch. A tangent joins the tail's upper rear corner
+    # to the reinforced outer arc, avoiding another narrow neck or inside corner.
+    back_x=pivot_x-lever_tail_extension
+    back_z=lever_thickness/2
+    distance_squared=back_x**2+back_z**2
+    assert distance_squared>reinforced_r**2
+    tangent_scale=reinforced_r**2/distance_squared
+    tangent_offset=reinforced_r*math.sqrt(distance_squared-reinforced_r**2)/distance_squared
+    tangent_x=tangent_scale*back_x+tangent_offset*back_z
+    tangent_z=tangent_scale*back_z-tangent_offset*back_x
+    back_web=Pos(0,lever_width/2,0)*extrude(Plane.XZ*Polygon(
+        (back_x,back_z-back_web_overlap),(back_x,back_z),(tangent_x,tangent_z),
+        (pivot_x+0.5,tangent_z),(pivot_x+0.5,back_z-back_web_overlap),align=None),
+        amount=lever_width,dir=(0,-1,0))
+    lever=checked(lever.fuse(back_web))
     lever=checked(lever-cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
     # Clearance around the fixed spring housing throughout the opening sweep.
     lever=checked(lever-box_at(spring_socket_rim_x-0.3,0,-lever_width,lever_width,-2,spring_z+spring_seat_width/2+0.3))

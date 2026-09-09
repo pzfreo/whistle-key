@@ -316,3 +316,11 @@ def test_hinge_bore_has_continuous_stock_and_clears_frame(model):
                        align=(Align.CENTER,Align.CENTER,Align.MIN))
             assert installed.distance_to(spring)>=0.2-1e-5
     assert m['spring_z']-(m['spring_od']+m['spring_fit'])/2-m['recess_top_z']>=0.6
+
+
+def test_key_back_has_continuous_stock_above_hinge_tail(model):
+    m=model
+    # Stock across the formerly empty rear notch, across most of the 4 mm width.
+    required=m['box_at'](-13.4,-13.0,-1.8,1.8,2.0,3.4)
+    for key in m['levers'].values():
+        assert volume(required,key)==pytest.approx(required.volume,abs=1e-6)
