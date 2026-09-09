@@ -140,6 +140,24 @@ def test_spring_preload_and_solid_margin(model):
     assert m['spring_length_closed']-m['spring_peg_length']>=0.5
 
 
+def test_fixed_bearings_have_reinforced_crowns_and_continuous_stems(model):
+    m=model
+    # Geometric minimum stock, not a prediction of printed breaking strength.
+    # A 2.2 mm ligament must remain above and beside the 1.1 mm working bore.
+    for n,y,d in m['holes']:
+        for dy in m['bearing_offsets']:
+            for axial in (-1.3,0,1.3):
+                for angle in range(0,181,15):
+                    a=math.radians(angle)
+                    assert m['frame'].is_inside(Vector(
+                        m['pivot_x']+2.75*math.cos(a),y+dy+axial,
+                        m['pivot_z']+2.75*math.sin(a)))
+            # Wider material carries the bearing into the existing pedestal.
+            for z in (-0.8,-1.5,-2.5,-3.5):
+                for dx in (-2.7,2.7):
+                    assert m['frame'].is_inside(Vector(m['pivot_x']+dx,y+dy,z))
+
+
 def test_print_parts_and_round_trips(model):
     m=model
     output=Path(__file__).resolve().parents[1]/'build/three-key'

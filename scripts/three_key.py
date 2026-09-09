@@ -43,7 +43,9 @@ adjacent_hole_margin = 1.0
 rail_width = 7.0
 return_rail_width = 5.0 # Opposite-side connection between the two clamp bases
 rail_top = clamp_split_z-clamp_split_gap/2
-ear_thickness = 3.0
+ear_thickness = 3.2 # Retains 0.5 mm pin protrusion at each end of a 12 mm pin
+support_head_radius = 3.0 # Independent of the rotating hub: thicker fixed bearing crown
+pin_lead_in = 0.25 # Shallow conical entry on both faces; bore stays 1.1 mm
 support_root_width = 6.0
 support_bridge_drop = 2.3 # 0.3 mm below the rotating 2 mm radius hub
 support_tail_bridge_drop = 2.9 # Clears the tail at full opening
@@ -187,14 +189,21 @@ opening_stops={}
 bearing_offsets = [-hub_length/2-axial_clearance-ear_thickness/2,hub_length/2+axial_clearance+ear_thickness/2]
 for number,y,d in holes:
     for dy in bearing_offsets:
-        ear=box_at(pivot_x-hub_radius,pivot_x+hub_radius,y+dy-ear_thickness/2,y+dy+ear_thickness/2,rail_top-0.5,pivot_z)
-        ear=checked(ear.fuse(cyl_y(hub_radius,ear_thickness,pivot_x,y+dy,pivot_z)))
+        ear=box_at(pivot_x-support_head_radius,pivot_x+support_head_radius,y+dy-ear_thickness/2,y+dy+ear_thickness/2,rail_top-0.5,pivot_z)
+        ear=checked(ear.fuse(cyl_y(support_head_radius,ear_thickness,pivot_x,y+dy,pivot_z)))
         # Full rail-width buttress below the pin; no slender tapered lower stem.
         root=box_at(rail_x_min,rail_x_max,y+dy-ear_thickness/2,y+dy+ear_thickness/2,
                     rail_top-0.5,pivot_z-support_shoulder_drop)
         ear=checked(ear.fuse(root))
         frame=checked(frame.fuse(ear))
         frame=checked(frame-cyl_y((pivot_diameter+pivot_support_clearance)/2,ear_thickness+0.2,pivot_x,y+dy,pivot_z))
+        # Guide the pin into each bore rather than loading a sharp printed lip.
+        bore_r=(pivot_diameter+pivot_support_clearance)/2
+        for side in (-1,1):
+            mouth=Plane(origin=(pivot_x,y+dy+side*ear_thickness/2,pivot_z),
+                        z_dir=(0,-side,0))*Cone(bore_r+pin_lead_in,bore_r,pin_lead_in,
+                                              align=(Align.CENTER,Align.CENTER,Align.MIN))
+            frame=checked(frame-mouth)
     # Broad positive opening stop matches the underside of the rear key tail.
     stop_x0=pivot_x-2.5
     stop_x1=pivot_x-1.0
