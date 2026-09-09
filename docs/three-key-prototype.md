@@ -187,3 +187,23 @@ back down. Print the new keys and pads together; reuse the frame and hardware.
 Tests cover tab insertion, correct/incorrect orientation, full seating,
 interchangeability, key travel and the continuous sealing band. Confirm the
 nominal tab clearance in the PETG/95A TPU printing trial.
+
+## Clamp cap flat-end correction — 2026-09-09
+
+The previous 4 mm curved band was centred between 6 mm bolt tabs. With a tab
+end on the bed, the curved band started 1 mm in mid-air. That orientation was
+incorrect for support-free printing; disabling supports did not make it printable.
+
+The bed-facing tab ends now finish flush with the curved band. Tab axial width
+is 5 mm, from -2 to +3 mm relative to the bolt centres; the opposite ends retain
+their previous positions. Ring width, ring position, bolt centres and clamp gap
+are unchanged. The shortest axial ligament beside a 2.4 mm bolt bore is 0.8 mm;
+check the PETG tabs during tightening. Print the supplied orientation, with the
+complete flat C-shaped end on the bed. The small horizontal bolt bores still
+require short bridges, but the curved band no longer starts unsupported.
+
+A first-layer section test verifies one connected full-profile footprint, rather
+than two disconnected bolt-tab islands. Reprint only the three clamp caps. The
+frame, keys, pads and hardware remain compatible.
+
+![Clamp cap with complete flat bed face](clamp-cap-flat-end.png)

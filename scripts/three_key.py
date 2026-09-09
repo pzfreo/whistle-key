@@ -162,6 +162,9 @@ for y in clamp_ys:
         upper=checked(upper.fuse(box_at((-lug_x-lug_width/2 if x<0 else lug_inner_x),(-lug_inner_x if x<0 else lug_x+lug_width/2),y-clamp_width/2,y+clamp_width/2,clamp_split_z-clamp_split_gap/2-lug_height,clamp_split_z-clamp_split_gap/2)))
         cap=checked(cap.fuse(box_at((-lug_x-lug_width/2 if x<0 else lug_inner_x),(-lug_inner_x if x<0 else lug_x+lug_width/2),y-clamp_width/2,y+clamp_width/2,clamp_split_z+clamp_split_gap/2,clamp_split_z+clamp_split_gap/2+lug_height)))
         cap=checked(cap-hole_z(x,y,-15,15,screw_clearance_d))
+    # Trim only the bed-facing tab overhang so the entire curved band starts
+    # on the bed after +90-degree X rotation. Keep band and bolt positions.
+    cap=checked(cap & box_at(-30,30,y-clamp_band_width/2,y+clamp_width/2,-20,20))
     # Open throat lets the deeper cap lift off the tube without sliding from its end.
     cap=checked(cap-box_at(-clamp_inner_r,clamp_inner_r,y-clamp_width,y+clamp_width,-20,0))
     frame=checked(frame.fuse(upper))

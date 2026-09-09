@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 import trimesh
-from build123d import Axis, Compound, Location, Pos, RegularPolygon, ShapeList, Vector, extrude, import_step
+from build123d import Axis, Compound, Location, Pos, RegularPolygon, ShapeList, Vector, Plane, section, extrude, import_step
 from scripts.build_ci import load_model
 
 
@@ -210,3 +210,19 @@ def test_pad_tabs_guide_insertion_and_prevent_crosswise_seating(model):
     assert m['lever_bottom']-m['pad_tab_height']>m['r']+1
     assert pad.bounding_box().size.Y<key.bounding_box().size.Y
     # Continuous seal-band assertions above still apply to each larger, tabbed pad.
+
+
+def test_clamp_cap_band_starts_on_bed_without_a_floating_arch(model):
+    m=model
+    cap=m['print_parts']['clamp_cap_print']
+    first=section(cap,section_by=Plane.XY.offset(0.08))
+    # Previously only two disconnected tab islands existed in the first 1 mm.
+    assert len(first.faces())==1
+    assert first.bounding_box().size.X==pytest.approx(cap.bounding_box().size.X)
+    assert first.bounding_box().size.Y==pytest.approx(cap.bounding_box().size.Y)
+    assert cap.bounding_box().size.Z==pytest.approx(5.0)
+    for original,y in zip(m['caps'],m['clamp_ys']):
+        assert original.bounding_box().min.Y==pytest.approx(y-m['clamp_band_width']/2)
+        assert original.bounding_box().max.Y==pytest.approx(y+m['clamp_width']/2)
+        # Preserve >=0.8 mm axial wall from the clearance bore to the trimmed edge.
+        assert m['clamp_band_width']/2-m['screw_clearance_d']/2>=0.8-1e-6

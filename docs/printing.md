@@ -82,3 +82,9 @@ notches to every key. Pad body OD remains 12.30 mm; overall tab-to-tab length
 is 13.80 mm. Print the pad flat backing and tabs together on the bed. Align the
 tabs, seat the backing against the cup roof and glue. Reprint keys and pads
 for this revision; the frame and hardware are reusable.
+
+Clamp-cap correction (2026-09-09): use the latest caps with their complete
+flat C-shaped ends on the bed. The previous 6 mm tabs held the 4 mm band 1 mm
+above the bed. One end of the tabs is now trimmed flush, giving 5 mm tab width;
+bolt positions and curved-band position are unchanged. Supports remain off for
+caps; the 2.4 mm horizontal bolt bores use short bridges. Reprint three caps only.
