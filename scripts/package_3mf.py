@@ -36,14 +36,14 @@ THREE_KEY_PLATES = [
     ('1 PETG - pin fit coupon', (0,0), [('pin_fit_coupon','Pin fit coupon',(116,124),1)]),
     ('2 PETG - three-key mechanism', (307.2,0), [
         ('frame_print','Three-key frame - flat base down',(60,80),1),
-        *[(f'lever{n}_print',f'Key {n} - finger face down',(105,80+30*i),1)
+        *[(f'lever{n}_print',f'Common key copy {i+1} - finger face down',(105,80+30*i),1)
           for i,n in enumerate([4,5,6])],
         ('clamp_cap_print','Clamp cap 1 - end face down',(150,80),1),
         ('clamp_cap_print','Clamp cap 2 - end face down',(150,115),1),
         ('clamp_cap_print','Clamp cap 3 - end face down',(150,150),1),
     ]),
     ('3 TPU 95A - three pads', (0,-307.2), [
-        (f'tpu_pad{n}_print',f'Pad {n} - flat back down',(85+35*i,120),2)
+        (f'tpu_pad{n}_print',f'Common pad copy {i+1} - flat back down',(85+35*i,120),2)
         for i,n in enumerate([4,5,6])
     ]),
 ]
@@ -63,7 +63,7 @@ def package(source, output, dry_run=False, three_key=False):
         plates = [("PETG dry fit - all six parts", (0, 0), entries)]
     if three_key and dry_run:
         entries=list(THREE_KEY_PLATES[1][2])+[
-            (f'tpu_pad{n}_print',f'Rigid pad {n} - PETG dry fit',(135+25*i,175),1)
+            (f'tpu_pad{n}_print',f'Common rigid pad copy {i+1} - PETG dry fit',(135+25*i,175),1)
             for i,n in enumerate([4,5,6])
         ]+[('pin_fit_coupon','Pin fit coupon',(160,210),1)]
         plates=[('PETG dry fit - three keys, eleven parts',(0,0),entries)]

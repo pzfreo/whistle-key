@@ -184,3 +184,14 @@ def test_nuts_insert_from_below_seat_and_cannot_spin(model):
             for angle in range(0,360,30):
                 a=math.radians(angle)
                 assert m['frame'].is_inside(Vector(x+probe_radius*math.cos(a),y+probe_radius*math.sin(a),m['rail_bottom']+0.8))
+
+
+def test_all_three_keys_and_pads_are_interchangeable(model):
+    # Compare occupied solids, not just nominal diameters or equal volumes.
+    for collection in ('levers', 'pad_blanks'):
+        reference = model[collection][4]
+        for n in (5, 6):
+            candidate = model[collection][n]
+            common_volume = volume(reference, candidate)
+            assert reference.volume + candidate.volume - 2*common_volume < 1e-5
+    assert list(model['pad_sizes'].values()) == pytest.approx([12.3]*3)

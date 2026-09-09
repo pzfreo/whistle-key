@@ -1,9 +1,9 @@
 # Measured three-key prototype
 
-The working hole-4 mechanism is extended to holes 4, 5 and 6 on one 70.595 mm
+The working hole-4 mechanism is extended to holes 4, 5 and 6 on one 71.595 mm
 frame. Each curved key has its own normally open coil spring, 1 × 12 mm steel
-pin and glued concave TPU pad. Hole 4's key and pad geometry is retained;
-holes 5 and 6 have larger pads and cups. All geometry is metric and controlled
+pin and glued concave TPU pad. All three keys and pads are now identical,
+sized for the largest measured hole (7.80 mm). All geometry is metric and controlled
 by `scripts/three_key.py`.
 
 ## Measurements and pad sizes
@@ -13,9 +13,9 @@ derived separately from the axial diameters, as requested by the player.
 
 | Hole | Bottom edge | Axial diameter | Centre | Pad OD | Cup OD |
 |---|---:|---:|---:|---:|---:|
-| 4 | 79.15 | 5.09 | 81.695 | 9.59 | 11.49 |
+| 4 | 79.15 | 5.09 | 81.695 | 12.30 | 14.20 |
 | 5 | 62.05 | 7.80 | 65.950 | 12.30 | 14.20 |
-| 6 | 35.30 | 7.60 | 39.100 | 12.10 | 14.00 |
+| 6 | 35.30 | 7.60 | 39.100 | 12.30 | 14.20 |
 
 Centre spacings are 15.745 mm and 26.850 mm. Hole 3 is included as a reference
 at centre 102.90 mm, diameter 5.80 mm. The unkeyed hole 3 bottom edge is 100 mm.
@@ -24,7 +24,8 @@ Transverse sizes of holes 5 and 6 are unconfirmed. The model uses circular
 clearance envelopes with the measured axial diameters, conservatively covering
 holes whose transverse dimensions do not exceed those values. These envelopes
 are not a claim that the real holes are circular or an acoustic whistle model.
-The new pads require a sealing trial; only the hole-4 TPU pad has been tried.
+The player confirmed the recorded hole measurements on 2026-09-09. The common
+pads require a sealing trial; only the earlier, smaller hole-4 TPU pad has been tried.
 
 ## Frame and clamps
 
@@ -74,15 +75,16 @@ profiles, then slice and inspect supports. These files contain no G-code.
   one PETG plate, including rigid pads for a mechanical trial only.
 - `exports/three-key/assembly-open.step`: complete assembly for review.
 - `exports/three-key/print-oriented/`: separate STEP/STL parts; print the cap
-  three times. Key and pad filenames identify the intended hole number.
+  three times. Numbered key/pad filenames are retained for compatibility;
+  their geometry is identical and each fits any of the three positions.
 
 The frame rests flat on its base. Keys rest on their finger faces, caps
 on end faces, and pads on their flat backs. Supports are enabled for the frame
 and keys. PETG uses 0.16 mm layers and four walls; TPU pads use 0.12 mm layers
-and solid infill. Use ordinary 95A TPU from the external spool. Keep the parts
-identified by hole number; pads 5 and 6 are similar in size but distinct.
-The latest single-key hole-4 key/pad can be reused if already printed; older
-versions should be compared with the supplied files.
+and solid infill. Use ordinary 95A TPU from the external spool. Print three
+identical keys and three identical pads; no markings or sorting are needed.
+The frame, caps, pins and springs are reusable. The previous hole-5 key/pad
+already has the common dimensions; the old hole-4 and hole-6 parts differ.
 
 ## Verification
 
@@ -155,5 +157,9 @@ starting its bolt. Bolts can protrude farther below the frame with recessed nuts
 Tests check the full nut insertion sweep, fit at the seated position, contact
 with the bearing roof, blocked rotation and material around each pocket.
 Printed nut fit and resistance to tightening torque still need a physical trial.
-Key/pad sizing is unchanged by this revision; the requested common parts for
-holes 5 and 6 are pending the player's axial and transverse remeasurements.
+The nut-pocket revision retained individual pad sizes. On 2026-09-09 the player
+confirmed the measurements and requested identical parts for all three positions.
+The shared pad is 12.30 mm OD; cup ID is 12.60 mm and head OD is 14.20 mm.
+Minimum axial head-to-head clearance is 1.545 mm throughout rotation. The
+common geometry is tested for interchangeability, travel and sealing coverage.
+The larger hole-4 head still needs a playing trial for finger comfort.

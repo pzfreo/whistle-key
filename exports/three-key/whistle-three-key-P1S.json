@@ -37,7 +37,7 @@
   },
   {
     "id": 3,
-    "name": "Key 4 - finger face down",
+    "name": "Common key copy 1 - finger face down",
     "source": "lever4_print.stl",
     "plate": 2,
     "filament": 1,
@@ -47,15 +47,15 @@
       0.0
     ],
     "local_max": [
-      125.44499969482422,
-      91.4896411895752,
+      126.79999923706055,
+      94.1982069015503,
       14.699994940893554
     ],
-    "volume_mm3": 506.5982115829949
+    "volume_mm3": 662.0037836626058
   },
   {
     "id": 4,
-    "name": "Key 5 - finger face down",
+    "name": "Common key copy 2 - finger face down",
     "source": "lever5_print.stl",
     "plate": 2,
     "filament": 1,
@@ -66,14 +66,14 @@
     ],
     "local_max": [
       126.79999923706055,
-      124.1982069015503,
+      124.19982624053955,
       14.699994940893554
     ],
-    "volume_mm3": 662.0037836626058
+    "volume_mm3": 662.0820288582075
   },
   {
     "id": 5,
-    "name": "Key 6 - finger face down",
+    "name": "Common key copy 3 - finger face down",
     "source": "lever6_print.stl",
     "plate": 2,
     "filament": 1,
@@ -83,11 +83,11 @@
       0.0
     ],
     "local_max": [
-      126.70000076293945,
-      153.9983730316162,
+      126.79999923706055,
+      154.19982624053955,
       14.699994940893554
     ],
-    "volume_mm3": 649.3112665443389
+    "volume_mm3": 662.0820288582075
   },
   {
     "id": 6,
@@ -145,7 +145,7 @@
   },
   {
     "id": 9,
-    "name": "Pad 4 - flat back down",
+    "name": "Common pad copy 1 - flat back down",
     "source": "tpu_pad4_print.stl",
     "plate": 3,
     "filament": 2,
@@ -155,15 +155,15 @@
       0.0
     ],
     "local_max": [
-      94.58964824676514,
-      129.5891056060791,
-      4.738349337713622
+      97.29956912994385,
+      132.29939460754395,
+      6.571502108709716
     ],
-    "volume_mm3": 234.43607864925028
+    "volume_mm3": 425.4130477954663
   },
   {
     "id": 10,
-    "name": "Pad 5 - flat back down",
+    "name": "Common pad copy 2 - flat back down",
     "source": "tpu_pad5_print.stl",
     "plate": 3,
     "filament": 2,
@@ -173,15 +173,15 @@
       0.0
     ],
     "local_max": [
-      132.29956912994385,
-      132.29939460754395,
+      132.30000019073486,
+      132.2988600730896,
       6.571502108709716
     ],
-    "volume_mm3": 425.4130477954663
+    "volume_mm3": 425.42211908970694
   },
   {
     "id": 11,
-    "name": "Pad 6 - flat back down",
+    "name": "Common pad copy 3 - flat back down",
     "source": "tpu_pad6_print.stl",
     "plate": 3,
     "filament": 2,
@@ -191,10 +191,10 @@
       0.0
     ],
     "local_max": [
-      167.09981060028076,
-      132.09943294525146,
-      6.382244963781737
+      167.30000019073486,
+      132.2988600730896,
+      6.571502108709716
     ],
-    "volume_mm3": 408.28201060878064
+    "volume_mm3": 425.42211908970694
   }
 ]

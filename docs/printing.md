@@ -71,3 +71,8 @@ For the three-hole extension, use the separate [three-key printing and assembly 
 The three-key frame now has an opposite-side rail and a third clamp between keys 5 and 6. Print its frame flat on the base as supplied, and print three identical caps. It uses six M2 bolts/nuts. The updated projects include all eleven pieces.
 
 The M2 nut-pocket revision changes only the three-key frame. Fit six nuts from underneath after clearing any pocket supports; hex pockets resist rotation while tightening. Current defaults are 4 mm across-flats nuts, 1.6 mm thick. Existing caps, keys and pads remain usable.
+
+As of 2026-09-09, all three numbered keys have identical geometry, and all three
+numbered pads have identical geometry (12.30 mm pad OD / 14.20 mm head OD).
+Print three copies of either key file and three copies of either pad file, or use
+the updated three-key 3MF. Existing frame, caps, pins and springs are reusable.

@@ -70,7 +70,11 @@ reasonable seal. Finger interference and key catching remain P1 issues.
 M2 nut pockets have now been added to the three-key frame, using unconfirmed standard 4 mm across-flats × 1.6 mm nut dimensions.
 
 The latest pin-fit trial uses 1.1 mm fixed bores for a 1.0 × 12 mm steel pin;
-the moving bore is 1.25 mm. The hole 4 pad remains 9.59 mm diameter with a
-continuous concave contact face, based on the confirmed 5.09 mm hole diameter.
+the moving bore is 1.25 mm. All three pads now use a 12.30 mm diameter with
+a continuous concave contact face, sized for the largest hole (7.80 mm).
 
-The player has questioned hole 5/6 sizes again and will remeasure axial and transverse diameters. Common interchangeable key/pad sizing is on hold; no pad dimensions or engravings were changed in the nut-pocket revision.
+On 2026-09-09 the player confirmed the recorded hole measurements as correct.
+The independent bottom edges and diameters above are retained without adjustment.
+All three keys and pads are now interchangeable, as requested; there are no engravings.
+No separate new transverse readings were supplied; the existing circular clearance
+envelopes remain the design assumption.

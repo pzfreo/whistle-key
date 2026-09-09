@@ -74,7 +74,8 @@ nut_boss_diameter = 7.0 # >= 1 mm wall at hex corners
 lug_width = 5.0
 lug_height = 3.5
 rail_bottom = clamp_split_z-clamp_split_gap/2-lug_height # Flush base for flat printing
-tpu_outer_diameter = hole4_d + 4.5
+common_pad_diameter = max(hole4_d, hole5_d, hole6_d) + 4.5
+tpu_outer_diameter = common_pad_diameter
 tpu_interference = 0.2
 pad_ring_height = 1.2
 pad_ring_wall = 0.8
@@ -246,7 +247,8 @@ levers={}
 pad_blanks={}
 pad_sizes={}
 for number,y,d in holes:
-    tpu_outer_diameter=d+4.5
+    # One interchangeable key and pad, sized to cover the largest measured hole.
+    tpu_outer_diameter=common_pad_diameter
     pad_ring_inner_diameter=tpu_outer_diameter+pad_ring_clearance
     pad_ring_outer_diameter=pad_ring_inner_diameter+2*pad_ring_wall
     pad_diameter=pad_ring_outer_diameter

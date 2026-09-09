@@ -100,3 +100,11 @@ Independent assertions check actual cylindrical surfaces (counts, centres,
 axes and depths), all 36 nut-pocket walls, and preservation of the original
 frame geometry under translation. These are geometry checks, not validation
 of metal friction fits, stiffness or manufacturing capability.
+
+## Status update — 2026-09-09
+
+The player has confirmed the recorded hole measurements. The measurement hold
+on the archived P1 sheets is resolved. All three keys/pads now share the hole-5
+size; this changes no frame geometry or hole coordinates. The P1 PDFs and trial
+report are retained as issued. Material, metal pin retention and machining
+intent still need resolution before a manufacturing release.
