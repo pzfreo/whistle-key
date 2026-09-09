@@ -64,6 +64,8 @@ spring_peg_diameter = 1.2
 spring_peg_tip_diameter = 1.0
 spring_peg_length = 1.5
 spring_seat_width = 3.2
+spring_web_overlap = 0.8 # Extend each side web into its fixed hinge pillar
+spring_web_hub_clearance = 0.3
 spring_closed_length = 2.8 # Fixed CAD seat spacing, not an adjustment screw
 spring_tube_clearance = 0.3
 spring_lateral_offset = 1.25
@@ -217,6 +219,13 @@ for number,y,d in holes:
     # Recess the housing foot clear of the rotating hub.
     seat=checked(seat-box_at(spring_socket_rim_x-0.1,pivot_x+hub_radius+0.3,y-spring_seat_width,y+spring_seat_width,rail_top-1,0.5))
     frame=checked(frame.fuse(seat))
+    # Tie the upright to both bearings on the tube-facing side of the hub.
+    # Keep the spring-facing mouth accessible and the pin approach unobstructed.
+    web_half_width=hub_length/2+axial_clearance+spring_web_overlap
+    web=box_at(pivot_x+hub_radius+spring_web_hub_clearance,spring_floor_x+0.9,
+               y-web_half_width,y+web_half_width,
+               rail_top-0.2,spring_z+spring_seat_width/2)
+    frame=checked(frame.fuse(web))
     socket=Pos((spring_socket_rim_x+spring_floor_x)/2-0.05,y,spring_z)*Rot(0,90,0)*Cylinder((spring_od+spring_fit)/2,spring_floor_x-spring_socket_rim_x+0.1)
     frame=checked(frame-socket)
 # A continuous low spine joins all three pedestals without tall free-standing stems.

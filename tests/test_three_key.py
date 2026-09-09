@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 import trimesh
-from build123d import Axis, Compound, Location, Pos, RegularPolygon, ShapeList, Vector, Plane, section, extrude, import_step
+from build123d import Align, Cylinder, Axis, Compound, Location, Pos, RegularPolygon, ShapeList, Vector, Plane, section, extrude, import_step
 from scripts.build_ci import load_model
 
 
@@ -244,3 +244,21 @@ def test_clamp_cap_band_starts_on_bed_without_a_floating_arch(model):
         assert original.bounding_box().max.Y==pytest.approx(y+m['clamp_width']/2)
         # Preserve >=0.8 mm axial wall from the clearance bore to the trimmed edge.
         assert m['clamp_band_width']/2-m['screw_clearance_d']/2>=0.8-1e-6
+
+
+def test_spring_uprights_are_tied_to_both_bearings(model):
+    m=model
+    for n,y,d in m['holes']:
+        # A solid 0.5 x 1 mm section crosses each former upright/pillar gap.
+        for side in (-1,1):
+            lo,hi=sorted((y+side*1.5,y+side*2.5))
+            link=m['box_at'](-8.8,-8.3,lo,hi,0.2,1.2)
+            assert volume(link,m['frame'])==pytest.approx(link.volume,abs=1e-6)
+        # The original spring diameter has a clear approach into its socket.
+        approach=Plane(origin=(m['spring_socket_rim_x']-1,y,m['spring_z']),
+                       z_dir=(1,0,0))*Cylinder(
+                           m['spring_od']/2,m['spring_floor_x']-m['spring_socket_rim_x']+1,
+                           align=(Align.CENTER,
+                                  Align.CENTER,
+                                  Align.MIN))
+        assert volume(approach,m['frame'])<1e-5

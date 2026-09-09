@@ -21,3 +21,11 @@ Printability analysis of both old and revised frames reports the same 17 warning
 Physical pin fitting remains to be tested. Support the bearing locally when fitting the pin; if it binds, do not force it through. Printed bore fit and layer adhesion can still affect breakage despite the extra CAD material.
 
 Validation completed: all 17 existing three-key tests passed, the new bearing-stock regression passed separately, and all four print-package tests passed. This includes the full 21-position travel sweep for each key, pin insertion order and clearance, clamp tightening, sealing envelopes, interchangeability, and exported mesh/STEP checks.
+
+## Spring holder joined to the bearings
+
+Following the user's marked screenshot, each spring upright now has a solid web on its whistle-facing side spanning into both bearing pillars. The web is 1.5 mm thick in X, spans 6.2 mm along the whistle and overlaps each pillar by 0.8 mm axially. It rises from the pedestal to the top of the spring holder; the rounded bearing profiles determine the upper extent of contact with the pillars. The spring socket is cut after the union so it retains its original open approach and depth.
+
+Frame volume is now 6636.1026 mm³. MCP solid validity and STEP export gates pass. A focused regression verifies continuous stock across both former gaps and a clear spring insertion envelope. Printability analysis still reports 17 warnings and no errors; the three existing 0.3 mm overhang ledges have larger areas because of the webs. Existing frame support settings are retained. Printed strength remains to be confirmed by a physical trial.
+
+All 18 existing three-key checks passed after this change, including each key's 21-position motion sweep and pin insertion. The new web/spring-access regression passed separately; all four print-package checks passed.
