@@ -38,7 +38,7 @@ hub_radius = 2.0
 hub_length = 4.0
 hinge_bore_min_wall = 0.9 # Continuous collar survives the spring-clearance cut
 hinge_collar_frame_clearance = 0.2
-opening_angle_degrees = 20.0 # Trial low-hinge opening; verify airway and comfort
+opening_angle_degrees = 35.0 # EVA-lined prototype: more clearance above the holes
 liner_thickness = 0.0 # Player uses direct contact with brass
 clamp_radial_clearance = 0.05 # 14.3 mm nominal seat for measured 14.2 mm tube
 clamp_band_width = 4.0 # Raised band; bolt supports retain full clamp_width
@@ -58,7 +58,8 @@ support_head_radius = 3.0 # Independent of the rotating hub: thicker fixed beari
 pin_lead_in = 0.25 # Shallow conical entry on both faces; bore stays 1.1 mm
 support_root_width = 6.0
 support_bridge_drop = 2.3 # 0.3 mm below the rotating 2 mm radius hub
-support_tail_bridge_drop = 2.9 # Clears the tail at full opening
+support_tail_bridge_drop = 3.6 # Clears the tail at the 35-degree opening stop
+support_tail_relief_inset = 0.35 # Keep at least 0.2 mm below the tilted tail at 35 degrees
 support_shoulder_drop = 1.2 # Broad pillar starts below pin approach clearance
 axial_clearance = 0.3
 spring_od = 2.0
@@ -73,6 +74,7 @@ spring_wire_diameter = 0.3
 spring_peg_diameter = 1.2
 spring_peg_tip_diameter = 1.0
 spring_peg_length = 1.5
+spring_holder_top_bevel = 0.8 # Clearance for the wider EVA carrier during opening
 spring_seat_width = 3.2
 spring_web_overlap = 0.8 # Extend each side web into its fixed hinge pillar
 spring_web_hub_clearance = 0.3
@@ -92,6 +94,11 @@ rail_bottom = clamp_split_z-clamp_split_gap/2-lug_height # Flush base for flat p
 common_pad_diameter = max(hole4_d, hole5_d, hole6_d) + 4.5
 tpu_outer_diameter = common_pad_diameter
 tpu_interference = 0.2
+eva_liner_thickness = 1.0 # User's sheet; liner is cut, not printed
+eva_compression_allowance = 0.2 # Trial compression at closure, not measured hardness
+eva_carrier_flare_thickness = 1.0
+eva_template_thickness = 2.0
+eva_template_samples = 128
 pad_ring_height = 1.2
 pad_ring_wall = 0.8
 pad_ring_clearance = 0.3 # Total diametral clearance for glue and printed fit
@@ -127,7 +134,7 @@ lug_x = clamp_outer_r+lug_width/2-0.5
 lug_inner_x = min(lug_x-lug_width/2, math.sqrt(clamp_outer_r**2-(clamp_split_z-clamp_split_gap/2)**2)-0.8)
 
 # Sideways compression spring keeps the key's top clear for the finger.
-spring_z = 2.9 # Raise both seats 0.3 mm; preserve clearance as the spring tilts
+spring_z = 3.1 # Existing 2 x 5 mm spring; clearance through the 35-degree travel
 hinge_collar_radius = (pivot_diameter+pivot_clearance)/2+hinge_bore_min_wall
 spring_floor_x = -(r+1.2) + spring_floor_extra_depth
 spring_moving_x = -(r+1.2) - spring_closed_length
@@ -251,6 +258,14 @@ for number,y,d in holes:
     frame=checked(frame.fuse(web))
     socket=Pos((spring_socket_rim_x+spring_floor_x)/2-0.05,y,spring_z)*Rot(0,90,0)*Cylinder((spring_od+spring_fit)/2,spring_floor_x-spring_socket_rim_x+0.1)
     frame=checked(frame-socket)
+    top_z=spring_z+spring_seat_width/2
+    bevel=Pos(0,y+web_half_width+0.1,0)*extrude(Plane.XZ*Polygon(
+        (spring_holder_back_x-spring_holder_top_bevel,top_z),
+        (spring_holder_back_x+0.1,top_z-spring_holder_top_bevel-0.1),
+        (spring_holder_back_x+0.1,top_z+0.1),
+        (spring_holder_back_x-spring_holder_top_bevel,top_z+0.1),align=None),
+        amount=2*web_half_width+0.2)
+    frame=checked(frame-bevel)
 # A continuous low spine joins all three pedestals without tall free-standing stems.
 spine=box_at(rail_x_min,rail_x_max,
              min(y for _,y,_ in holes)+min(bearing_offsets)-ear_thickness/2,
@@ -263,7 +278,7 @@ for number,y,d in holes:
                   y+min(bearing_offsets)-ear_thickness/2,
                   y+max(bearing_offsets)+ear_thickness/2,
                   rail_top-0.5,pivot_z-support_bridge_drop)
-    tail_clearance=box_at(rail_x_min-1,pivot_x-1,
+    tail_clearance=box_at(rail_x_min-1,pivot_x-support_tail_relief_inset,
                          y-hub_length,y+hub_length,
                          pivot_z-support_tail_bridge_drop,pivot_z+1)
     bridge=checked(bridge-tail_clearance)
@@ -294,6 +309,7 @@ show(opening_stop,'opening_stop')
 
 levers={}
 pad_blanks={}
+foam_blanks={}
 pad_sizes={}
 for number,y,d in holes:
     # One interchangeable key and pad, sized to cover the largest measured hole.
@@ -382,16 +398,32 @@ for number,y,d in holes:
         lever=checked(lever-notch)
     show(lever,'lever_blank'+str(number))
 
-    # Continuous concave TPU contact face and plain flat glue backing.
+    # TPU carrier plus a 1 mm EVA facing. Keep the original contact footprint:
+    # a small supported flare accounts for the outer radius of the curved foam.
+    eva_inner_radius=r-eva_compression_allowance
+    eva_outer_radius=eva_inner_radius+eva_liner_thickness
+    flare_radius_x=(tpu_outer_diameter/2)*eva_outer_radius/eva_inner_radius
+    flare=extrude(Ellipse(flare_radius_x,tpu_outer_diameter/2),amount=lever_bottom)
+    flare=checked(flare & cyl_y(eva_outer_radius+eva_carrier_flare_thickness,
+                               tpu_outer_diameter+2,0,0,0))
     pad_blank=hole_z(0,0,0,lever_bottom,tpu_outer_diameter)
-    pad_blank=checked(pad_blank-cyl_y(r-tpu_interference,tpu_outer_diameter+2,0,0,0))
+    pad_blank=checked(pad_blank.fuse(flare))
+    pad_blank=checked(pad_blank-cyl_y(eva_outer_radius,tpu_outer_diameter+2,0,0,0))
+    contact_faces=[f for f in pad_blank.faces()
+                   if f.geom_type==GeomType.CYLINDER and f.normal_at().Z < -0.5]
+    assert len(contact_faces)==1
+    foam_blank=checked(thicken(contact_faces,amount=eva_liner_thickness))
+    foam_blanks[number]=foam_blank
+    show(foam_blank,'eva_liner'+str(number))
+    pad_tabs=[]
     for sign in (-1, 1):
         tab=box_at(-pad_tab_width/2,pad_tab_width/2,
                     tpu_outer_diameter/2-pad_tab_root_overlap,
                     tpu_outer_diameter/2+pad_tab_extension,
                     lever_bottom-pad_tab_height,lever_bottom)
         if sign < 0: tab=tab.rotate(Axis.Z,180)
-        pad_blank=checked(pad_blank.fuse(tab))
+        pad_tabs.append(tab)
+    pad_blank=checked(pad_blank.fuse(*pad_tabs))
     show(pad_blank,'tpu_pad'+str(number))
 
     levers[number]=lever
@@ -405,6 +437,7 @@ show(tube,'reference_tube')
 
 keys={}
 pads={}
+foam_liners={}
 spring_envelopes={}
 pins={}
 for number,y,d in holes:
@@ -419,6 +452,10 @@ for number,y,d in holes:
     pad=pad.rotate(Axis((pivot_x,y,pivot_z),(0,1,0)),-open_angle)
     pads[number]=pad
     show(pad,'pad'+str(number))
+    foam_liner=foam_blanks[number].moved(Location((0,y,0))).rotate(
+        Axis((pivot_x,y,pivot_z),(0,1,0)),-open_angle)
+    foam_liners[number]=foam_liner
+    show(foam_liner,'foam_liner'+str(number))
     # Straight cylindrical spring envelope follows both pocket centres.
     # Real compression spring flexes/tilts as the lever moves.
     spring_start=Vector(spring_floor_x,y,spring_z)
@@ -437,7 +474,7 @@ for number,y,d in holes:
     show(pin,'pin'+str(number))
 
 # Assembly is a named compound; individual print parts are checked separately.
-assembly=Compound(children=[p.moved(Location()) for p in [frame,*caps,tube,*keys.values(),*pads.values(),*spring_envelopes.values(),*pins.values()]])
+assembly=Compound(children=[p.moved(Location()) for p in [frame,*caps,tube,*keys.values(),*pads.values(),*foam_liners.values(),*spring_envelopes.values(),*pins.values()]])
 assembly.label='Burke_three_key_prototype'
 show(assembly,'assembly_open')
 print('Spring lengths, closed/open/free:',spring_length_closed,spring_length_open,spring_free_length)
@@ -451,6 +488,21 @@ print_parts={
     'frame_print': on_bed(frame),
     'clamp_cap_print': on_bed(caps[0].rotate(Axis.X,90)),
 }
+# Unroll the cylindrical liner at its mid-thickness radius. The shape on flat
+# sheet is wider than its projected circular sealing footprint on the whistle.
+eva_neutral_radius=eva_inner_radius+eva_liner_thickness/2
+eva_outline_points=[]
+for index in range(eva_template_samples):
+    a=2*math.pi*index/eva_template_samples
+    x=(common_pad_diameter/2)*math.cos(a)
+    y=(common_pad_diameter/2)*math.sin(a)
+    eva_outline_points.append((eva_neutral_radius*math.asin(x/eva_inner_radius),y))
+eva_cut_outline=Polygon(*eva_outline_points,align=None)
+template=extrude(eva_cut_outline,amount=eva_template_thickness)
+# Raised grip follows the long (across-whistle) direction. Trace the base edge.
+template=checked(template.fuse(box_at(-4,4,-1.5,1.5,eva_template_thickness-0.1,7)))
+print_parts['eva_cutting_template']=on_bed(template)
+show(eva_cut_outline,'eva_cut_outline')
 for number,y,d in holes:
     print_parts['lever'+str(number)+'_print']=on_bed(levers[number].rotate(Axis.X,180))
     print_parts['tpu_pad'+str(number)+'_print']=on_bed(pad_blanks[number].rotate(Axis.X,180))

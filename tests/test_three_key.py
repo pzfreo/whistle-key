@@ -22,17 +22,23 @@ def model():
 
 
 def volume(a,b):
-    result=a.intersect(b)
-    if result is None:
-        return 0
-    return sum(p.volume for p in result) if isinstance(result,ShapeList) else result.volume
+    # Intersect placed solids individually. OCCT's touching-compound boolean
+    # can report a spurious overlap for the carrier + EVA assembly even when
+    # each solid has positive separation from the obstacle.
+    total=0.0
+    for left in a.solids():
+        for right in b.solids():
+            result=left.intersect(right)
+            if result is not None:
+                total += sum(p.volume for p in result) if isinstance(result,ShapeList) else result.volume
+    return total
 
 
 def pose(m,n,angle):
     y=m['hole_centres'][n]
     axis=Axis((m['pivot_x'],y,m['pivot_z']),(0,1,0))
     return [part.moved(Location((0,y,0))).rotate(axis,-angle)
-            for part in [m['levers'][n],m['pad_blanks'][n]]]
+            for part in [m['levers'][n],Compound(children=[m['pad_blanks'][n],m['foam_blanks'][n]])]]
 
 
 def test_measured_holes_and_independent_spacing(model):
@@ -81,7 +87,7 @@ def test_keys_cannot_collide_in_any_combination(model):
 @pytest.mark.parametrize('n',[4,5,6])
 def test_pad_sealing_band_and_backing(model,n):
     m=model
-    pad=m['pad_blanks'][n]
+    pad=m['foam_blanks'][n]
     for offset in [1.5,1.75,2]:
         radius=m['hole_axial_diameters'][n]/2+offset
         for degree in range(0,360,10):
@@ -89,7 +95,7 @@ def test_pad_sealing_band_and_backing(model,n):
             x,y=radius*math.cos(angle),radius*math.sin(angle)
             z=math.sqrt((m['r']-0.1)**2-x*x)
             assert pad.is_inside(Vector(x,y,z)),(n,offset,degree)
-    assert pad.is_inside(Vector(0,0,m['lever_bottom']-1))
+    assert m['pad_blanks'][n].is_inside(Vector(0,0,m['lever_bottom']-1))
     assert m['pad_sizes'][n]>=m['hole_axial_diameters'][n]+4
 
 
@@ -161,7 +167,7 @@ def test_fixed_bearings_have_reinforced_crowns_and_continuous_stems(model):
 def test_print_parts_and_round_trips(model):
     m=model
     output=Path(__file__).resolve().parents[1]/'build/three-key'
-    assert len(m['print_parts'])==9 # One cap mesh printed three times.
+    assert len(m['print_parts'])==10 # Includes cutting guide; EVA sheet is not printed.
     for name,part in m['print_parts'].items():
         assert part.is_valid and len(part.solids())==1
         assert abs(part.bounding_box().min.Z)<1e-5
@@ -312,6 +318,9 @@ def test_hinge_bore_has_continuous_stock_and_clears_frame(model):
             end=Vector(m['pivot_x']+dx*math.cos(theta)-m['spring_z']*math.sin(theta),
                        y,dx*math.sin(theta)+m['spring_z']*math.cos(theta))
             delta=end-start
+            # Retain at least 0.35 mm nominal preload, without approaching solid.
+            assert delta.length <= m['spring_free_length']-0.35
+            assert delta.length >= m['spring_solid_height']+m['spring_solid_margin']
             spring=Plane(origin=start,z_dir=delta)*Cylinder(m['spring_od']/2,delta.length,
                        align=(Align.CENTER,Align.CENTER,Align.MIN))
             assert installed.distance_to(spring)>=0.2-1e-5
@@ -324,3 +333,31 @@ def test_key_back_has_continuous_stock_above_hinge_tail(model):
     required=m['box_at'](-13.4,-13.0,-1.8,1.8,2.0,3.4)
     for key in m['levers'].values():
         assert volume(required,key)==pytest.approx(required.volume,abs=1e-6)
+
+
+def test_eva_facing_template_and_more_lift(model):
+    m=model
+    assert m['eva_liner_thickness']==pytest.approx(1.0)
+    assert m['spring_od']==pytest.approx(2.0)
+    assert m['spring_free_length']==pytest.approx(5.0)
+    assert m['spring_length_closed']==pytest.approx(2.8)
+    assert m['open_angle']==pytest.approx(35.0)
+    # At least 4.6 mm centre lift and 3 mm nearest-edge clearance at full opening.
+    assert m['pad_centre_lift']>4.6
+    for n in (4,5,6):
+        assert m['foam_liners'][n].distance_to(m['tube'])>3.0
+        # The uncompressed facing uses the original 0.2 mm closure interference.
+        assert volume(m['foam_blanks'][n],m['pad_blanks'][n])<1e-5
+        assert m['pad_blanks'][n].distance_to(m['foam_blanks'][n])<1e-5
+        assert m['foam_blanks'][n].is_valid and len(m['foam_blanks'][n].solids())==1
+    outline=m['eva_cut_outline']
+    assert outline.bounding_box().size.X==pytest.approx(16.2831652,abs=0.01)
+    assert outline.bounding_box().size.Y==pytest.approx(12.3)
+    # The nominal unrolled sheet agrees with the offset-surface volume within
+    # 0.3%, allowing the sampled outline and CAD offset approximation.
+    assert outline.area*m['eva_liner_thickness']==pytest.approx(m['foam_blanks'][4].volume,rel=0.003)
+    guide=m['print_parts']['eva_cutting_template']
+    base=section(guide,section_by=Plane.XY.offset(0.5))
+    assert len(base.faces())==1
+    assert base.area==pytest.approx(outline.area,rel=1e-5)
+    assert guide.bounding_box().size.Z==pytest.approx(7)

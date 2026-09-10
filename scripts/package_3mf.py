@@ -41,9 +41,10 @@ THREE_KEY_PLATES = [
         ('clamp_cap_print','Clamp cap 1 - end face down',(150,80),1),
         ('clamp_cap_print','Clamp cap 2 - end face down',(150,115),1),
         ('clamp_cap_print','Clamp cap 3 - end face down',(150,150),1),
+        ('eva_cutting_template','EVA liner cutting guide - flat base down',(60,165),1),
     ]),
-    ('3 TPU 95A - three pads', (0,-307.2), [
-        (f'tpu_pad{n}_print',f'Common pad copy {i+1} - flat back down',(85+35*i,120),2)
+    ('3 TPU 95A - EVA pad carriers', (0,-307.2), [
+        (f'tpu_pad{n}_print',f'TPU carrier {i+1} for 1 mm EVA - flat back down',(85+35*i,120),2)
         for i,n in enumerate([4,5,6])
     ]),
 ]
@@ -63,10 +64,10 @@ def package(source, output, dry_run=False, three_key=False):
         plates = [("PETG dry fit - all six parts", (0, 0), entries)]
     if three_key and dry_run:
         entries=list(THREE_KEY_PLATES[1][2])+[
-            (f'tpu_pad{n}_print',f'Common rigid pad copy {i+1} - PETG dry fit',(135+25*i,175),1)
+            (f'tpu_pad{n}_print',f'EVA carrier {i+1} - PETG dry fit',(135+25*i,175),1)
             for i,n in enumerate([4,5,6])
         ]+[('pin_fit_coupon','Pin fit coupon',(160,210),1)]
-        plates=[('PETG dry fit - three keys, eleven parts',(0,0),entries)]
+        plates=[('PETG dry fit - three keys and cutting guide',(0,0),entries)]
     expected_count=sum(len(entries) for _,_,entries in plates)
     wrapper = lib3mf.Wrapper()
     model = wrapper.CreateModel()

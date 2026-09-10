@@ -2,7 +2,9 @@
 
 A parametric build123d attachment for a brass high-D Burke whistle. The current
 prototype extends the working single key to holes **4, 5 and 6**, with three
-independent curved keys, springs and TPU pads.
+independent curved keys and springs. The latest trial uses **35° opening** and
+**1 mm EVA liners on TPU carriers**; see the [prototype and cutting-guide
+instructions](docs/eva-liner-prototype.md).
 
 See the [three-key prototype](docs/three-key-prototype.md),
 [assembly STEP](exports/three-key/assembly-open.step), and
