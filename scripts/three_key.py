@@ -96,7 +96,6 @@ tpu_outer_diameter = common_pad_diameter
 tpu_interference = 0.2
 eva_liner_thickness = 1.0 # User's sheet; liner is cut, not printed
 eva_compression_allowance = 0.2 # Trial compression at closure, not measured hardness
-eva_carrier_flare_thickness = 1.0
 eva_template_thickness = 2.0
 eva_template_samples = 128
 pad_ring_height = 1.2
@@ -398,16 +397,10 @@ for number,y,d in holes:
         lever=checked(lever-notch)
     show(lever,'lever_blank'+str(number))
 
-    # TPU carrier plus a 1 mm EVA facing. Keep the original contact footprint:
-    # a small supported flare accounts for the outer radius of the curved foam.
+    # Original circular TPU outline, recessed for one 1 mm EVA facing.
     eva_inner_radius=r-eva_compression_allowance
     eva_outer_radius=eva_inner_radius+eva_liner_thickness
-    flare_radius_x=(tpu_outer_diameter/2)*eva_outer_radius/eva_inner_radius
-    flare=extrude(Ellipse(flare_radius_x,tpu_outer_diameter/2),amount=lever_bottom)
-    flare=checked(flare & cyl_y(eva_outer_radius+eva_carrier_flare_thickness,
-                               tpu_outer_diameter+2,0,0,0))
     pad_blank=hole_z(0,0,0,lever_bottom,tpu_outer_diameter)
-    pad_blank=checked(pad_blank.fuse(flare))
     pad_blank=checked(pad_blank-cyl_y(eva_outer_radius,tpu_outer_diameter+2,0,0,0))
     contact_faces=[f for f in pad_blank.faces()
                    if f.geom_type==GeomType.CYLINDER and f.normal_at().Z < -0.5]
@@ -496,7 +489,7 @@ for index in range(eva_template_samples):
     a=2*math.pi*index/eva_template_samples
     x=(common_pad_diameter/2)*math.cos(a)
     y=(common_pad_diameter/2)*math.sin(a)
-    eva_outline_points.append((eva_neutral_radius*math.asin(x/eva_inner_radius),y))
+    eva_outline_points.append((eva_neutral_radius*math.asin(x/eva_outer_radius),y))
 eva_cut_outline=Polygon(*eva_outline_points,align=None)
 template=extrude(eva_cut_outline,amount=eva_template_thickness)
 # Raised grip follows the long (across-whistle) direction. Trace the base edge.

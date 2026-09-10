@@ -8,7 +8,7 @@ The ordered 3 mm springs are not included in this revision.
 ## Opening and spring limits
 
 At the nominal open stop, pad-centre lift is 4.670 mm and the shortest distance
-from the uncompressed EVA surface to the whistle is 3.305 mm. The previous
+from the uncompressed EVA surface to the whistle is 4.163 mm. The previous
 20° TPU-only design had approximately 1.754 mm minimum clearance. All three
 keys share this geometry.
 
@@ -21,7 +21,8 @@ about 0.072 mm compression; 35° is the trial chosen to preserve some preload.
 
 The frame stop and the clearance below the key tail are revised for the larger
 opening. A 0.8 mm bevel on each spring holder’s upper rear corner clears the
-flared carrier during travel. Print the new frame and keys together; reuse the clamp caps and hardware.
+carrier during travel. The frame and keys from the 35° revision are compatible
+with this restored pad outline; reuse the clamp caps and hardware.
 The TPU carriers are also new. The full assembly STEP includes EVA reference
 solids, but these are not included as printed parts in the 3MF.
 
@@ -38,7 +39,7 @@ The raised grip makes it easier to hold while tracing its outside edge.
 
 1. Trace the guide onto the 1 mm EVA sheet and cut around the line. Make one
    liner first to check the fit, then repeat for the other two keys.
-2. The outline is approximately 16.28 × 12.30 mm. Its long direction, parallel
+2. The outline is approximately 13.21 × 12.30 mm. Its long direction, parallel
    to the grip, goes **across** the whistle; its short direction runs along it.
 3. Curve it onto the concave face of the new TPU carrier. It covers the whole
    face: do not cut a hole in its centre. Check the edge alignment before gluing.
@@ -48,8 +49,11 @@ The raised grip makes it easier to hold while tracing its outside edge.
 5. Test one pad for leakage and reliable opening before fitting all three.
 
 The guide is an unrolled outline at the sheet's mid-thickness radius, rather
-than a flat projection of the curved pad. The TPU carrier flares slightly to
-support the outside of the bent foam. Nominal closure assumes 0.2 mm EVA
+than a flat projection of the curved pad. The TPU carrier retains its original 12.3 mm circular outline and locating
+tabs; only the concave face is recessed for the single 1 mm liner. The foam
+contact footprint is narrower across the whistle than in the earlier flared
+trial. The sealing test checks a 1.5 mm band around each hole at the nominal
+mid-compression surface (the flared trial checked 2 mm). Nominal closure assumes 0.2 mm EVA
 compression; foam hardness and adhesive thickness are not measured, so this
 is a prototype allowance, not a proven seal pressure.
 
@@ -58,11 +62,9 @@ is a prototype allowance, not a proven seal pressure.
 Use the normal P1S 3MF for PETG frame/keys/guide and TPU 95A carriers. The PETG-only
 package is a dry-fit option, not the intended flexible carrier. Existing support
 settings for the frame and keys are retained. The guide prints flat without
-supports. The carrier flare extends about 0.9 mm beyond its glue-body edge;
-the automatic printability check flags this small lip and a local 0.68 mm wall.
-Carrier supports remain disabled for this TPU trial: inspect the first print
-for droop and complete walls before making all three. All three keys, carriers
-and cut liners are interchangeable.
+supports. The restored carrier also has no automatic printability findings
+and retains its flat-back-down orientation with supports disabled. All three
+keys, carriers and cut liners are interchangeable.
 
 Automated checks cover 21 travel positions per key, stop engagement, spring
 solid-length margin and at least 0.35 mm preload, 0.2 mm spring/hinge clearance,

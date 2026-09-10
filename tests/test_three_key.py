@@ -88,7 +88,7 @@ def test_keys_cannot_collide_in_any_combination(model):
 def test_pad_sealing_band_and_backing(model,n):
     m=model
     pad=m['foam_blanks'][n]
-    for offset in [1.5,1.75,2]:
+    for offset in [0.5,1.0,1.5]:
         radius=m['hole_axial_diameters'][n]/2+offset
         for degree in range(0,360,10):
             angle=math.radians(degree)
@@ -346,12 +346,15 @@ def test_eva_facing_template_and_more_lift(model):
     assert m['pad_centre_lift']>4.6
     for n in (4,5,6):
         assert m['foam_liners'][n].distance_to(m['tube'])>3.0
+        # Retain the original 12.3 mm outline across the whistle and original tabs.
+        assert m['pad_blanks'][n].bounding_box().size.X==pytest.approx(12.3)
+        assert m['pad_blanks'][n].bounding_box().size.Y==pytest.approx(13.8)
         # The uncompressed facing uses the original 0.2 mm closure interference.
         assert volume(m['foam_blanks'][n],m['pad_blanks'][n])<1e-5
         assert m['pad_blanks'][n].distance_to(m['foam_blanks'][n])<1e-5
         assert m['foam_blanks'][n].is_valid and len(m['foam_blanks'][n].solids())==1
     outline=m['eva_cut_outline']
-    assert outline.bounding_box().size.X==pytest.approx(16.2831652,abs=0.01)
+    assert outline.bounding_box().size.X==pytest.approx(13.20454,abs=0.01)
     assert outline.bounding_box().size.Y==pytest.approx(12.3)
     # The nominal unrolled sheet agrees with the offset-surface volume within
     # 0.3%, allowing the sampled outline and CAD offset approximation.
