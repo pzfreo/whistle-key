@@ -28,7 +28,7 @@ arm_reinforcement_full_z = 6.0
 arm_width_blend_start_z = 5.5 # Preserve the spring shoulder and hinge interfaces
 arm_width_blend_end_z = 7.5
 arm_transition_radius = 0.8 # Filled inside corner above spring housing
-pad_diameter = 11.0
+pad_diameter = 14.2 # Integral pad face; keeps the previous key envelope
 pivot_offset = 4.15
 pivot_diameter = 1.0
 pivot_length = 12.0
@@ -91,24 +91,12 @@ nut_boss_diameter = 7.0 # >= 1 mm wall at hex corners
 lug_width = 5.0
 lug_height = 3.5
 rail_bottom = clamp_split_z-clamp_split_gap/2-lug_height # Flush base for flat printing
-common_pad_diameter = max(hole4_d, hole5_d, hole6_d) + 4.5
-tpu_outer_diameter = common_pad_diameter
-tpu_interference = 0.2
-eva_liner_thickness = 1.0 # User's sheet; liner is cut, not printed
+# The EVA is glued straight onto the key, so there is no separate TPU carrier
+# and no retaining ring: the whole pad face is one uninterrupted glue surface.
+eva_liner_thickness = 2.0 # User's sheet; liner is cut, not printed
 eva_compression_allowance = 0.2 # Trial compression at closure, not measured hardness
 eva_template_thickness = 2.0
 eva_template_samples = 128
-pad_ring_height = 1.2
-pad_ring_wall = 0.8
-pad_ring_clearance = 0.3 # Total diametral clearance for glue and printed fit
-pad_tab_width = 1.6
-pad_tab_height = 0.9 # Flush with glue backing; clear of the sealing face
-pad_tab_extension = 0.75
-pad_tab_root_overlap = 0.5
-pad_notch_side_clearance = 0.2 # Each side, PETG/TPU trial fit
-pad_ring_inner_diameter = tpu_outer_diameter + pad_ring_clearance
-pad_ring_outer_diameter = pad_ring_inner_diameter + 2*pad_ring_wall
-pad_diameter = max(pad_diameter, pad_ring_outer_diameter)
 # Derived geometry; all lengths mm, angles degrees.
 r = tube_od/2
 tube_id = tube_od-2*tube_wall
@@ -118,6 +106,9 @@ arm_radius = lever_bottom+lever_thickness/2
 pivot_x = -arm_radius
 pivot_z = 0.0
 open_angle = opening_angle_degrees
+eva_inner_radius = r-eva_compression_allowance # Uncompressed sealing surface
+eva_outer_radius = eva_inner_radius+eva_liner_thickness # Recess floor in the carrier
+pad_backing_thickness = lever_bottom+lever_thickness-eva_outer_radius # PETG above the recess
 pad_centre_lift = arm_radius*math.sin(math.radians(open_angle))+lever_bottom*(math.cos(math.radians(open_angle))-1)
 rail_x_min = pivot_x-rail_width/2
 rail_x_max = pivot_x+rail_width/2
@@ -145,6 +136,8 @@ rail_x_min = min(rail_x_min, -lug_x-lug_width/2)
 assert spring_length_closed > spring_solid_height+spring_solid_margin
 assert pad_diameter > max(hole4_d,hole5_d,hole6_d)+2
 assert min(hole4_y-hole5_y,hole5_y-hole6_y)>pad_diameter+1
+# The recess must not eat through the key plate above it.
+assert pad_backing_thickness >= 2.0
 
 def checked(shape):
     info=measure(shape)
@@ -307,16 +300,11 @@ show(frame,'frame')
 show(opening_stop,'opening_stop')
 
 levers={}
-pad_blanks={}
 foam_blanks={}
 pad_sizes={}
 for number,y,d in holes:
-    # One interchangeable key and pad, sized to cover the largest measured hole.
-    tpu_outer_diameter=common_pad_diameter
-    pad_ring_inner_diameter=tpu_outer_diameter+pad_ring_clearance
-    pad_ring_outer_diameter=pad_ring_inner_diameter+2*pad_ring_wall
-    pad_diameter=pad_ring_outer_diameter
-    pad_sizes[number]=tpu_outer_diameter
+    # One interchangeable key, sized to cover the largest measured hole.
+    pad_sizes[number]=pad_diameter
     # Curved arm follows the tube from a low side pivot up to the pad cup.
     arm_outer=cyl_y(arm_radius+lever_thickness/2,lever_width,0,0,0)
     arm_inner=cyl_y(arm_radius-lever_thickness/2,lever_width+2,0,0,0)
@@ -381,46 +369,20 @@ for number,y,d in holes:
     collar=checked(cyl_y(hinge_collar_radius,hub_length,pivot_x,0,pivot_z)-
                    cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
     lever=checked(lever.fuse(collar))
-    lever=checked(lever-hole_z(0,0,0,lever_bottom,pad_ring_inner_diameter))
-    # Shallow retaining cup: glue the flat-backed TPU pad inside this ring.
-    pad_ring=checked(hole_z(0,0,lever_bottom-pad_ring_height,lever_bottom+0.1,pad_ring_outer_diameter)-hole_z(0,0,lever_bottom-pad_ring_height-0.1,lever_bottom+0.2,pad_ring_inner_diameter))
-    lever=checked(lever.fuse(pad_ring))
-    # Opposed axial notches open toward the pad; the solid cup roof sets seating.
-    # 180-degree reversal is equivalent for the cylindrical sealing face.
-    for sign in (-1, 1):
-        notch=box_at(-(pad_tab_width/2+pad_notch_side_clearance),
-                      pad_tab_width/2+pad_notch_side_clearance,
-                      tpu_outer_diameter/2-pad_tab_root_overlap,
-                      pad_ring_outer_diameter/2+0.1,
-                      lever_bottom-pad_ring_height-0.01,lever_bottom)
-        if sign < 0: notch=notch.rotate(Axis.Z,180)
-        lever=checked(lever-notch)
-    show(lever,'lever_blank'+str(number))
-
-    # Original circular TPU outline, recessed for one 1 mm EVA facing.
-    eva_inner_radius=r-eva_compression_allowance
-    eva_outer_radius=eva_inner_radius+eva_liner_thickness
-    pad_blank=hole_z(0,0,0,lever_bottom,tpu_outer_diameter)
-    pad_blank=checked(pad_blank-cyl_y(eva_outer_radius,tpu_outer_diameter+2,0,0,0))
-    contact_faces=[f for f in pad_blank.faces()
+    # Integral dished pad boss: the key plate carries the foam directly, so the
+    # glue face is a single cylindrical surface with no ring, notch or step.
+    pad_boss=hole_z(0,0,0,lever_bottom+lever_thickness,pad_diameter)
+    pad_boss=checked(pad_boss-cyl_y(eva_outer_radius,pad_diameter+2,0,0,0))
+    contact_faces=[f for f in pad_boss.faces()
                    if f.geom_type==GeomType.CYLINDER and f.normal_at().Z < -0.5]
     assert len(contact_faces)==1
     foam_blank=checked(thicken(contact_faces,amount=eva_liner_thickness))
     foam_blanks[number]=foam_blank
     show(foam_blank,'eva_liner'+str(number))
-    pad_tabs=[]
-    for sign in (-1, 1):
-        tab=box_at(-pad_tab_width/2,pad_tab_width/2,
-                    tpu_outer_diameter/2-pad_tab_root_overlap,
-                    tpu_outer_diameter/2+pad_tab_extension,
-                    lever_bottom-pad_tab_height,lever_bottom)
-        if sign < 0: tab=tab.rotate(Axis.Z,180)
-        pad_tabs.append(tab)
-    pad_blank=checked(pad_blank.fuse(*pad_tabs))
-    show(pad_blank,'tpu_pad'+str(number))
+    lever=checked(lever.fuse(pad_boss))
+    show(lever,'lever_blank'+str(number))
 
     levers[number]=lever
-    pad_blanks[number]=pad_blank
 
 # Reference lower tube segment, not an acoustically designed whistle.
 tube=checked(cyl_y(r,120,0,60,0)-cyl_y(tube_id/2,122,0,60,0))
@@ -429,7 +391,6 @@ for number,y,d in [(n,hole_centres[n],hole_axial_diameters[n]) for n in [3,4,5,6
 show(tube,'reference_tube')
 
 keys={}
-pads={}
 foam_liners={}
 spring_envelopes={}
 pins={}
@@ -441,10 +402,6 @@ for number,y,d in holes:
     frame.joints[label].connect_to(key.joints['pivot'],angle=-open_angle)
     keys[number]=key
     show(key,label)
-    pad=pad_blanks[number].moved(Location((0,y,0)))
-    pad=pad.rotate(Axis((pivot_x,y,pivot_z),(0,1,0)),-open_angle)
-    pads[number]=pad
-    show(pad,'pad'+str(number))
     foam_liner=foam_blanks[number].moved(Location((0,y,0))).rotate(
         Axis((pivot_x,y,pivot_z),(0,1,0)),-open_angle)
     foam_liners[number]=foam_liner
@@ -467,9 +424,18 @@ for number,y,d in holes:
     show(pin,'pin'+str(number))
 
 # Assembly is a named compound; individual print parts are checked separately.
-assembly=Compound(children=[p.moved(Location()) for p in [frame,*caps,tube,*keys.values(),*pads.values(),*foam_liners.values(),*spring_envelopes.values(),*pins.values()]])
+assembly=Compound(children=[p.moved(Location()) for p in [frame,*caps,tube,*keys.values(),*foam_liners.values(),*spring_envelopes.values(),*pins.values()]])
 assembly.label='Burke_three_key_prototype'
 show(assembly,'assembly_open')
+# Closed pose for inspecting the pad stack against the whistle. The blanks are
+# authored in contact with the tube, so closure needs no rotation.
+assembly_closed=Compound(children=[p.moved(Location()) for p in
+    [frame,*caps,tube,
+     *[levers[n].moved(Location((0,hole_centres[n],0))) for n in [4,5,6]],
+     *[foam_blanks[n].moved(Location((0,hole_centres[n],0))) for n in [4,5,6]],
+     *pins.values()]])
+assembly_closed.label='Burke_three_key_prototype_closed'
+show(assembly_closed,'assembly_closed')
 print('Spring lengths, closed/open/free:',spring_length_closed,spring_length_open,spring_free_length)
 print('Pad centre travel and key angle:',pad_centre_lift,open_angle)
 
@@ -487,8 +453,8 @@ eva_neutral_radius=eva_inner_radius+eva_liner_thickness/2
 eva_outline_points=[]
 for index in range(eva_template_samples):
     a=2*math.pi*index/eva_template_samples
-    x=(common_pad_diameter/2)*math.cos(a)
-    y=(common_pad_diameter/2)*math.sin(a)
+    x=(pad_diameter/2)*math.cos(a)
+    y=(pad_diameter/2)*math.sin(a)
     eva_outline_points.append((eva_neutral_radius*math.asin(x/eva_outer_radius),y))
 eva_cut_outline=Polygon(*eva_outline_points,align=None)
 template=extrude(eva_cut_outline,amount=eva_template_thickness)
@@ -496,9 +462,9 @@ template=extrude(eva_cut_outline,amount=eva_template_thickness)
 template=checked(template.fuse(box_at(-4,4,-1.5,1.5,eva_template_thickness-0.1,7)))
 print_parts['eva_cutting_template']=on_bed(template)
 show(eva_cut_outline,'eva_cut_outline')
-for number,y,d in holes:
-    print_parts['lever'+str(number)+'_print']=on_bed(levers[number].rotate(Axis.X,180))
-    print_parts['tpu_pad'+str(number)+'_print']=on_bed(pad_blanks[number].rotate(Axis.X,180))
+# The three keys are one geometry, so export one file and print it three times,
+# as the clamp cap already is.
+print_parts['lever_print']=on_bed(levers[holes[0][0]].rotate(Axis.X,180))
 for name,part in print_parts.items(): show(part,name)
 
 # Horizontal test bores match the printing direction of the actual hinges.

@@ -15,12 +15,12 @@
       151.59500122070312,
       15.800000190734863
     ],
-    "volume_mm3": 6471.514753959303
+    "volume_mm3": 6471.514753985711
   },
   {
     "id": 2,
-    "name": "Common key copy 1 - finger face down",
-    "source": "lever4_print.stl",
+    "name": "Common key 1 - finger face down",
+    "source": "lever_print.stl",
     "plate": 1,
     "filament": 1,
     "local_min": [
@@ -30,15 +30,15 @@
     ],
     "local_max": [
       126.79999923706055,
-      94.19999980926514,
+      94.19800901412964,
       14.699994940893554
     ],
-    "volume_mm3": 748.9162125285488
+    "volume_mm3": 956.2995487855901
   },
   {
     "id": 3,
-    "name": "Common key copy 2 - finger face down",
-    "source": "lever5_print.stl",
+    "name": "Common key 2 - finger face down",
+    "source": "lever_print.stl",
     "plate": 1,
     "filament": 1,
     "local_min": [
@@ -48,15 +48,15 @@
     ],
     "local_max": [
       126.79999923706055,
-      124.19999980926514,
+      124.19800901412964,
       14.699994940893554
     ],
-    "volume_mm3": 748.9162125285488
+    "volume_mm3": 956.2995487855901
   },
   {
     "id": 4,
-    "name": "Common key copy 3 - finger face down",
-    "source": "lever6_print.stl",
+    "name": "Common key 3 - finger face down",
+    "source": "lever_print.stl",
     "plate": 1,
     "filament": 1,
     "local_min": [
@@ -66,10 +66,10 @@
     ],
     "local_max": [
       126.79999923706055,
-      154.19999980926514,
+      154.19800901412964,
       14.699994940893554
     ],
-    "volume_mm3": 748.9162125285488
+    "volume_mm3": 956.2995487855901
   },
   {
     "id": 5,
@@ -137,68 +137,14 @@
       0.0
     ],
     "local_max": [
-      73.2051830291748,
-      177.30000019073486,
+      74.59223556518555,
+      179.19999980926514,
       7.0
     ],
-    "volume_mm3": 365.19563226030476
+    "volume_mm3": 431.749010867414
   },
   {
     "id": 9,
-    "name": "EVA carrier 1 - PETG dry fit",
-    "source": "tpu_pad4_print.stl",
-    "plate": 1,
-    "filament": 1,
-    "local_min": [
-      135.0,
-      175.0,
-      0.0
-    ],
-    "local_max": [
-      147.30000019073486,
-      188.80000019073486,
-      4.741421599523932
-    ],
-    "volume_mm3": 293.9702510804322
-  },
-  {
-    "id": 10,
-    "name": "EVA carrier 2 - PETG dry fit",
-    "source": "tpu_pad5_print.stl",
-    "plate": 1,
-    "filament": 1,
-    "local_min": [
-      160.0,
-      175.0,
-      0.0
-    ],
-    "local_max": [
-      172.30000019073486,
-      188.80000019073486,
-      4.741421599523932
-    ],
-    "volume_mm3": 293.9702510804322
-  },
-  {
-    "id": 11,
-    "name": "EVA carrier 3 - PETG dry fit",
-    "source": "tpu_pad6_print.stl",
-    "plate": 1,
-    "filament": 1,
-    "local_min": [
-      185.0,
-      175.0,
-      0.0
-    ],
-    "local_max": [
-      197.30000019073486,
-      188.80000019073486,
-      4.741421599523932
-    ],
-    "volume_mm3": 293.9702510804322
-  },
-  {
-    "id": 12,
     "name": "Pin fit coupon",
     "source": "pin_fit_coupon.stl",
     "plate": 1,

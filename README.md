@@ -3,14 +3,16 @@
 A parametric build123d attachment for a brass high-D Burke whistle. The current
 prototype extends the working single key to holes **4, 5 and 6**, with three
 independent curved keys and springs. The latest trial uses **35° opening** and
-**1 mm EVA liners on TPU carriers**; see the [prototype and cutting-guide
-instructions](docs/eva-liner-prototype.md).
+**2 mm EVA liners glued straight to the keys**, with no separate TPU carrier;
+see the [prototype and cutting-guide instructions](docs/eva-liner-prototype.md).
 
 See the [three-key prototype](docs/three-key-prototype.md),
 [assembly STEP](exports/three-key/assembly-open.step), and
-[P1S PETG/TPU print project](exports/three-key/whistle-three-key-P1S.3mf).
-An [all-PETG dry-fit project](exports/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf)
-is also supplied. The new source is [scripts/three_key.py](scripts/three_key.py).
+[P1S PETG print project](exports/three-key/whistle-three-key-P1S.3mf).
+A [closed-position assembly STEP](exports/three-key/assembly-closed.step) shows
+the pads seated on the whistle. A
+[single-plate variant](exports/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf)
+of the same PETG parts is also supplied. The new source is [scripts/three_key.py](scripts/three_key.py).
 
 The earlier single-key prototype is retained below for reference.
 

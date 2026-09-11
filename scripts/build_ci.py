@@ -35,6 +35,8 @@ def build(output, model_name="single_key"):
         export_stl(part, str(output / f"{name}.stl"))
         report[name] = {"volume_mm3": part.volume, "faces": len(part.faces())}
     export_step(model["assembly"], str(output / "assembly-open.step"))
+    if "assembly_closed" in model:
+        export_step(model["assembly_closed"], str(output / "assembly-closed.step"))
     (output / "geometry-report.json").write_text(json.dumps(report, indent=2) + "\n")
     print(f"Exported {len(report)} printable parts and assembly to {output}")
 

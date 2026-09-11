@@ -2,7 +2,8 @@
 
 The working hole-4 mechanism is extended to holes 4, 5 and 6 on one 71.595 mm
 frame. Each curved key has its own normally open coil spring, 1 × 12 mm steel
-pin and glued concave TPU pad. All three keys and pads are now identical,
+pin and an integral concave pad face carrying a glued 2 mm EVA liner. All
+three keys are now identical,
 sized for the largest measured hole (7.80 mm). All geometry is metric and controlled
 by `scripts/three_key.py`.
 
@@ -50,7 +51,8 @@ remain separate. Underside hex pockets now stop the M2 nuts turning.
 - Three compression springs, nominal 2 mm OD × 5 mm free length, assumed 2 mm
   solid length and 0.3 mm wire. Spring rates are still unknown.
 - Six M2 bolts and six M2 nuts seated in underside hex pockets; check the existing bolt lengths fit.
-- PETG frame, three caps and three keys; three 95A TPU pads and pad adhesive.
+- PETG frame, three caps and three keys; 2 mm EVA foam sheet and pad adhesive.
+  No TPU part remains: the pad face is printed as part of each key.
 
 Each fixed bearing bore is 1.1 mm for the requested fit trial; each moving bore
 is 1.25 mm. Each peg is 1.5 mm long, tapering from 1.2 to 1.0 mm diameter. The
@@ -69,22 +71,24 @@ and spring fitting still need a trial on this longer assembly.
 Open the 3MF as a project in Bambu Studio, select the actual material and bed
 profiles, then slice and inspect supports. These files contain no G-code.
 
-- `exports/three-key/whistle-three-key-P1S.3mf`: PETG coupon plate, PETG mechanism
-  plate, and a separate TPU plate containing all three pads.
-- `exports/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf`: all eleven pieces on
-  one PETG plate, including rigid pads for a mechanical trial only.
+- `exports/three-key/whistle-three-key-P1S.3mf`: PETG coupon plate and PETG
+  mechanism plate. Every part is PETG; there is no TPU plate.
+- `exports/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf`: the same nine
+  pieces on one plate.
 - `exports/three-key/assembly-open.step`: complete assembly for review.
-- `exports/three-key/print-oriented/`: separate STEP/STL parts; print the cap
-  three times. Numbered key/pad filenames are retained for compatibility;
-  their geometry is identical and each fits any of the three positions.
+- `exports/three-key/assembly-closed.step`: the same assembly closed, for
+  checking the pads against the whistle body.
+- `exports/three-key/print-oriented/`: one file per distinct part. Print
+  `lever_print` three times and `clamp_cap_print` three times. The earlier
+  `lever4/5/6_print` files were byte-identical copies and are removed; any key
+  fits any of the three positions.
 
-The frame rests flat on its base. Keys rest on their finger faces, caps
-on end faces, and pads on their flat backs. Supports are enabled for the frame
-and keys. PETG uses 0.16 mm layers and four walls; TPU pads use 0.12 mm layers
-and solid infill. Use ordinary 95A TPU from the external spool. Print three
-identical keys and three identical pads; no markings or sorting are needed.
-The frame, caps, pins and springs are reusable. The previous hole-5 key/pad
-already has the common dimensions; the old hole-4 and hole-6 parts differ.
+The frame rests flat on its base. Keys rest on their finger faces and caps on
+end faces. Supports are enabled for the frame and keys. PETG uses 0.16 mm
+layers and four walls. Print three identical keys; no markings or sorting are
+needed. The pad face prints as part of the key, so its surface finish matters:
+keep the dished underside free of stringing before gluing the EVA.
+The frame, caps, pins and springs are reusable, but the keys are new.
 
 ## Verification
 
@@ -207,3 +211,31 @@ than two disconnected bolt-tab islands. Reprint only the three clamp caps. The
 frame, keys, pads and hardware remain compatible.
 
 ![Clamp cap with complete flat bed face](clamp-cap-flat-end.png)
+
+## Integral pad face for 2 mm EVA — 2026-09-11
+
+![Closed pad section at hole 5](eva-2mm-pad-section.png)
+
+The separate TPU carrier, its retaining ring and the locating tabs are removed.
+Each key now has a dished pad boss printed as part of the key, and the 2 mm EVA
+liner is glued straight into it. The sections above describing the 12.30 mm
+carrier, the 12.60 mm cup and the pad tabs are superseded.
+
+The dish is a cylinder of 8.9 mm radius concentric with the whistle at closure
+(7.1 mm tube radius, less 0.2 mm interference, plus the 2 mm sheet). The glue
+surface is a single continuous face of 175.69 mm² with no ring, notch or step
+in it, and 3.8 mm of solid PETG sits above it. The pad face stays 14.2 mm
+across, so head-to-head clearance remains 1.545 mm.
+
+Using the full 14.2 mm face instead of a 12.3 mm carrier more than offsets the
+thicker sheet: the continuous seal band is 3.04 mm at hole 4, 1.68 mm at hole 5
+and 1.78 mm at hole 6, against 2.29, 1.55 and 1.65 mm for the 1 mm liner. Key
+volume rises from 749 to 957 mm³. Opening, stop, spring seats, hinge, frame and
+clamps are unchanged: pad-centre lift is still 4.670 mm at 35°.
+
+Printed parts drop from ten to five files and the build is now entirely PETG,
+so no TPU spool is needed. The three keys were identical copies, so they are
+exported once as `lever_print` and printed three times, as the clamp cap
+already was. The cutting guide and its 3MF are resized: the traced
+outline is 14.59 × 14.20 mm. Reprint the three keys and the cutting guide, cut
+three new liners, and reuse the frame, caps, pins, springs and hardware.

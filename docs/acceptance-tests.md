@@ -8,14 +8,14 @@ engineering targets for this prototype, not clinically established values.
 
 | ID | Requirement | Evidence / pass criterion |
 |---|---|---|
-| E01 | The mechanism reaches the opening stop and nominal pad-defined closure without unintended collision. | At 21 equally spaced positions, rigid key clears frame/tube; pad clears frame and fits its retaining cup. Intersection volume below 0.00001 mm³. Intended pad/brass compression is excluded. Sampling is not a continuous sweep proof. |
+| E01 | The mechanism reaches the opening stop and nominal pad-defined closure without unintended collision. | At 21 equally spaced positions, the key (with its integral pad face) and the EVA liner clear frame and tube. Intersection volume below 0.00001 mm³. Intended pad/brass compression is excluded. Sampling is not a continuous sweep proof. |
 | E02 | The clamp body does not occupy the brass tube or its other half. | Nominal frame/cap/tube intersections below 0.00001 mm³. Actual lining compression and grip are physical tests. |
-| E03 | The spring returns the key and is not driven solid. | Open spacing less than 5 mm free length; nominal closed spacing greater than assumed 2 mm solid plus 0.5 mm margin. This establishes nominal preload/travel, not return force or the maximum compression of the TPU under finger load. |
+| E03 | The spring returns the key and is not driven solid. | Open spacing less than 5 mm free length; nominal closed spacing greater than assumed 2 mm solid plus 0.5 mm margin. This establishes nominal preload/travel, not return force or the maximum compression of the EVA under finger load. |
 | E04 | The pin spans both supports and does not bind the moving key geometrically. | At least 0.5 mm pin projection at each end; no pin/key solid intersection and positive nominal bore clearance. Printed friction/running fits are physical tests. |
 | E05 | Parts can be exported as printable closed solids. | One valid positive-volume solid per part; flat bed-contact area over 10 mm²; STEP round-trip volume within 0.0001%; watertight, consistently wound STL with volume within 1%. These checks do not prove slicability or adhesion. |
 | E06 | The open pad/key do not occupy the immediate airway above the hole. | The hole's vertical projected opening stays clear through 1 mm above the tube crown. This is a geometric proxy; it does not guarantee unchanged tone or tuning. |
 | E07 | The closed pad offers a continuous nominal sealing band around the hole. | Probe three concentric paths, 1.5–2.0 mm beyond the hole radius, at 5° intervals and 0.1 mm radial interference. Each point must lie within pad material. This does not establish real airtightness. |
-| E08 | The pad has a continuous solid backing. | Sample at least 1 mm of solid material below the flat glue backing. No through-hole is allowed above the whistle opening. |
+| E08 | The pad has a continuous solid backing and one clean glue face. | At least 2 mm of solid PETG above the dish (nominally 3.8 mm), and exactly one downward cylindrical face at the recess radius, covering the nominal pad footprint. No through-hole above the whistle opening. |
 
 These checks operate on regenerated geometry, not on hard-coded part volumes.
 For example, E01 exposed a collision between the curved pad and the original
@@ -32,8 +32,9 @@ The continuous-face revision additionally probes material across the centre
 of the curved contact face to prevent reintroducing the rejected central relief.
 The sealing-band check still applies to the outer region of this full face.
 
-The retaining-ring check requires at least 0.2 mm diametral pad clearance,
-0.8 mm walls, and a rigid rim at least 1 mm above the tube crown at nominal closure.
+The retaining ring is superseded: the pad face is integral with the key and
+the EVA is glued to it directly, so the check is now that the glue face is a
+single uninterrupted cylinder covering the nominal pad footprint.
 
 ## Physical usability and function tests
 
@@ -65,7 +66,7 @@ They are deliberately not assigned arbitrary Newton thresholds in CI.
 ## Trial record
 
 For each trial record date, model commit, measured whistle dimensions, printer
-profile, PETG/TPU brand and condition, spring identity, pin-coupon outcome,
+profile, PETG and EVA brand and condition, spring identity, pin-coupon outcome,
 adhesive/liner choice, and results for U01–U07. Record failures and changes as well
 as passes. Extend to three keys only after the single-key results are acceptable
 to the player.
@@ -84,4 +85,4 @@ Outside the bearings it also checks a 0.1 mm radial alignment allowance and
 that fits only after assembly but cannot be inserted. Physical manipulation
 and printed support strength remain trial checks.
 
-Bare-tube closure check: translate each clamp half inward by 0.06 mm and require seat/tube intersection, no frame/cap intersection, and at least 0.8 mm remaining nominal split gap. Key travel now checks both caps as obstacles and requires at least 1 mm key/pad distance from them at all 21 sampled positions. These address observed bottoming-out and catching; they do not establish grip force or finger comfort.
+Bare-tube closure check: translate each clamp half inward by 0.06 mm and require seat/tube intersection, no frame/cap intersection, and at least 0.8 mm remaining nominal split gap. Key travel now checks both caps as obstacles and requires at least 1 mm key/liner distance from them at all 21 sampled positions. These address observed bottoming-out and catching; they do not establish grip force or finger comfort.

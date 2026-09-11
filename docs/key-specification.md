@@ -45,17 +45,16 @@ There are three identical interchangeable keys. They are intentionally sized
 for the largest measured hole and are not engraved or position-specific.
 
 - Common pad/contact diameter: 12.30.
-- Key cup outside diameter: 14.20 nominal, matching the whistle OD envelope.
-- Cup inner diameter: 12.60, with 0.30 diametral clearance around the pad body.
-- Retaining-ring wall: 0.80; ring height: 1.20.
-- Pad locating tabs: two opposed tabs, each 1.60 wide, 0.90 thick and 0.75
-  extension beyond the circular body. Overall tab-to-tab length is 13.80.
-- Matching ring notches are 2.00 wide, giving 0.20 clearance on each side.
-  Tabs locate the pad; they are not snap retainers. A 180° reversal is valid;
-  90° rotation is blocked.
-- The current pad carrier retains the original 12.30 circular outline. Its
-  concave face is recessed for one 1.0 EVA liner; the earlier widened carrier
-  flare is superseded.
+- Key pad face outside diameter: 14.20 nominal, matching the whistle OD
+  envelope. Minimum axial clearance between adjacent pads is 1.545.
+- The pad face is integral with the key: a dished boss on the key underside,
+  cut by a cylinder of 8.90 radius concentric with the whistle at closure
+  (7.10 tube radius, less 0.20 interference, plus the 2.0 sheet).
+- The glue surface is one continuous cylindrical face of 175.69, with no
+  retaining ring, tab notch, step or parting line on it.
+- Solid PETG above the dish: 3.80.
+- The separate TPU carrier, its retaining ring and the pad locating tabs are
+  superseded, as is the earlier widened carrier flare.
 
 The key is a curved arm around the whistle, with a 4.0-wide hinge region, 3.0
 thickness, 3.5 rear tail extension, and a widened 6.0 upper load path. The
@@ -73,17 +72,14 @@ compression reserve.
 
 ## Pad and seal
 
-The current pad system has two parts:
-
-1. A 95A TPU carrier with the original circular 12.30 outline, cup fit and
-   locating tabs.
-2. One piece of 1.0-thick EVA sheet glued to the carrier's concave face.
-
-There is not a second EVA layer. The nominal model uses 0.20 compression
-allowance at closure; this is a trial assumption, not a measured foam property.
-The EVA cutting guide is approximately 13.21 × 12.30 and is unrolled at the
-mid-thickness radius. Trace and cut one liner first, curve it onto the carrier,
-check the edge, then glue it with a thin even layer suitable for the actual TPU
+The current pad system has one part: a single piece of 2.0-thick EVA sheet
+glued into the dished face of the key. There is no separate carrier and no
+second EVA layer. The nominal model uses 0.20 compression allowance at closure;
+this is a trial assumption, not a measured foam property.
+The EVA cutting guide is approximately 14.59 × 14.20 and is unrolled at the
+mid-thickness radius. Trace and cut one liner first, curve it into the key's
+dished face, check the edge, then glue it with a thin even layer suitable for
+the actual PETG
 and EVA. Do not cut a central hole in the liner.
 
 The pad is intended to seal around each hole while leaving the hole itself
@@ -110,7 +106,7 @@ Each key has one friction-held steel dowel and one sideways compression spring.
 - Spring socket diameter: 2.4, socket depth 1.5. Moving peg is 1.2 at its
   base, tapering to 1.0 at a 1.5-long tip.
 - Spring seats are at Z = 3.1 in the current design. An 0.8 bevel at the upper
-  rear holder corner clears the restored carrier during travel.
+  rear holder corner clears the key's pad boss during travel.
 
 The ordered 3.0 × 5.0 springs are not part of this revision. If a spring is
 changed, check both solid-height margin and positive return before changing
@@ -139,16 +135,16 @@ the hole above the keyed hole.
 
 ## Materials and printing
 
-- Frame, keys, caps and EVA cutting guide: PETG.
-- Pad carriers: 95A TPU.
+- Frame, keys, caps and EVA cutting guide: PETG. Every printed part is PETG.
+- Pads: 2.0 EVA foam sheet, cut from the supplied guide; not printed.
 - Pins: friction-fit 1.0 × 12 steel dowels.
 - Springs: nominal 2 × 5 compression coils.
-- Adhesive: compatible with the selected TPU and EVA; thin glue layer.
+- Adhesive: compatible with the selected PETG and EVA; thin glue layer.
 
 Use the supplied P1S 3MF orientations. The frame and keys are printed with
-their specified supports; carriers and the cutting guide are flat-back-down
-and support-free. Print three identical keys and three identical carriers.
-The PETG-only 3MF is for a rigid dry-fit trial and is not a functional seal.
+their specified supports; the cutting guide is flat-base-down and
+support-free. Print three identical keys. The single-plate 3MF holds the same
+PETG parts as the two-plate project.
 
 ## Acceptance requirements
 

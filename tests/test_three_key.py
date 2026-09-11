@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 import trimesh
-from build123d import Align, Cylinder, Axis, Compound, Location, Pos, RegularPolygon, ShapeList, Vector, Plane, section, extrude, import_step
+from build123d import Align, Cylinder, Axis, Compound, GeomType, Location, Pos, RegularPolygon, ShapeList, Vector, Plane, section, extrude, import_step
 from scripts.build_ci import load_model
 
 
@@ -14,7 +14,7 @@ def model():
     m['local_frames']={}
     for n in [4,5,6]:
         y=m['hole_centres'][n]
-        half=max(m['levers'][n].bounding_box().size.Y,m['pad_blanks'][n].bounding_box().size.Y)/2+0.1
+        half=m['levers'][n].bounding_box().size.Y/2+0.1
         region=m['box_at'](-50,50,y-half,y+half,-50,50)
         clipped=m['frame'].intersect(region)
         m['local_frames'][n]=Compound(children=list(clipped)) if isinstance(clipped,ShapeList) else clipped
@@ -23,7 +23,7 @@ def model():
 
 def volume(a,b):
     # Intersect placed solids individually. OCCT's touching-compound boolean
-    # can report a spurious overlap for the carrier + EVA assembly even when
+    # can report a spurious overlap for the key + EVA assembly even when
     # each solid has positive separation from the obstacle.
     total=0.0
     for left in a.solids():
@@ -38,7 +38,7 @@ def pose(m,n,angle):
     y=m['hole_centres'][n]
     axis=Axis((m['pivot_x'],y,m['pivot_z']),(0,1,0))
     return [part.moved(Location((0,y,0))).rotate(axis,-angle)
-            for part in [m['levers'][n],Compound(children=[m['pad_blanks'][n],m['foam_blanks'][n]])]]
+            for part in [m['levers'][n],m['foam_blanks'][n]]]
 
 
 def test_measured_holes_and_independent_spacing(model):
@@ -46,7 +46,7 @@ def test_measured_holes_and_independent_spacing(model):
     assert m['hole_bottoms']=={3:100,4:79.15,5:62.05,6:35.3}
     assert m['hole_axial_diameters']=={3:5.8,4:5.09,5:7.8,6:7.6}
     assert [m['hole_centres'][n] for n in [4,5,6]]==pytest.approx([81.695,65.95,39.1])
-    assert set(m['keys'])==set(m['pads'])==set(m['pins'])=={4,5,6}
+    assert set(m['keys'])==set(m['foam_liners'])==set(m['pins'])=={4,5,6}
     assert len(m['caps'])==3
     assert m['middle_clamp_y']==pytest.approx(52.475)
 
@@ -79,8 +79,8 @@ def test_keys_cannot_collide_in_any_combination(model):
     m=model
     # Rotation is about Y: axial extents do not change at any key angle.
     for n,next_n in [(6,5),(5,4)]:
-        for a in [m['keys'][n],m['pads'][n]]:
-            for b in [m['keys'][next_n],m['pads'][next_n]]:
+        for a in [m['keys'][n],m['foam_liners'][n]]:
+            for b in [m['keys'][next_n],m['foam_liners'][next_n]]:
                 assert b.bounding_box().min.Y-a.bounding_box().max.Y>=1.0
 
 
@@ -95,7 +95,8 @@ def test_pad_sealing_band_and_backing(model,n):
             x,y=radius*math.cos(angle),radius*math.sin(angle)
             z=math.sqrt((m['r']-0.1)**2-x*x)
             assert pad.is_inside(Vector(x,y,z)),(n,offset,degree)
-    assert m['pad_blanks'][n].is_inside(Vector(0,0,m['lever_bottom']-1))
+    # Solid PETG directly above the recess; the key is its own pad backing.
+    assert m['levers'][n].is_inside(Vector(0,0,m['eva_outer_radius']+0.5))
     assert m['pad_sizes'][n]>=m['hole_axial_diameters'][n]+4
 
 
@@ -167,7 +168,11 @@ def test_fixed_bearings_have_reinforced_crowns_and_continuous_stems(model):
 def test_print_parts_and_round_trips(model):
     m=model
     output=Path(__file__).resolve().parents[1]/'build/three-key'
-    assert len(m['print_parts'])==10 # Includes cutting guide; EVA sheet is not printed.
+    # One file per distinct geometry: the key and the cap are each printed
+    # three times. EVA sheet is cut, not printed.
+    assert len(m['print_parts'])==5
+    assert set(m['print_parts'])=={'frame_print','clamp_cap_print','lever_print',
+                                   'eva_cutting_template','pin_fit_coupon'}
     for name,part in m['print_parts'].items():
         assert part.is_valid and len(part.solids())==1
         assert abs(part.bounding_box().min.Z)<1e-5
@@ -212,28 +217,31 @@ def test_nuts_insert_from_below_seat_and_cannot_spin(model):
 
 def test_all_three_keys_and_pads_are_interchangeable(model):
     # Compare occupied solids, not just nominal diameters or equal volumes.
-    for collection in ('levers', 'pad_blanks'):
+    for collection in ('levers', 'foam_blanks'):
         reference = model[collection][4]
         for n in (5, 6):
             candidate = model[collection][n]
             common_volume = volume(reference, candidate)
             assert reference.volume + candidate.volume - 2*common_volume < 1e-5
-    assert list(model['pad_sizes'].values()) == pytest.approx([12.3]*3)
+    assert list(model['pad_sizes'].values()) == pytest.approx([14.2]*3)
 
 
-def test_pad_tabs_guide_insertion_and_prevent_crosswise_seating(model):
+def test_pad_face_is_one_clean_glue_surface(model):
     m=model
-    pad,key=m['pad_blanks'][4],m['levers'][4]
-    # Both equivalent axial orientations seat and insert without bending the tabs.
-    for angle in (0,180):
-        oriented=pad.rotate(Axis.Z,angle)
-        for drop in (0,0.2,0.6,1.2,2.0):
-            assert volume(oriented.moved(Location((0,0,-drop))),key)<1e-5
-    assert volume(pad.rotate(Axis.Z,90),key)>0.1
-    assert volume(pad.moved(Location((0,0,0.05))),key)>0.1 # Cup roof limits insertion.
-    assert m['lever_bottom']-m['pad_tab_height']>m['r']+1
-    assert pad.bounding_box().size.Y<key.bounding_box().size.Y
-    # Continuous seal-band assertions above still apply to each larger, tabbed pad.
+    # The EVA is glued straight to the key, so the face it sticks to must be a
+    # single uninterrupted cylinder: no retaining ring, tab notch or step.
+    for n in (4,5,6):
+        key=m['levers'][n]
+        facing=[f for f in key.faces()
+                if f.geom_type==GeomType.CYLINDER and f.normal_at().Z<-0.5
+                and f.radius is not None
+                and f.radius==pytest.approx(m['eva_outer_radius'])]
+        assert len(facing)==1
+        # The whole nominal pad footprint is available to glue against.
+        assert facing[0].area>0.9*math.pi*(m['pad_diameter']/2)**2
+        # Nothing of the key intrudes below the recess into the foam.
+        assert volume(key,m['foam_blanks'][n])<1e-5
+        assert key.distance_to(m['foam_blanks'][n])<1e-5
 
 
 def test_clamp_cap_band_starts_on_bed_without_a_floating_arch(model):
@@ -337,7 +345,10 @@ def test_key_back_has_continuous_stock_above_hinge_tail(model):
 
 def test_eva_facing_template_and_more_lift(model):
     m=model
-    assert m['eva_liner_thickness']==pytest.approx(1.0)
+    assert m['eva_liner_thickness']==pytest.approx(2.0)
+    # Carrier floor left above the deeper recess, and tabs kept inside it.
+    assert m['pad_backing_thickness']==pytest.approx(3.8)
+    assert m['pad_backing_thickness']>=2.0
     assert m['spring_od']==pytest.approx(2.0)
     assert m['spring_free_length']==pytest.approx(5.0)
     assert m['spring_length_closed']==pytest.approx(2.8)
@@ -346,19 +357,21 @@ def test_eva_facing_template_and_more_lift(model):
     assert m['pad_centre_lift']>4.6
     for n in (4,5,6):
         assert m['foam_liners'][n].distance_to(m['tube'])>3.0
-        # Retain the original 12.3 mm outline across the whistle and original tabs.
-        assert m['pad_blanks'][n].bounding_box().size.X==pytest.approx(12.3)
-        assert m['pad_blanks'][n].bounding_box().size.Y==pytest.approx(13.8)
-        # The uncompressed facing uses the original 0.2 mm closure interference.
-        assert volume(m['foam_blanks'][n],m['pad_blanks'][n])<1e-5
-        assert m['pad_blanks'][n].distance_to(m['foam_blanks'][n])<1e-5
+        # Integral pad face spans the full 14.2 mm key pad across the whistle.
+        assert m['foam_blanks'][n].bounding_box().size.Y==pytest.approx(14.2)
         assert m['foam_blanks'][n].is_valid and len(m['foam_blanks'][n].solids())==1
     outline=m['eva_cut_outline']
-    assert outline.bounding_box().size.X==pytest.approx(13.20454,abs=0.01)
-    assert outline.bounding_box().size.Y==pytest.approx(12.3)
+    assert outline.bounding_box().size.X==pytest.approx(14.59224,abs=0.01)
+    assert outline.bounding_box().size.Y==pytest.approx(14.2)
     # The nominal unrolled sheet agrees with the offset-surface volume within
     # 0.3%, allowing the sampled outline and CAD offset approximation.
     assert outline.area*m['eva_liner_thickness']==pytest.approx(m['foam_blanks'][4].volume,rel=0.003)
+    # Closed pose is a published output; the liner must sit on the tube with
+    # the nominal 0.2 mm interference rather than float above it.
+    assert m['assembly_closed'].is_valid
+    for n in (4,5,6):
+        seated=m['foam_blanks'][n].moved(Location((0,m['hole_centres'][n],0)))
+        assert volume(seated,m['tube'])>1.0
     guide=m['print_parts']['eva_cutting_template']
     base=section(guide,section_by=Plane.XY.offset(0.5))
     assert len(base.faces())==1
