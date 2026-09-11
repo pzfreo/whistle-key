@@ -69,9 +69,8 @@ allowance, not a proven seal pressure.
 ## Printing and verification
 
 Every printed part is now PETG: frame, three keys, three clamp caps, cutting
-guide and pin coupon. `whistle-three-key-P1S.3mf` lays these out on two plates;
-the dry-fit project is the same set on a single plate and no longer differs in
-material. Existing support settings for the frame and keys are retained. The
+guide and pin coupon. `whistle-three-key-P1S.3mf` puts all nine on a single
+plate. Existing support settings for the frame and keys are retained. The
 guide prints flat without supports.
 
 Automated checks cover 21 travel positions per key, stop engagement, spring

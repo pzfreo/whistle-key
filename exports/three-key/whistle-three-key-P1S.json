@@ -1,27 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Pin fit coupon",
-    "source": "pin_fit_coupon.stl",
-    "plate": 1,
-    "filament": 1,
-    "local_min": [
-      116.0,
-      124.0,
-      0.0
-    ],
-    "local_max": [
-      140.0,
-      132.0,
-      6.0
-    ],
-    "volume_mm3": 342.5548092579918
-  },
-  {
-    "id": 2,
     "name": "Three-key frame - flat base down",
     "source": "frame_print.stl",
-    "plate": 2,
+    "plate": 1,
     "filament": 1,
     "local_min": [
       60.0,
@@ -36,10 +18,10 @@
     "volume_mm3": 6471.514753985711
   },
   {
-    "id": 3,
+    "id": 2,
     "name": "Common key 1 - finger face down",
     "source": "lever_print.stl",
-    "plate": 2,
+    "plate": 1,
     "filament": 1,
     "local_min": [
       105.0,
@@ -54,10 +36,10 @@
     "volume_mm3": 956.2995487855901
   },
   {
-    "id": 4,
+    "id": 3,
     "name": "Common key 2 - finger face down",
     "source": "lever_print.stl",
-    "plate": 2,
+    "plate": 1,
     "filament": 1,
     "local_min": [
       105.0,
@@ -72,10 +54,10 @@
     "volume_mm3": 956.2995487855901
   },
   {
-    "id": 5,
+    "id": 4,
     "name": "Common key 3 - finger face down",
     "source": "lever_print.stl",
-    "plate": 2,
+    "plate": 1,
     "filament": 1,
     "local_min": [
       105.0,
@@ -90,10 +72,10 @@
     "volume_mm3": 956.2995487855901
   },
   {
-    "id": 6,
+    "id": 5,
     "name": "Clamp cap 1 - end face down",
     "source": "clamp_cap_print.stl",
-    "plate": 2,
+    "plate": 1,
     "filament": 1,
     "local_min": [
       150.0,
@@ -108,10 +90,10 @@
     "volume_mm3": 623.1174839934996
   },
   {
-    "id": 7,
+    "id": 6,
     "name": "Clamp cap 2 - end face down",
     "source": "clamp_cap_print.stl",
-    "plate": 2,
+    "plate": 1,
     "filament": 1,
     "local_min": [
       150.0,
@@ -126,10 +108,10 @@
     "volume_mm3": 623.1174839934996
   },
   {
-    "id": 8,
+    "id": 7,
     "name": "Clamp cap 3 - end face down",
     "source": "clamp_cap_print.stl",
-    "plate": 2,
+    "plate": 1,
     "filament": 1,
     "local_min": [
       150.0,
@@ -144,10 +126,10 @@
     "volume_mm3": 623.1174839934996
   },
   {
-    "id": 9,
+    "id": 8,
     "name": "EVA liner cutting guide - flat base down",
     "source": "eva_cutting_template.stl",
-    "plate": 2,
+    "plate": 1,
     "filament": 1,
     "local_min": [
       60.0,
@@ -160,5 +142,23 @@
       7.0
     ],
     "volume_mm3": 431.749010867414
+  },
+  {
+    "id": 9,
+    "name": "Pin fit coupon",
+    "source": "pin_fit_coupon.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      160.0,
+      210.0,
+      0.0
+    ],
+    "local_max": [
+      184.0,
+      218.0,
+      6.0
+    ],
+    "volume_mm3": 342.5548092579918
   }
 ]

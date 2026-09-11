@@ -71,10 +71,9 @@ and spring fitting still need a trial on this longer assembly.
 Open the 3MF as a project in Bambu Studio, select the actual material and bed
 profiles, then slice and inspect supports. These files contain no G-code.
 
-- `exports/three-key/whistle-three-key-P1S.3mf`: PETG coupon plate and PETG
-  mechanism plate. Every part is PETG; there is no TPU plate.
-- `exports/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf`: the same nine
-  pieces on one plate.
+- `exports/three-key/whistle-three-key-P1S.3mf`: one PETG plate with all nine
+  pieces - frame, three keys, three clamp caps, cutting guide and pin coupon.
+  Every part is PETG, so there is no second plate and no material change.
 - `exports/three-key/assembly-open.step`: complete assembly for review.
 - `exports/three-key/assembly-closed.step`: the same assembly closed, for
   checking the pads against the whistle body.
@@ -110,7 +109,6 @@ Regenerate and package from the repository root:
 ```sh
 python scripts/build_ci.py --model three_key --output build/three-key
 python scripts/package_3mf.py --three-key --source build/three-key --output build/three-key/whistle-three-key-P1S.3mf
-python scripts/package_3mf.py --three-key --source build/three-key --dry-run --output build/three-key/whistle-three-key-P1S-dry-fit-PETG.3mf
 ```
 
 The assembly STEP contains solid cylindrical spring envelopes for illustration.

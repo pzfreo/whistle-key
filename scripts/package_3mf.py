@@ -32,9 +32,9 @@ PLATES = [
     ]),
 ]
 
+# Every three-key part is PETG, so the whole print is one plate.
 THREE_KEY_PLATES = [
-    ('1 PETG - pin fit coupon', (0,0), [('pin_fit_coupon','Pin fit coupon',(116,124),1)]),
-    ('2 PETG - three-key mechanism', (307.2,0), [
+    ('PETG - complete three-key print', (0,0), [
         ('frame_print','Three-key frame - flat base down',(60,80),1),
         *[('lever_print',f'Common key {i+1} - finger face down',(105,80+30*i),1)
           for i in range(3)],
@@ -42,6 +42,7 @@ THREE_KEY_PLATES = [
         ('clamp_cap_print','Clamp cap 2 - end face down',(150,115),1),
         ('clamp_cap_print','Clamp cap 3 - end face down',(150,150),1),
         ('eva_cutting_template','EVA liner cutting guide - flat base down',(60,165),1),
+        ('pin_fit_coupon','Pin fit coupon',(160,210),1),
     ]),
 ]
 
@@ -52,17 +53,13 @@ def meta(parent, key, value):
 
 def package(source, output, dry_run=False, three_key=False):
     plates = THREE_KEY_PLATES if three_key else PLATES
-    if dry_run:
+    if dry_run and not three_key:
+        # Single-key only: the three-key set is already one all-PETG plate.
         entries = list(PLATES[1][2]) + [
             ("tpu_pad_print", "Rigid pad - PETG dry fit", (139, 125), 1),
             ("pin_fit_coupon", "Pin fit coupon", (93, 170), 1),
         ]
         plates = [("PETG dry fit - all six parts", (0, 0), entries)]
-    if three_key and dry_run:
-        # The pad is part of the key now, so every three-key part is PETG. This
-        # variant only differs by putting the whole set on one plate.
-        entries=list(THREE_KEY_PLATES[1][2])+[('pin_fit_coupon','Pin fit coupon',(160,210),1)]
-        plates=[('PETG - three keys, cutting guide and coupon on one plate',(0,0),entries)]
     expected_count=sum(len(entries) for _,_,entries in plates)
     wrapper = lib3mf.Wrapper()
     model = wrapper.CreateModel()
@@ -197,7 +194,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source', type=Path, default=ROOT/'exports/single-key/print-oriented')
     parser.add_argument('--output', type=Path, default=ROOT/'exports/single-key/whistle-key-P1S.3mf')
-    parser.add_argument("--dry-run", action="store_true", help="All-PETG single plate, including rigid pad")
+    parser.add_argument("--dry-run", action="store_true", help="Single-key only: all-PETG single plate, including rigid pad")
     parser.add_argument("--three-key", action="store_true", help="Package the measured three-key extension")
     args = parser.parse_args()
     package(args.source, args.output, args.dry_run, args.three_key)

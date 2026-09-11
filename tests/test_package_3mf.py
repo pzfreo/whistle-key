@@ -27,7 +27,7 @@ def test_project_preserves_meshes_and_material_plates(tmp_path, dry_run, three_k
         config = ET.fromstring(archive.read('Metadata/model_settings.config'))
         settings = json.loads(archive.read('Metadata/project_settings.config'))
         assert not any(n.endswith('.gcode') for n in archive.namelist())
-    assert len(config.findall('plate')) == (1 if dry_run else (2 if three_key else 3))
+    assert len(config.findall('plate')) == (1 if (dry_run or three_key) else 3)
     assert settings['filament_type'] == (['PETG'] if dry_run else ['PETG', 'TPU'])
     objects = {int(o.attrib['id']): o for o in xml.findall(f'{{{CORE}}}resources/{{{CORE}}}object')}
     items = {int(i.attrib['objectid']): i for i in xml.findall(f'{{{CORE}}}build/{{{CORE}}}item')}
