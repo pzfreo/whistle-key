@@ -9,6 +9,15 @@ from build123d import export_step, export_stl
 ROOT = Path(__file__).resolve().parents[1]
 
 
+# Variants share a source file and differ only by pre-set parameters.
+MODELS = {
+    "single_key": ("single_key", {}),
+    "three_key": ("three_key", {}),
+    "three_key_3mm_spring": ("three_key", {"spring_variant": "3mm"}),
+    "three_key_3mm_short_spring": ("three_key", {"spring_variant": "3mm-short"}),
+}
+
+
 def load_model(model_name="single_key"):
     """Supply the two inspection helpers normally provided by the MCP session."""
     def show(shape, name=None):
@@ -18,9 +27,10 @@ def load_model(model_name="single_key"):
     def measure(shape):
         return {"volume": shape.volume, "topology": {"faces": len(shape.faces())}}
 
+    source, overrides = MODELS[model_name]
     return runpy.run_path(
-        str(ROOT / "scripts" / f"{model_name}.py"),
-        init_globals={"show": show, "measure": measure},
+        str(ROOT / "scripts" / f"{source}.py"),
+        init_globals={"show": show, "measure": measure, **overrides},
     )
 
 
@@ -44,6 +54,6 @@ def build(output, model_name="single_key"):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path, default=ROOT / "build")
-    parser.add_argument("--model", choices=["single_key", "three_key"], default="single_key")
+    parser.add_argument("--model", choices=sorted(MODELS), default="single_key")
     args=parser.parse_args()
     build(args.output, args.model)

@@ -1,0 +1,164 @@
+[
+  {
+    "id": 1,
+    "name": "Three-key frame - flat base down",
+    "source": "frame_print.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      60.0,
+      80.0,
+      0.0
+    ],
+    "local_max": [
+      91.29896259307861,
+      151.59500122070312,
+      16.899999618530273
+    ],
+    "volume_mm3": 6499.447375417246
+  },
+  {
+    "id": 2,
+    "name": "Common key 1 - finger face down",
+    "source": "lever_print.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      105.0,
+      80.0,
+      0.0
+    ],
+    "local_max": [
+      126.79999923706055,
+      94.19800901412964,
+      14.699994940893554
+    ],
+    "volume_mm3": 940.6677714964759
+  },
+  {
+    "id": 3,
+    "name": "Common key 2 - finger face down",
+    "source": "lever_print.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      105.0,
+      110.0,
+      0.0
+    ],
+    "local_max": [
+      126.79999923706055,
+      124.19800901412964,
+      14.699994940893554
+    ],
+    "volume_mm3": 940.6677714964759
+  },
+  {
+    "id": 4,
+    "name": "Common key 3 - finger face down",
+    "source": "lever_print.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      105.0,
+      140.0,
+      0.0
+    ],
+    "local_max": [
+      126.79999923706055,
+      154.19800901412964,
+      14.699994940893554
+    ],
+    "volume_mm3": 940.6677714964759
+  },
+  {
+    "id": 5,
+    "name": "Clamp cap 1 - end face down",
+    "source": "clamp_cap_print.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      150.0,
+      80.0,
+      0.0
+    ],
+    "local_max": [
+      179.29999923706055,
+      96.54687690734863,
+      5.0
+    ],
+    "volume_mm3": 623.1174839934996
+  },
+  {
+    "id": 6,
+    "name": "Clamp cap 2 - end face down",
+    "source": "clamp_cap_print.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      150.0,
+      115.0,
+      0.0
+    ],
+    "local_max": [
+      179.29999923706055,
+      131.54687690734863,
+      5.0
+    ],
+    "volume_mm3": 623.1174839934996
+  },
+  {
+    "id": 7,
+    "name": "Clamp cap 3 - end face down",
+    "source": "clamp_cap_print.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      150.0,
+      150.0,
+      0.0
+    ],
+    "local_max": [
+      179.29999923706055,
+      166.54687690734863,
+      5.0
+    ],
+    "volume_mm3": 623.1174839934996
+  },
+  {
+    "id": 8,
+    "name": "EVA liner cutting guide - flat base down",
+    "source": "eva_cutting_template.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      60.0,
+      165.0,
+      0.0
+    ],
+    "local_max": [
+      74.59223556518555,
+      179.19999980926514,
+      7.0
+    ],
+    "volume_mm3": 431.749010867414
+  },
+  {
+    "id": 9,
+    "name": "Pin fit coupon",
+    "source": "pin_fit_coupon.stl",
+    "plate": 1,
+    "filament": 1,
+    "local_min": [
+      160.0,
+      210.0,
+      0.0
+    ],
+    "local_max": [
+      184.0,
+      218.0,
+      6.0
+    ],
+    "volume_mm3": 342.5548092579918
+  }
+]

@@ -38,7 +38,6 @@ hub_radius = 2.0
 hub_length = 4.0
 hinge_bore_min_wall = 0.9 # Continuous collar survives the spring-clearance cut
 hinge_collar_frame_clearance = 0.2
-opening_angle_degrees = 35.0 # EVA-lined prototype: more clearance above the holes
 liner_thickness = 0.0 # Player uses direct contact with brass
 clamp_radial_clearance = 0.05 # 14.3 mm nominal seat for measured 14.2 mm tube
 clamp_band_width = 4.0 # Raised band; bolt supports retain full clamp_width
@@ -62,20 +61,50 @@ support_tail_bridge_drop = 3.6 # Clears the tail at the 35-degree opening stop
 support_tail_relief_inset = 0.35 # Keep at least 0.2 mm below the tilted tail at 35 degrees
 support_shoulder_drop = 1.2 # Broad pillar starts below pin approach clearance
 axial_clearance = 0.3
-spring_od = 2.0
+# Spring variants. Only the coil size and the parts that touch it change; the
+# seat spacing, opening and hinge are shared, so both builds keep the same
+# 0.376 mm nominal preload. scripts/build_ci.py selects a variant by pre-setting
+# spring_variant; run on its own this file builds the 2 mm spring.
+spring_variant = globals().get('spring_variant', '2mm')
+# The coil axis passes close to the reinforced hinge collar at full opening,
+# so a wider coil needs a higher seat and a smaller opening angle. At 35 degrees
+# a 3 mm coil fouls the collar; 26 degrees is the largest opening that keeps
+# 0.2 mm clearance and useful preload on a 5 mm free length.
+spring_options = {
+    '2mm': dict(od=2.0, wire=0.3, free=5.0, solid=2.0, seat_width=3.2,
+                peg=1.2, peg_tip=1.0, seat_height=3.1, open_degrees=35.0),
+    # 6 mm free length buys the preload the higher seat costs, so the 35 degree
+    # opening and full pad lift are kept.
+    '3mm': dict(od=3.0, wire=0.4, free=6.0, solid=2.2, seat_width=4.2,
+                peg=1.8, peg_tip=1.5, seat_height=3.70, open_degrees=35.0),
+    # Same coil on a 5 mm free length. 30 degrees is the most opening that
+    # holds 0.2 mm collar clearance at the 0.35 mm preload standard; 31 needs
+    # a seat so high that preload falls to 0.33.
+    '3mm-short': dict(od=3.0, wire=0.4, free=5.0, solid=2.2, seat_width=4.2,
+                      peg=1.8, peg_tip=1.5, seat_height=3.52, open_degrees=30.0),
+}
+assert spring_variant in spring_options, spring_variant
+_spring = spring_options[spring_variant]
+spring_od = _spring['od']
+spring_wire_diameter = _spring['wire']
+spring_solid_height = _spring['solid']
+spring_seat_width = _spring['seat_width']
+spring_peg_diameter = _spring['peg']
+spring_peg_tip_diameter = _spring['peg_tip']
+spring_seat_height = _spring['seat_height']
+spring_free_length = _spring['free']
+# EVA-lined prototype: more clearance above the holes, limited by collar fouling.
+opening_angle_degrees = _spring['open_degrees']
+# Solid heights are user assumptions, not measured. Measure the actual coils:
+# the retained 2.8 mm closed spacing leaves room for 2.3 mm solid at the 0.5 mm
+# margin below, and the assert fires if the real spring stacks taller.
 spring_fit = 0.4
-spring_free_length = 5.0
-spring_solid_height = 2.0 # User assumption, not measured
 spring_rate_n_per_mm = None # Unknown; do not infer force
 spring_solid_margin = 0.5
 spring_socket_depth = 1.5
 spring_floor_extra_depth = 0.0 # Increase to reduce preload; keep return at full opening
-spring_wire_diameter = 0.3
-spring_peg_diameter = 1.2
-spring_peg_tip_diameter = 1.0
 spring_peg_length = 1.5
 spring_holder_top_bevel = 0.8 # Clearance for the wider EVA carrier during opening
-spring_seat_width = 3.2
 spring_web_overlap = 0.8 # Extend each side web into its fixed hinge pillar
 spring_web_hub_clearance = 0.3
 spring_socket_brace_angle = 50.0 # Rising underside replaces the socket-mouth shelf
@@ -124,7 +153,14 @@ lug_x = clamp_outer_r+lug_width/2-0.5
 lug_inner_x = min(lug_x-lug_width/2, math.sqrt(clamp_outer_r**2-(clamp_split_z-clamp_split_gap/2)**2)-0.8)
 
 # Sideways compression spring keeps the key's top clear for the finger.
-spring_z = 3.1 # Existing 2 x 5 mm spring; clearance through the 35-degree travel
+# The coil axis passes over the pivot at this height, so clearance to the hinge
+# collar is spring_z - collar radius - coil radius. The 3 mm coil needs 0.25 mm
+# more height than the 2 mm one, which costs preload at full opening.
+spring_z = spring_seat_height
+# The arm's width blend must start above the spring-clearance shoulder, so the
+# transition fillet lands on a constant-width edge. Unchanged for the 2 mm coil.
+arm_width_blend_start_z = max(arm_width_blend_start_z, spring_z+spring_seat_width/2+0.4)
+assert arm_width_blend_start_z < arm_width_blend_end_z
 hinge_collar_radius = (pivot_diameter+pivot_clearance)/2+hinge_bore_min_wall
 spring_floor_x = -(r+1.2) + spring_floor_extra_depth
 spring_moving_x = -(r+1.2) - spring_closed_length

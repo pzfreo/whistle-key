@@ -237,3 +237,32 @@ exported once as `lever_print` and printed three times, as the clamp cap
 already was. The cutting guide and its 3MF are resized: the traced
 outline is 14.59 × 14.20 mm. Reprint the three keys and the cutting guide, cut
 three new liners, and reuse the frame, caps, pins, springs and hardware.
+
+## 3 mm spring variants — 2026-09-11
+
+`scripts/three_key.py` now carries a spring table and builds three variants from
+one source. `scripts/build_ci.py --model` selects them; run on its own the file
+still builds the 2 mm mechanism.
+
+| variant | coil | opening | seat Z | collar gap | preload | pad lift | open pad to tube |
+|---|---|---|---|---|---|---|---|
+| `three_key` | 2.0 × 5.0 | 35° | 3.10 | 0.577 | 0.376 | 4.670 | 4.042 |
+| `three_key_3mm_spring` | 3.0 × 6.0 | 35° | 3.70 | 0.291 | 1.022 | 4.670 | 4.042 |
+| `three_key_3mm_short_spring` | 3.0 × 5.0 | 30° | 3.52 | 0.214 | 0.407 | 4.300 | 3.450 |
+
+The coil axis passes over the pivot, so clearance to the reinforced hinge collar
+is the perpendicular distance from the pivot to that axis, less the collar's
+1.525 mm radius and the coil radius. A 3 mm coil takes 0.5 mm more than a 2 mm
+one, and the worst case is at full opening where the coil is most tilted. The
+seat must rise to compensate, which lengthens the swing and spends preload.
+
+With a 5 mm free length that trade runs out at 30°: 31° needs a 3.56 mm seat to
+hold 0.2 mm clearance, and preload there falls to 0.330, below the 0.35 standard
+the 2 mm build meets. A 6 mm free length removes the conflict entirely and keeps
+the full 35° opening with 1.022 mm preload.
+
+Changing the coil changes the frame seat (4.2 mm wide, 3.4 mm bore) and the key
+peg (1.8 tapering to 1.5 mm), so each variant has its own frame and keys. The
+pad face, EVA liner, cutting guide, hinge, clamps and hardware are identical
+across all three. Solid heights are assumptions: measure the actual coils, since
+the retained 2.8 mm closed spacing allows at most 2.3 mm solid.

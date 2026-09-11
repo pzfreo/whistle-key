@@ -11,7 +11,10 @@ See the [three-key prototype](docs/three-key-prototype.md),
 [P1S PETG print project](exports/three-key/whistle-three-key-P1S.3mf), which is
 a single all-PETG plate holding everything needed. A
 [closed-position assembly STEP](exports/three-key/assembly-closed.step) shows
-the pads seated on the whistle. The new source is [scripts/three_key.py](scripts/three_key.py).
+the pads seated on the whistle. Two 3 mm spring variants are also built:
+[3 x 6 mm at 35 degrees](exports/three-key-3mm-spring/) and
+[3 x 5 mm at 30 degrees](exports/three-key-3mm-short-spring/); see the
+[three-key prototype notes](docs/three-key-prototype.md) for the trade. The new source is [scripts/three_key.py](scripts/three_key.py).
 
 The earlier single-key prototype is retained below for reference.
 

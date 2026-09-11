@@ -31,11 +31,15 @@ jobs:
         run: |
           python scripts/build_ci.py
           python scripts/build_ci.py --model three_key --output build/three-key
+          python scripts/build_ci.py --model three_key_3mm_spring --output build/three-key-3mm-spring
+          python scripts/build_ci.py --model three_key_3mm_short_spring --output build/three-key-3mm-short-spring
       - name: Package oriented print projects
         run: |
           python scripts/package_3mf.py --source build --output build/whistle-key-P1S.3mf
           python scripts/package_3mf.py --source build --dry-run --output build/whistle-key-P1S-dry-fit-PETG.3mf
           python scripts/package_3mf.py --three-key --source build/three-key --output build/three-key/whistle-three-key-P1S.3mf
+          python scripts/package_3mf.py --three-key --source build/three-key-3mm-spring --output build/three-key-3mm-spring/whistle-three-key-3mm-spring-P1S.3mf
+          python scripts/package_3mf.py --three-key --source build/three-key-3mm-short-spring --output build/three-key-3mm-short-spring/whistle-three-key-3mm-short-spring-P1S.3mf
       - name: Test geometry and exports
         run: python -m pytest -q --junitxml=build/test-results.xml
       - name: Upload verified CAD files
