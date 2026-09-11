@@ -75,6 +75,24 @@ def test_travel_stop_and_open_airway(model,n):
     assert pose(m,n,0)[0].distance_to(stop)>0.2
 
 
+def test_foam_is_the_only_closure_stop(model):
+    m=model
+    # Finger force must compress the foam, not land the key on the spring
+    # holder. With 0.3 mm relief the key bottomed 1.2 degrees past nominal
+    # closure, capping compression at 0.44 mm (22%) and leaking in the player
+    # trial. Foam needs roughly 25-40% compression to seal on a hole rim.
+    y=m['hole_centres'][5]
+    axis=Axis((m['pivot_x'],y,m['pivot_z']),(0,1,0))
+    for over in (1.0,2.0,3.0):
+        pressed=m['levers'][5].moved(Location((0,y,0))).rotate(axis,over)
+        assert volume(pressed,m['frame'])<1e-5,(over,'key lands on the frame')
+        assert volume(pressed,m['tube'])<1e-5,(over,'key reaches the tube')
+    # 3 degrees of over-travel is 0.59 mm of pad movement, so 0.79 mm total
+    # compression: about 39% of the 2 mm liner.
+    assert m['arm_radius']*math.sin(math.radians(3.0))>0.55
+    assert m['spring_housing_relief']>=0.8
+
+
 def test_keys_cannot_collide_in_any_combination(model):
     m=model
     # Rotation is about Y: axial extents do not change at any key angle.

@@ -266,3 +266,33 @@ peg (1.8 tapering to 1.5 mm), so each variant has its own frame and keys. The
 pad face, EVA liner, cutting guide, hinge, clamps and hardware are identical
 across all three. Solid heights are assumptions: measure the actual coils, since
 the retained 2.8 mm closed spacing allows at most 2.3 mm solid.
+
+## Closure over-travel for the leaking seals — 2026-09-11
+
+The player trial reported that the pads do not seal reliably enough to play.
+The cause is not pad size or spring force: nothing hard-stops the key at
+closure, so finger force should compress the foam, but the key landed on the
+top rear corner of the spring holder only 1.22° past nominal closure. That
+capped foam compression at 0.44 mm, 22% of the 2 mm liner, however hard the key
+was pressed — and 0.1 mm of PETG oversize in that corner takes it back to the
+0.2 mm design figure, or 10%. Foam needs roughly 25-40% compression to conform
+to a hole rim, so the seal was marginal by design and varied between keys.
+
+The key's spring-housing relief goes from 0.3 to 0.8 mm. The key can now be
+pressed 9.36° past nominal closure before touching anything, which is 1.82 mm
+of pad travel; at a working 3° the pad moves 0.59 mm for 0.79 mm total
+compression, about 39% of the liner, with 1.21 mm still left to the tube. The
+foam is now genuinely the only stop. The arm width blend tracks the relief so
+the transition fillet keeps its constant-width edge, and the reinforcement
+checks are unchanged. Key volume falls from 956.5 to 944.8 mm³.
+
+Reprint the three keys; the frame, caps, liners and hardware are unaffected.
+A test pins the over-travel so this cannot silently regress.
+
+If the seal is still poor after this, the remaining levers are, in order: seat
+the liners by holding the keys closed overnight, as woodwind pads are seated;
+then narrow the pad along the whistle, where the band is 3.20 mm against
+1.76 mm across it. Trimming the along-tube dimension from 14.2 to 10 mm nearly
+doubles contact pressure, because the hole itself carries no load. A leak that
+appears on one side only is hinge slop, not compression, and needs the pin fit
+addressed instead.

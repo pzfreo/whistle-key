@@ -105,6 +105,10 @@ spring_socket_depth = 1.5
 spring_floor_extra_depth = 0.0 # Increase to reduce preload; keep return at full opening
 spring_peg_length = 1.5
 spring_holder_top_bevel = 0.8 # Clearance for the wider EVA carrier during opening
+# Over-travel at closure: the foam must be the only stop, not the spring holder.
+# At 0.3 the key landed on the holder 1.2 degrees past nominal closure, capping
+# foam compression at 0.44 mm (22%) however hard the key was pressed.
+spring_housing_relief = 0.8
 spring_web_overlap = 0.8 # Extend each side web into its fixed hinge pillar
 spring_web_hub_clearance = 0.3
 spring_socket_brace_angle = 50.0 # Rising underside replaces the socket-mouth shelf
@@ -159,7 +163,8 @@ lug_inner_x = min(lug_x-lug_width/2, math.sqrt(clamp_outer_r**2-(clamp_split_z-c
 spring_z = spring_seat_height
 # The arm's width blend must start above the spring-clearance shoulder, so the
 # transition fillet lands on a constant-width edge. Unchanged for the 2 mm coil.
-arm_width_blend_start_z = max(arm_width_blend_start_z, spring_z+spring_seat_width/2+0.4)
+arm_width_blend_start_z = max(arm_width_blend_start_z,
+                             spring_z+spring_seat_width/2+spring_housing_relief+0.1)
 assert arm_width_blend_start_z < arm_width_blend_end_z
 hinge_collar_radius = (pivot_diameter+pivot_clearance)/2+hinge_bore_min_wall
 spring_floor_x = -(r+1.2) + spring_floor_extra_depth
@@ -387,11 +392,11 @@ for number,y,d in holes:
     lever=checked(lever.fuse(back_web))
     lever=checked(lever-cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
     # Clearance around the fixed spring housing throughout the opening sweep.
-    lever=checked(lever-box_at(spring_socket_rim_x-0.3,0,-lever_width,lever_width,-2,spring_z+spring_seat_width/2+0.3))
+    lever=checked(lever-box_at(spring_socket_rim_x-spring_housing_relief,0,-lever_width,lever_width,-2,spring_z+spring_seat_width/2+spring_housing_relief))
     # A concave fillet fills the stress-concentrating inside shoulder with material.
     transition_edges=[e for e in lever.edges()
-                      if abs(e.center().X-(spring_socket_rim_x-0.3))<1e-6
-                      and abs(e.center().Z-(spring_z+spring_seat_width/2+0.3))<1e-6
+                      if abs(e.center().X-(spring_socket_rim_x-spring_housing_relief))<1e-6
+                      and abs(e.center().Z-(spring_z+spring_seat_width/2+spring_housing_relief))<1e-6
                       and abs(e.length-lever_width)<1e-6]
     assert len(transition_edges)==1
     lever=checked(fillet(transition_edges,arm_transition_radius))
