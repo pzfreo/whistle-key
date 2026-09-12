@@ -383,3 +383,36 @@ Only the frame changes: the opening stop is part of the frame, and the key
 geometry does not depend on the angle. Reprint the frame alone and reuse the
 keys, caps, liners, pins, springs and hardware. Whether the smaller opening
 affects the tone of these notes is a playing question; CAD cannot answer it.
+
+## Key fracture at the 60-65 degree station — 2026-09-12
+
+A key fractured before it was even played, on the outside of the curve roughly
+level with the spring housing. The cause was the closure over-travel fix: the
+spring-housing relief was opened from 0.3 to 0.8 mm in both x and z, and the x
+component cut the arm from the inside exactly where bending stress peaks.
+
+Bending stress index M/Z along the arm, with the finger load on the pad and the
+reaction at the pivot:
+
+| station | before the relief change | after it | now |
+|---|---|---|---|
+| 60 deg | Z 10.04, stress 0.97 | Z 5.59, stress 1.74 | Z 5.63, stress 1.72 |
+| 65 deg | Z 4.86, stress 2.09 | Z 2.77, stress 3.66 | Z 7.44, stress 1.37 |
+
+The two probes that were supposed to guard the bend sit at 55 and 70 degrees,
+either side of the damage, so nothing failed.
+
+Two changes. The relief is split: 0.3 mm in x as before, 0.8 mm in z. The
+over-travel comes almost entirely from the z component, so this keeps 3.58
+degrees past nominal closure and the full 0.79 mm of foam compression while
+restoring most of the section. Then `upper_arm_radial_extra` goes from 1.0 to
+1.8 mm, replacing the remaining stock outboard where it costs nothing over the
+holes; the arm's outer radius goes 13.7 to 14.5 mm on the hinge side only.
+
+Peak stress ends up 1.37 against 2.09 for the version that survived playing,
+so the arm is about 35% less stressed than before any of this. Key volume
+635.9 to 663.9 mm3. The test now probes the 60 and 65 degree stations directly,
+inboard and outboard, across the arm width.
+
+Reprint the keys. The frame, caps, liners, pins, springs and hardware are
+unchanged by this revision.

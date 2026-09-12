@@ -22,7 +22,10 @@ lever_width = 4.0
 lever_tail_extension = 3.5
 back_web_overlap = 0.1
 upper_arm_width = 6.0 # Broader load path into the pad cup; hinge remains 4 mm
-upper_arm_radial_extra = 1.0 # Added on the outside, clear of the whistle
+upper_arm_radial_extra = 1.8 # Added on the outside, clear of the whistle.
+# Raised from 1.0 after a key fractured: the spring-housing relief cuts the arm
+# from the inside at the peak-stress station, so the stock is replaced outboard
+# where it costs nothing over the holes.
 arm_reinforcement_start_z = 3.4 # Above fixed bearing heads
 arm_reinforcement_full_z = 6.0
 arm_width_blend_start_z = 5.5 # Preserve the spring shoulder and hinge interfaces
@@ -108,7 +111,13 @@ spring_holder_top_bevel = 0.8 # Clearance for the wider EVA carrier during openi
 # Over-travel at closure: the foam must be the only stop, not the spring holder.
 # At 0.3 the key landed on the holder 1.2 degrees past nominal closure, capping
 # foam compression at 0.44 mm (22%) however hard the key was pressed.
-spring_housing_relief = 0.8
+# Over-travel at closure: the foam must be the only stop, not the spring
+# holder. The clearance is needed above the holder, not behind it: taking it in
+# z alone buys 3.58 degrees of over-travel, while the same 0.8 mm taken in x as
+# well cut the arm's section modulus at the 65 degree station by 43% and broke
+# a key. Keep x at the original 0.3.
+spring_housing_relief_x = 0.3
+spring_housing_relief_z = 0.8
 spring_web_overlap = 0.8 # Extend each side web into its fixed hinge pillar
 spring_web_hub_clearance = 0.3
 spring_socket_brace_angle = 50.0 # Rising underside replaces the socket-mouth shelf
@@ -174,7 +183,7 @@ spring_z = spring_seat_height
 # The arm's width blend must start above the spring-clearance shoulder, so the
 # transition fillet lands on a constant-width edge. Unchanged for the 2 mm coil.
 arm_width_blend_start_z = max(arm_width_blend_start_z,
-                             spring_z+spring_seat_width/2+spring_housing_relief+0.1)
+                             spring_z+spring_seat_width/2+spring_housing_relief_z+0.1)
 assert arm_width_blend_start_z < arm_width_blend_end_z
 hinge_collar_radius = (pivot_diameter+pivot_clearance)/2+hinge_bore_min_wall
 spring_floor_x = -(r+1.2) + spring_floor_extra_depth
@@ -406,11 +415,11 @@ for number,y,d in holes:
     lever=checked(lever.fuse(back_web))
     lever=checked(lever-cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
     # Clearance around the fixed spring housing throughout the opening sweep.
-    lever=checked(lever-box_at(spring_socket_rim_x-spring_housing_relief,0,-lever_width,lever_width,-2,spring_z+spring_seat_width/2+spring_housing_relief))
+    lever=checked(lever-box_at(spring_socket_rim_x-spring_housing_relief_x,0,-lever_width,lever_width,-2,spring_z+spring_seat_width/2+spring_housing_relief_z))
     # A concave fillet fills the stress-concentrating inside shoulder with material.
     transition_edges=[e for e in lever.edges()
-                      if abs(e.center().X-(spring_socket_rim_x-spring_housing_relief))<1e-6
-                      and abs(e.center().Z-(spring_z+spring_seat_width/2+spring_housing_relief))<1e-6
+                      if abs(e.center().X-(spring_socket_rim_x-spring_housing_relief_x))<1e-6
+                      and abs(e.center().Z-(spring_z+spring_seat_width/2+spring_housing_relief_z))<1e-6
                       and abs(e.length-lever_width)<1e-6]
     assert len(transition_edges)==1
     lever=checked(fillet(transition_edges,arm_transition_radius))

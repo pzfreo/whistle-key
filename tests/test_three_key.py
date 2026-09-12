@@ -90,7 +90,10 @@ def test_foam_is_the_only_closure_stop(model):
     # 3 degrees of over-travel is 0.59 mm of pad movement, so 0.79 mm total
     # compression: about 39% of the 2 mm liner.
     assert m['arm_radius']*math.sin(math.radians(3.0))>0.55
-    assert m['spring_housing_relief']>=0.8
+    # The clearance is taken in z only. Taking it in x as well removes the
+    # arm's section at the 60-65 degree stations, which fractured a key.
+    assert m['spring_housing_relief_z']>=0.8
+    assert m['spring_housing_relief_x']<=0.3
 
 
 def test_keys_cannot_collide_in_any_combination(model):
@@ -234,13 +237,25 @@ def test_nuts_insert_from_below_seat_and_cannot_spin(model):
 
 
 def test_all_three_keys_and_pads_are_interchangeable(model):
-    # Compare occupied solids, not just nominal diameters or equal volumes.
+    # Compare geometric invariants rather than intersecting the two bodies:
+    # OCCT returns an empty intersection for exactly coincident solids, so a
+    # symmetric-difference check reports every key as different from itself.
     for collection in ('levers', 'foam_blanks'):
         reference = model[collection][4]
+        rbb = reference.bounding_box()
         for n in (5, 6):
             candidate = model[collection][n]
-            common_volume = volume(reference, candidate)
-            assert reference.volume + candidate.volume - 2*common_volume < 1e-5
+            cbb = candidate.bounding_box()
+            assert candidate.volume == pytest.approx(reference.volume, rel=1e-12)
+            assert sum(f.area for f in candidate.faces()) == pytest.approx(
+                sum(f.area for f in reference.faces()), rel=1e-12)
+            assert (len(candidate.faces()), len(candidate.edges()),
+                    len(candidate.vertices())) == (len(reference.faces()),
+                    len(reference.edges()), len(reference.vertices()))
+            for got, want in [(cbb.min.X, rbb.min.X), (cbb.max.X, rbb.max.X),
+                              (cbb.min.Y, rbb.min.Y), (cbb.max.Y, rbb.max.Y),
+                              (cbb.min.Z, rbb.min.Z), (cbb.max.Z, rbb.max.Z)]:
+                assert got == pytest.approx(want, abs=1e-9)
     assert list(model['pad_sizes'].values()) == pytest.approx([14.2]*3)
 
 
@@ -356,6 +371,15 @@ def test_upper_key_arm_has_stock_across_the_reinforced_bend(model):
         for x,z in [(-11.0,7.5),(-10.5,8.5)]:
             for y in (-2.8,0,2.8):
                 assert key.is_inside(Vector(x,y,z))
+        # The 60-65 degree stations carry the highest bending stress and sat
+        # between the probes above, so a relief cut hollowed them out unseen
+        # and a key fractured. Probe them directly, inboard and outboard.
+        for deg in (60,65):
+            a=math.radians(deg)
+            for radius in (11.6,12.5,13.6):
+                x,z=-radius*math.sin(a),radius*math.cos(a)
+                for y in (-1.6,0,1.6):
+                    assert key.is_inside(Vector(x,y,z)),(deg,radius,y)
         # The hinge still fits the existing bearing gap.
         hinge_region=m['box_at'](-20,0,-10,10,-2,3.0)
         lower=key.intersect(hinge_region)
