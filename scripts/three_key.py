@@ -128,6 +128,12 @@ rail_bottom = clamp_split_z-clamp_split_gap/2-lug_height # Flush base for flat p
 # and no retaining ring: the whole pad face is one uninterrupted glue surface.
 eva_liner_thickness = 2.0 # User's sheet; liner is cut, not printed
 eva_compression_allowance = 0.2 # Trial compression at closure, not measured hardness
+# Finger face. The pad boss used to run out to the arm's own 12.7 mm crown,
+# leaving a flat-topped drum standing proud of the arm: 725 mm3 of PETG above
+# the recess, 77% of the key. A flat face at 11.0 meets the arm's curve
+# tangentially at x = +-6.35, so the crown is trimmed without leaving a step.
+key_top_height = 11.0
+key_top_chamfer = 1.5 # Relieved rim; the flat centre still prints face down
 eva_template_thickness = 2.0
 eva_template_samples = 128
 # Derived geometry; all lengths mm, angles degrees.
@@ -141,7 +147,7 @@ pivot_z = 0.0
 open_angle = opening_angle_degrees
 eva_inner_radius = r-eva_compression_allowance # Uncompressed sealing surface
 eva_outer_radius = eva_inner_radius+eva_liner_thickness # Recess floor in the carrier
-pad_backing_thickness = lever_bottom+lever_thickness-eva_outer_radius # PETG above the recess
+pad_backing_thickness = key_top_height-eva_outer_radius # PETG above the recess
 pad_centre_lift = arm_radius*math.sin(math.radians(open_angle))+lever_bottom*(math.cos(math.radians(open_angle))-1)
 rail_x_min = pivot_x-rail_width/2
 rail_x_max = pivot_x+rail_width/2
@@ -179,6 +185,7 @@ assert pad_diameter > max(hole4_d,hole5_d,hole6_d)+2
 assert min(hole4_y-hole5_y,hole5_y-hole6_y)>pad_diameter+1
 # The recess must not eat through the key plate above it.
 assert pad_backing_thickness >= 2.0
+assert key_top_chamfer < pad_diameter/2 - max(hole4_d,hole5_d,hole6_d)/2
 
 def checked(shape):
     info=measure(shape)
@@ -421,6 +428,16 @@ for number,y,d in holes:
     foam_blanks[number]=foam_blank
     show(foam_blank,'eva_liner'+str(number))
     lever=checked(lever.fuse(pad_boss))
+    # Trim the crown down to the finger face. The reinforced arm reaches radius
+    # 13.7, so the cut runs across the whole key and the arm's curve rises into
+    # the flat face instead of standing proud of it. The bend probed by the
+    # strength tests sits at z 7.5-8.5 and is untouched.
+    lever=checked(lever-box_at(-30,30,-30,30,key_top_height,40))
+    rim_cone=Pos(0,0,key_top_height-key_top_chamfer)*Cone(
+        pad_diameter/2,pad_diameter/2-key_top_chamfer,key_top_chamfer,
+        align=(Align.CENTER,Align.CENTER,Align.MIN))
+    lever=checked(lever-(hole_z(0,0,key_top_height-key_top_chamfer,
+                                key_top_height+1,pad_diameter)-rim_cone))
     show(lever,'lever_blank'+str(number))
 
     levers[number]=lever

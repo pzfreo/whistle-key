@@ -244,6 +244,26 @@ def test_all_three_keys_and_pads_are_interchangeable(model):
     assert list(model['pad_sizes'].values()) == pytest.approx([14.2]*3)
 
 
+def test_finger_face_is_flat_relieved_and_prints_face_down(model):
+    m=model
+    top=m['key_top_height']
+    for n in (4,5,6):
+        key=m['levers'][n]
+        # Nothing stands proud of the finger face, including the reinforced arm.
+        assert key.bounding_box().max.Z==pytest.approx(top)
+        face=[f for f in key.faces()
+              if f.geom_type==GeomType.PLANE and abs(f.center().Z-top)<1e-6]
+        # The pad disc and the strip of arm that rises into it are coplanar but
+        # remain separate faces; together they are the finger face.
+        assert 1<=len(face)<=2
+        # A comfortable flat pad, and enough bed contact to print face down.
+        assert sum(f.area for f in face)>80
+    # The rim is relieved rather than a square edge against the finger.
+    assert m['key_top_chamfer']>=1.0
+    # The old flat-topped drum put 725 mm3 of PETG above the recess.
+    assert m['levers'][4].volume<700
+
+
 def test_pad_face_is_one_clean_glue_surface(model):
     m=model
     # The EVA is glued straight to the key, so the face it sticks to must be a
@@ -365,7 +385,9 @@ def test_eva_facing_template_and_more_lift(model):
     m=model
     assert m['eva_liner_thickness']==pytest.approx(2.0)
     # Carrier floor left above the deeper recess, and tabs kept inside it.
-    assert m['pad_backing_thickness']==pytest.approx(3.8)
+    # Finger face lowered to the tangent plane; 2.1 mm of PETG over the recess.
+    assert m['pad_backing_thickness']==pytest.approx(2.1)
+    assert m['key_top_height']==pytest.approx(11.0)
     assert m['pad_backing_thickness']>=2.0
     assert m['spring_od']==pytest.approx(2.0)
     assert m['spring_free_length']==pytest.approx(5.0)

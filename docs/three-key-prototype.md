@@ -296,3 +296,33 @@ then narrow the pad along the whistle, where the band is 3.20 mm against
 doubles contact pressure, because the hole itself carries no load. A leak that
 appears on one side only is hinge slop, not compression, and needs the pin fit
 addressed instead.
+
+## Ergonomic key tops — 2026-09-12
+
+![Three-key assembly with the lowered finger faces](ergonomic-key-tops.png)
+
+The overnight seating trial fixed the seals, so the keys are now shaped for the
+finger. The pad boss ran out to the arm's own crown, leaving a flat-topped drum
+standing proud of the arm: 725 mm³ of PETG above the recess, 77% of the key,
+7.33 mm thick at the pad rim against 3.80 mm at its centre.
+
+The finger face drops to a flat plane 11.0 mm from the tube axis, 3.9 mm above
+the whistle, with a 1.5 mm chamfered rim. The plane is close to tangent to the
+arm's curve, so the arm rises into the face rather than stepping against it.
+The cut runs across the whole key because the reinforced arm reaches radius
+13.7, higher than the finger face; the bend the strength tests probe sits at
+z 7.5-8.5 and is untouched.
+
+| | before | after |
+|---|---|---|
+| key volume | 944.8 mm³ | 625.5 mm³ (-34%) |
+| PETG above the recess, centre | 3.80 mm | 2.10 mm |
+| flat finger face | 14.2 mm, square rim | 11.2 mm flat, chamfered to 14.2 |
+| print height | 14.7 mm | 13.0 mm |
+| bed contact printing face down | 158 mm² | 106 mm² |
+
+The pad face, EVA recess, liner, hinge, spring interfaces and opening are
+unchanged, so the seal and travel behaviour carry over untouched, as does the
+0.79 mm of closure compression. All three spring variants get the same top.
+Reprint the three keys; reuse the frame, caps, liners, pins and springs.
+A test pins the flat face, its area and the relieved rim.
