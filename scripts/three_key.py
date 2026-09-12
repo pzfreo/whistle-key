@@ -433,6 +433,27 @@ for number,y,d in holes:
     collar=checked(cyl_y(hinge_collar_radius,hub_length,pivot_x,0,pivot_z)-
                    cyl_y((pivot_diameter+pivot_clearance)/2,hub_length+2,pivot_x,0,pivot_z))
     lever=checked(lever.fuse(collar))
+    # Round the staircase of inside corners left where the spring clearance
+    # channel meets the housing relief and where the peg leaves the arm. A key
+    # fractured at this station: a sharp re-entrant corner concentrates stress
+    # whatever the section area is. Order matters, each fillet retopologises.
+    channel_top_z=spring_z+(spring_od+spring_fit)/2
+    for cx,cz,radius in [(spring_moving_x,channel_top_z,0.5),
+                         (spring_socket_rim_x-spring_housing_relief_x,channel_top_z,0.6),
+                         (spring_moving_x,spring_z+spring_peg_diameter/2,0.6)]:
+        notch=[e for e in lever.edges()
+               if abs(e.center().X-cx)<0.05 and abs(e.center().Z-cz)<0.05 and e.length>1.0]
+        assert len(notch)==1,(cx,cz,len(notch))
+        # Each variant's coil size changes what OCCT will accept here, so take
+        # the largest radius that holds rather than a fixed one.
+        for attempt in [radius-0.1*step for step in range(5)]:
+            if attempt < 0.2: break
+            try:
+                lever=checked(fillet(notch,attempt)); break
+            except Exception:
+                continue
+        else:
+            raise AssertionError('cannot round the notch at %.2f, %.2f'%(cx,cz))
     # Integral dished pad boss: the key plate carries the foam directly, so the
     # glue face is a single cylindrical surface with no ring, notch or step.
     pad_boss=hole_z(0,0,0,lever_bottom+lever_thickness,pad_diameter)

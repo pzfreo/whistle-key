@@ -416,3 +416,25 @@ inboard and outboard, across the arm width.
 
 Reprint the keys. The frame, caps, liners, pins, springs and hardware are
 unchanged by this revision.
+
+### Rounding the notch staircase
+
+Restoring the section was not the whole story. A section through the arm at the
+fracture station showed a staircase of sharp inside corners where the spring
+clearance channel meets the housing relief and where the peg leaves the arm:
+nine line-to-line corners between x -13 and -8. Station 65 degrees, where the
+key broke, sits at (-10.11, 4.72), directly on that staircase. A sharp
+re-entrant corner concentrates stress whatever the section area is, and in a
+printed part it also lands between extrusion paths.
+
+Three of those corners are now rounded: the channel top where it meets the
+relief face (0.6 mm), the channel's far end (0.5 mm) and the peg root (0.6 mm).
+Nine sharp corners become three, and the survivors are the peg tip, which
+carries no load, and one on the tail away from the bend. Key volume 663.9 to
+666.4 mm3.
+
+Two practical notes. The radii are tried largest-first with a fallback, because
+each variant's coil size changes what OCCT will accept. And the fillets must be
+applied before the crown cuts: build123d's fillet works from the edges' parent
+solid, so running them afterwards silently discarded the flat landing and left
+the key with no printable face.
