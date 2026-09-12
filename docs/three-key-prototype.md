@@ -315,16 +315,36 @@ z 7.5-8.5 and is untouched.
 
 | | before | after |
 |---|---|---|
-| key volume | 944.8 mm³ | 640.2 mm³ (-32%) |
+| key volume | 944.8 mm³ | 635.9 mm³ (-33%) |
 | PETG above the recess, centre | 3.80 mm | 2.10 mm |
-| flat finger face | 158 mm², square rim | 113 mm² flat, 1.2 mm relieved rim |
+| finger face | flat disc, square rim | 25 mm crowned cylinder |
 | print height | 14.7 mm | 13.0 mm |
-| bed contact printing face down | 158 mm² | 113 mm² |
+| bed contact printing face down | 158 mm² | 87 mm² |
 
 The pad face, EVA recess, liner, hinge, spring interfaces and opening are
 unchanged, so the seal and travel behaviour carry over untouched, as does the
 0.79 mm of closure compression. All three spring variants get the same top.
 Reprint the three keys; reuse the frame, caps, liners, pins and springs.
+### Crowned face, 2026-09-12
+
+The flat face, its rim chamfer and the faceted reinforcement crown are replaced
+by a single cut: a cylinder of 25 mm radius about the tube axis, truncated by a
+0.2 mm flat landing at the apex so the part still starts on the bed. One smooth
+surface now runs from the arm over the pad, and the angular shoulder above the
+arm reinforcement is gone.
+
+The crown must be cylindrical, not spherical. The EVA recess is a cylinder
+about the same axis, so it does not vary along the whistle; a spherical crown
+does, and closes on the recess at the pad's axial edges, leaving 1.30 mm of
+PETG there against the 2.10 mm a cylindrical crown holds everywhere. The
+radius is set by the arm bend the strength tests probe at z 7.5-8.5, which the
+crown must stay above: 25 mm clears it, 20 mm cuts into it.
+
+The pad's two axial edges are left square where the crown meets the 14.2 mm
+side wall. Rounding them would eat into that 2.10 mm wall.
+
+### Earlier flat face
+
 The rim relief chamfers the finger face's own boundary, not the pad circle.
 Relieving the circle cut a 1.4 mm trench between the arm and the pad, because
 the arm reaches the face at full height: at y = 0 the surface ran 11.00 on the

@@ -132,8 +132,12 @@ eva_compression_allowance = 0.2 # Trial compression at closure, not measured har
 # leaving a flat-topped drum standing proud of the arm: 725 mm3 of PETG above
 # the recess, 77% of the key. A flat face at 11.0 meets the arm's curve
 # tangentially at x = +-6.35, so the crown is trimmed without leaving a step.
-key_top_height = 11.0
-key_top_chamfer = 1.2 # Relieved rim; the flat centre still prints face down
+key_top_height = 11.2 # Dome apex, measured from the tube axis
+key_dome_radius = 25.0 # Crown radius; a cylinder about the tube axis, not a
+# sphere. The EVA recess is cylindrical about that axis, so a spherical crown
+# would close on it along the whistle and leave only 1.30 mm of PETG at the
+# pad's axial edges. A cylindrical crown holds the wall constant.
+key_dome_flat = 0.2 # Small landing at the apex so it still prints face down
 eva_template_thickness = 2.0
 eva_template_samples = 128
 # Derived geometry; all lengths mm, angles degrees.
@@ -147,7 +151,7 @@ pivot_z = 0.0
 open_angle = opening_angle_degrees
 eva_inner_radius = r-eva_compression_allowance # Uncompressed sealing surface
 eva_outer_radius = eva_inner_radius+eva_liner_thickness # Recess floor in the carrier
-pad_backing_thickness = key_top_height-eva_outer_radius # PETG above the recess
+pad_backing_thickness = key_top_height-key_dome_flat-eva_outer_radius # PETG above the recess
 pad_centre_lift = arm_radius*math.sin(math.radians(open_angle))+lever_bottom*(math.cos(math.radians(open_angle))-1)
 rail_x_min = pivot_x-rail_width/2
 rail_x_max = pivot_x+rail_width/2
@@ -185,7 +189,10 @@ assert pad_diameter > max(hole4_d,hole5_d,hole6_d)+2
 assert min(hole4_y-hole5_y,hole5_y-hole6_y)>pad_diameter+1
 # The recess must not eat through the key plate above it.
 assert pad_backing_thickness >= 2.0
-assert key_top_chamfer < pad_diameter/2 - max(hole4_d,hole5_d,hole6_d)/2
+# The dome must clear the arm bend the strength tests probe, and must still
+# leave a landing big enough to start a print on.
+assert key_top_height-key_dome_radius+math.sqrt(key_dome_radius**2-10.5**2) > 8.6
+assert 0 < key_dome_flat < 0.5
 
 def checked(shape):
     info=measure(shape)
@@ -428,19 +435,15 @@ for number,y,d in holes:
     foam_blanks[number]=foam_blank
     show(foam_blank,'eva_liner'+str(number))
     lever=checked(lever.fuse(pad_boss))
-    # Trim the crown down to the finger face. The reinforced arm reaches radius
-    # 13.7, so the cut runs across the whole key and the arm's curve rises into
-    # the flat face instead of standing proud of it. The bend probed by the
-    # strength tests sits at z 7.5-8.5 and is untouched.
-    lever=checked(lever-box_at(-30,30,-30,30,key_top_height,40))
-    # Relieve the finger face's own boundary, not the pad circle. The arm
-    # reaches the face at full height, so chamfering the circle cut a 1.4 mm
-    # trench between arm and pad; chamfering the face edges leaves that
-    # junction continuous and only softens the free rim.
-    top_face=[f for f in lever.faces()
-              if f.geom_type==GeomType.PLANE and abs(f.center().Z-key_top_height)<1e-6]
-    assert len(top_face)==1
-    lever=checked(chamfer(top_face[0].edges(),key_top_chamfer))
+    # One spherical cut domes the finger face and carries the same surface on
+    # over the arm shoulder, replacing the flat top, its rim chamfer and the
+    # faceted reinforcement crown with a single smooth face. The radius is set
+    # by the arm bend the strength tests probe at z 7.5-8.5, which the dome
+    # must stay above.
+    crown=cyl_y(key_dome_radius,60,0,0,key_top_height-key_dome_radius)
+    lever=checked(list(lever.intersect(crown).solids())[0])
+    # A small landing at the apex keeps the part printable finger-face down.
+    lever=checked(lever-box_at(-30,30,-30,30,key_top_height-key_dome_flat,40))
     show(lever,'lever_blank'+str(number))
 
     levers[number]=lever

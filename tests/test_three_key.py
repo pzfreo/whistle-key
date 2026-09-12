@@ -244,22 +244,28 @@ def test_all_three_keys_and_pads_are_interchangeable(model):
     assert list(model['pad_sizes'].values()) == pytest.approx([14.2]*3)
 
 
-def test_finger_face_is_flat_relieved_and_prints_face_down(model):
+def test_finger_face_is_a_smooth_crown_and_prints_face_down(model):
     m=model
-    top=m['key_top_height']
+    # The crown is a cylinder about the tube axis, truncated by a small flat
+    # landing at the apex. A spherical crown would follow the whistle in the
+    # axial direction too, closing on the cylindrical EVA recess and leaving
+    # only 1.30 mm of PETG at the pad's axial edges instead of 2.10.
+    top=m['key_top_height']-m['key_dome_flat']
     for n in (4,5,6):
         key=m['levers'][n]
         # Nothing stands proud of the finger face, including the reinforced arm.
         assert key.bounding_box().max.Z==pytest.approx(top)
         face=[f for f in key.faces()
               if f.geom_type==GeomType.PLANE and abs(f.center().Z-top)<1e-6]
-        # The pad disc and the strip of arm that rises into it are coplanar but
-        # remain separate faces; together they are the finger face.
-        assert 1<=len(face)<=2
-        # A comfortable flat pad, and enough bed contact to print face down.
-        assert sum(f.area for f in face)>80
-    # The rim is relieved rather than a square edge against the finger.
-    assert m['key_top_chamfer']>=1.0
+        # Enough bed contact to start the print on the finger face.
+        assert sum(f.area for f in face)>40
+        # Wall over the recess holds up along the whistle, not just at centre.
+        for y in (0.0,3.5,7.0):
+            z=math.sqrt(m['eva_outer_radius']**2)+0.02
+            while z<12.5 and key.is_inside(Vector(0.0,y,z)): z+=0.02
+            assert z-m['eva_outer_radius']>2.0,(y,z)
+    # The crown radius must clear the arm bend the strength tests probe.
+    assert m['key_dome_radius']>=24.2
     # No trench where the arm meets the face. Relieving the pad circle instead
     # of the face's own boundary cut a 1.4 mm channel across the finger face.
     key=m['levers'][4]
@@ -399,7 +405,8 @@ def test_eva_facing_template_and_more_lift(model):
     # Carrier floor left above the deeper recess, and tabs kept inside it.
     # Finger face lowered to the tangent plane; 2.1 mm of PETG over the recess.
     assert m['pad_backing_thickness']==pytest.approx(2.1)
-    assert m['key_top_height']==pytest.approx(11.0)
+    assert m['key_top_height']==pytest.approx(11.2)
+    assert m['key_dome_radius']==pytest.approx(25.0)
     assert m['pad_backing_thickness']>=2.0
     assert m['spring_od']==pytest.approx(2.0)
     assert m['spring_free_length']==pytest.approx(5.0)
