@@ -353,3 +353,33 @@ leaves that junction continuous and only softens the free rim.
 
 A test pins the flat face, its area, the relieved rim, and that the surface
 never dips on the way from the arm into the pad.
+
+## Opening reduced to 27 degrees — 2026-09-12
+
+The player measured about 6 mm of gap above an open hole and asked for 2 mm
+less. The figure the earlier notes quoted, 4.042 mm, is the minimum three
+dimensional distance from the liner to the tube, which occurs off to the side
+at the pad's trailing edge. Straight up over the hole, where it is actually
+measured, the 35 degree opening gives 5.94 mm. The model and the instrument
+agree; only the quoted quantity was wrong.
+
+Opening drops from 35 to 27 degrees on all three variants.
+
+| | 35 deg | 27 deg |
+|---|---|---|
+| gap straight up over the hole | 5.94 mm | 4.78 mm |
+| finger travel (pad lift) | 4.670 mm | 4.027 mm |
+| minimum 3-D liner to tube | 4.042 mm | 3.090 mm |
+| spring preload, 2 mm coil | 0.376 mm | 0.772 mm |
+| spring preload, 3 x 6 mm coil | 1.022 mm | 1.495 mm |
+| spring preload, 3 x 5 mm coil | 0.407 mm | 0.578 mm |
+
+27 degrees gives 1.16 mm of the 2 mm asked for. A full 2 mm needs 22 degrees,
+which drops the minimum three dimensional clearance to 2.48 mm and breaks the
+3 mm rule; 27 degrees keeps it at 3.09 mm. Preload roughly doubles on the 2 mm
+coil, so the return action should be more positive.
+
+Only the frame changes: the opening stop is part of the frame, and the key
+geometry does not depend on the angle. Reprint the frame alone and reuse the
+keys, caps, liners, pins, springs and hardware. Whether the smaller opening
+affects the tone of these notes is a playing question; CAD cannot answer it.

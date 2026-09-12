@@ -15,10 +15,10 @@ from scripts.build_ci import load_model
 
 
 VARIANTS = {
-    'three_key_3mm_spring': dict(free=6.0, seat_z=3.70, angle=35.0,
-                                 lift=4.670, preload=1.022, open_gap=4.042),
-    'three_key_3mm_short_spring': dict(free=5.0, seat_z=3.52, angle=30.0,
-                                       lift=4.300, preload=0.407, open_gap=3.450),
+    'three_key_3mm_spring': dict(free=6.0, seat_z=3.70, angle=27.0,
+                                 lift=4.027, preload=1.495, open_gap=3.090),
+    'three_key_3mm_short_spring': dict(free=5.0, seat_z=3.52, angle=27.0,
+                                       lift=4.027, preload=0.578, open_gap=3.090),
 }
 
 
@@ -94,15 +94,17 @@ def test_kinematics_match_the_2mm_build(m, baseline):
     for n in (4, 5, 6):
         assert m['foam_blanks'][n].volume == pytest.approx(
             baseline['foam_blanks'][n].volume)
-    # The wider coil needs a higher seat and a smaller opening to clear the
-    # hinge collar, so lift is lower than the 2 mm build's 4.670 mm.
+    # All three variants share the 27 degree opening, so lift is identical; the
+    # wider coil differs only in seat height and the parts that touch it.
     assert m['spring_z'] == pytest.approx(m['expected']['seat_z'])
-    assert m['open_angle'] == pytest.approx(m['expected']['angle'])
-    assert m['pad_centre_lift'] == pytest.approx(m['expected']['lift'], abs=0.001)
+    assert m['open_angle'] == pytest.approx(baseline['open_angle'])
+    assert m['pad_centre_lift'] == pytest.approx(baseline['pad_centre_lift'])
     preload = m['spring_free_length']-m['spring_length_open']
     assert preload == pytest.approx(m['expected']['preload'], abs=0.001)
-    # Both 3 mm builds carry more preload than the 2 mm one they replace.
-    assert preload > baseline['spring_free_length']-baseline['spring_length_open']
+    # Judge travel against the preload standard, not against the 2 mm build: a
+    # 3 mm coil of 0.4 mm wire is several times stiffer, and the short-spring
+    # variant sits on a higher seat so it carries less travel at 27 degrees.
+    assert preload > 0.35
     assert m['levers'][4].volume != pytest.approx(baseline['levers'][4].volume)
     assert m['frame'].volume != pytest.approx(baseline['frame'].volume)
 

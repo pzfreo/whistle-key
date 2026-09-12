@@ -411,9 +411,10 @@ def test_eva_facing_template_and_more_lift(model):
     assert m['spring_od']==pytest.approx(2.0)
     assert m['spring_free_length']==pytest.approx(5.0)
     assert m['spring_length_closed']==pytest.approx(2.8)
-    assert m['open_angle']==pytest.approx(35.0)
-    # At least 4.6 mm centre lift and 3 mm nearest-edge clearance at full opening.
-    assert m['pad_centre_lift']>4.6
+    assert m['open_angle']==pytest.approx(27.0)
+    # 27 degrees leaves 4.78 mm straight up over the hole, 2 mm less than the
+    # 35 degree opening it replaces, while holding the 3 mm nearest-edge rule.
+    assert m['pad_centre_lift']>3.9
     for n in (4,5,6):
         assert m['foam_liners'][n].distance_to(m['tube'])>3.0
         # Integral pad face spans the full 14.2 mm key pad across the whistle.

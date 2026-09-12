@@ -66,22 +66,22 @@ axial_clearance = 0.3
 # 0.376 mm nominal preload. scripts/build_ci.py selects a variant by pre-setting
 # spring_variant; run on its own this file builds the 2 mm spring.
 spring_variant = globals().get('spring_variant', '2mm')
-# The coil axis passes close to the reinforced hinge collar at full opening,
-# so a wider coil needs a higher seat and a smaller opening angle. At 35 degrees
-# a 3 mm coil fouls the collar; 26 degrees is the largest opening that keeps
-# 0.2 mm clearance and useful preload on a 5 mm free length.
+# The coil axis passes close to the reinforced hinge collar at full opening, so
+# a wider coil needs a higher seat. All three variants now open to 27 degrees,
+# which is well inside what every coil here can clear; the seat heights are the
+# ones the earlier 35 and 30 degree openings required and are left as they are.
 spring_options = {
     '2mm': dict(od=2.0, wire=0.3, free=5.0, solid=2.0, seat_width=3.2,
-                peg=1.2, peg_tip=1.0, seat_height=3.1, open_degrees=35.0),
+                peg=1.2, peg_tip=1.0, seat_height=3.1, open_degrees=27.0),
     # 6 mm free length buys the preload the higher seat costs, so the 35 degree
     # opening and full pad lift are kept.
     '3mm': dict(od=3.0, wire=0.4, free=6.0, solid=2.2, seat_width=4.2,
-                peg=1.8, peg_tip=1.5, seat_height=3.70, open_degrees=35.0),
+                peg=1.8, peg_tip=1.5, seat_height=3.70, open_degrees=27.0),
     # Same coil on a 5 mm free length. 30 degrees is the most opening that
     # holds 0.2 mm collar clearance at the 0.35 mm preload standard; 31 needs
     # a seat so high that preload falls to 0.33.
     '3mm-short': dict(od=3.0, wire=0.4, free=5.0, solid=2.2, seat_width=4.2,
-                      peg=1.8, peg_tip=1.5, seat_height=3.52, open_degrees=30.0),
+                      peg=1.8, peg_tip=1.5, seat_height=3.52, open_degrees=27.0),
 }
 assert spring_variant in spring_options, spring_variant
 _spring = spring_options[spring_variant]
