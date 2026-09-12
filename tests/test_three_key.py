@@ -260,6 +260,18 @@ def test_finger_face_is_flat_relieved_and_prints_face_down(model):
         assert sum(f.area for f in face)>80
     # The rim is relieved rather than a square edge against the finger.
     assert m['key_top_chamfer']>=1.0
+    # No trench where the arm meets the face. Relieving the pad circle instead
+    # of the face's own boundary cut a 1.4 mm channel across the finger face.
+    key=m['levers'][4]
+    def top(x,y):
+        z=top_z=m['key_top_height']+0.05
+        while z>-3:
+            if key.is_inside(Vector(x,y,z)): return z
+            z-=0.05
+        return -9.0
+    profile=[top(x/10,0) for x in range(-90,-49,5)]
+    for before,after in zip(profile,profile[1:]):
+        assert after>=before-1e-9,(before,after,'dip between arm and pad')
     # The old flat-topped drum put 725 mm3 of PETG above the recess.
     assert m['levers'][4].volume<700
 

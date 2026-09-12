@@ -315,14 +315,21 @@ z 7.5-8.5 and is untouched.
 
 | | before | after |
 |---|---|---|
-| key volume | 944.8 mm³ | 625.5 mm³ (-34%) |
+| key volume | 944.8 mm³ | 640.2 mm³ (-32%) |
 | PETG above the recess, centre | 3.80 mm | 2.10 mm |
-| flat finger face | 14.2 mm, square rim | 11.2 mm flat, chamfered to 14.2 |
+| flat finger face | 158 mm², square rim | 113 mm² flat, 1.2 mm relieved rim |
 | print height | 14.7 mm | 13.0 mm |
-| bed contact printing face down | 158 mm² | 106 mm² |
+| bed contact printing face down | 158 mm² | 113 mm² |
 
 The pad face, EVA recess, liner, hinge, spring interfaces and opening are
 unchanged, so the seal and travel behaviour carry over untouched, as does the
 0.79 mm of closure compression. All three spring variants get the same top.
 Reprint the three keys; reuse the frame, caps, liners, pins and springs.
-A test pins the flat face, its area and the relieved rim.
+The rim relief chamfers the finger face's own boundary, not the pad circle.
+Relieving the circle cut a 1.4 mm trench between the arm and the pad, because
+the arm reaches the face at full height: at y = 0 the surface ran 11.00 on the
+arm, down to 9.60, then back to 11.00 on the pad. Chamfering the face edges
+leaves that junction continuous and only softens the free rim.
+
+A test pins the flat face, its area, the relieved rim, and that the surface
+never dips on the way from the arm into the pad.

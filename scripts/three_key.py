@@ -133,7 +133,7 @@ eva_compression_allowance = 0.2 # Trial compression at closure, not measured har
 # the recess, 77% of the key. A flat face at 11.0 meets the arm's curve
 # tangentially at x = +-6.35, so the crown is trimmed without leaving a step.
 key_top_height = 11.0
-key_top_chamfer = 1.5 # Relieved rim; the flat centre still prints face down
+key_top_chamfer = 1.2 # Relieved rim; the flat centre still prints face down
 eva_template_thickness = 2.0
 eva_template_samples = 128
 # Derived geometry; all lengths mm, angles degrees.
@@ -433,11 +433,14 @@ for number,y,d in holes:
     # the flat face instead of standing proud of it. The bend probed by the
     # strength tests sits at z 7.5-8.5 and is untouched.
     lever=checked(lever-box_at(-30,30,-30,30,key_top_height,40))
-    rim_cone=Pos(0,0,key_top_height-key_top_chamfer)*Cone(
-        pad_diameter/2,pad_diameter/2-key_top_chamfer,key_top_chamfer,
-        align=(Align.CENTER,Align.CENTER,Align.MIN))
-    lever=checked(lever-(hole_z(0,0,key_top_height-key_top_chamfer,
-                                key_top_height+1,pad_diameter)-rim_cone))
+    # Relieve the finger face's own boundary, not the pad circle. The arm
+    # reaches the face at full height, so chamfering the circle cut a 1.4 mm
+    # trench between arm and pad; chamfering the face edges leaves that
+    # junction continuous and only softens the free rim.
+    top_face=[f for f in lever.faces()
+              if f.geom_type==GeomType.PLANE and abs(f.center().Z-key_top_height)<1e-6]
+    assert len(top_face)==1
+    lever=checked(chamfer(top_face[0].edges(),key_top_chamfer))
     show(lever,'lever_blank'+str(number))
 
     levers[number]=lever
