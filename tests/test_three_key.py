@@ -297,6 +297,50 @@ def test_finger_face_is_a_smooth_crown_and_prints_face_down(model):
     assert m['levers'][4].volume<700
 
 
+def test_no_sharp_re_entrant_notch_in_the_arm_profile(model):
+    m=model
+    # Two keys have now fractured or been put at risk by sharp inside corners:
+    # the spring-housing staircase, and a 48.9 degree V left on the tail when
+    # the reinforced radius moved the back web's tangent point into the
+    # reinforcement ramp. Probe the profile generally rather than by position.
+    for n in (4,5,6):
+        key=m['levers'][n]
+        sec=section(key,section_by=Plane.XZ)
+        for face in sec.faces():
+            for wire in [face.outer_wire()]+list(face.inner_wires()):
+                edges=list(wire.edges())
+                for i,a in enumerate(edges):
+                    b=edges[(i+1)%len(edges)]
+                    if a.geom_type!=GeomType.LINE or b.geom_type!=GeomType.LINE:
+                        continue
+                    shared=None
+                    for va in a.vertices():
+                        for vb in b.vertices():
+                            pa,pb=tuple(va),tuple(vb)
+                            if (pa[0]-pb[0])**2+(pa[2]-pb[2])**2<1e-9:
+                                shared=pa
+                    if shared is None:
+                        continue
+                    def away(edge):
+                        pts=[tuple(v) for v in edge.vertices()]
+                        far=max(pts,key=lambda q:(q[0]-shared[0])**2+(q[2]-shared[2])**2)
+                        d=(far[0]-shared[0],far[2]-shared[2])
+                        L=math.hypot(*d)
+                        return (d[0]/L,d[1]/L)
+                    d1,d2=away(a),away(b)
+                    bis=(d1[0]+d2[0],d1[1]+d2[1])
+                    L=math.hypot(*bis)
+                    if L<1e-9:
+                        continue
+                    bis=(bis[0]/L,bis[1]/L)
+                    wedge=math.degrees(math.acos(max(-1,min(1,d1[0]*d2[0]+d1[1]*d2[1]))))
+                    probe=Vector(shared[0]+0.05*bis[0],0.0,shared[2]+0.05*bis[1])
+                    if key.is_inside(probe):
+                        continue  # convex corner: material fills the wedge, harmless
+                    # Re-entrant: the wedge is void, so a small angle is a notch.
+                    assert wedge>=90,(n,[round(q,3) for q in shared],round(wedge,1))
+
+
 def test_pad_face_is_one_clean_glue_surface(model):
     m=model
     # The EVA is glued straight to the key, so the face it sticks to must be a

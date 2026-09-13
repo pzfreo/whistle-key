@@ -27,7 +27,12 @@ upper_arm_radial_extra = 1.8 # Added on the outside, clear of the whistle.
 # from the inside at the peak-stress station, so the stock is replaced outboard
 # where it costs nothing over the holes.
 arm_reinforcement_start_z = 3.4 # Above fixed bearing heads
-arm_reinforcement_full_z = 6.0
+arm_reinforcement_full_z = 4.0 # Must sit at or below the back web's tangent
+# height. The web is built tangent to the arm at radius reinforced_r, so if the
+# arm is still ramping up to that radius at the tangent height the two surfaces
+# cross instead of touching, leaving a sharp notch on the tail. Raising
+# upper_arm_radial_extra to 1.8 dropped the tangent from z 6.396 to 4.221 and
+# did exactly that, in the middle of the opening-stop contact zone.
 arm_width_blend_start_z = 5.5 # Preserve the spring shoulder and hinge interfaces
 arm_width_blend_end_z = 7.5
 arm_transition_radius = 0.8 # Filled inside corner above spring housing
@@ -408,6 +413,7 @@ for number,y,d in holes:
     tangent_offset=reinforced_r*math.sqrt(distance_squared-reinforced_r**2)/distance_squared
     tangent_x=tangent_scale*back_x+tangent_offset*back_z
     tangent_z=tangent_scale*back_z-tangent_offset*back_x
+    assert tangent_z >= arm_reinforcement_full_z, (tangent_z,arm_reinforcement_full_z)
     back_web=Pos(0,lever_width/2,0)*extrude(Plane.XZ*Polygon(
         (back_x,back_z-back_web_overlap),(back_x,back_z),(tangent_x,tangent_z),
         (pivot_x+0.5,tangent_z),(pivot_x+0.5,back_z-back_web_overlap),align=None),

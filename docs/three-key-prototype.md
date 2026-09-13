@@ -438,3 +438,29 @@ each variant's coil size changes what OCCT will accept. And the fillets must be
 applied before the crown cuts: build123d's fillet works from the edges' parent
 solid, so running them afterwards silently discarded the flat landing and left
 the key with no printable face.
+
+### A notch the fracture fix introduced — 2026-09-13
+
+Raising `upper_arm_radial_extra` from 1.0 to 1.8 to restore the arm section
+also raised `reinforced_r` from 13.7 to 14.5, and the back web is built tangent
+to the arm at that radius. The tangent point dropped from z 6.396 to z 4.221,
+below `arm_reinforcement_full_z` of 6.0 — so the web now met the arm while the
+arm was still ramping up to full radius. Instead of touching, the two surfaces
+crossed, leaving a 48.9° sharp re-entrant V at (-12.951, 4.221). The opening
+stop spans x -13.7 to -12.2, so the notch sat in the middle of the impact zone.
+
+The tail profile before the change was a single 5.54 mm line from (-14.70, 1.50)
+to (-12.115, 6.396); afterwards it was four segments with the V in the middle.
+Spotted in a draftwright drawing of the key, not by any test.
+
+`arm_reinforcement_full_z` drops to 4.0, at or below the tangent height, so the
+arm is at full radius where the web meets it. The tail returns to two segments,
+and Z at the 60 and 65 degree stations is unchanged at 10.03 and 7.44. An
+assert now requires `tangent_z >= arm_reinforcement_full_z`.
+
+A general guard replaces the positional checks: the XZ profile is walked and
+every line-to-line corner classified convex or re-entrant by probing along its
+bisector. Re-entrant corners must leave a void wedge of at least 90°. The
+current profile has no re-entrant corners at all; with the old ramp the guard
+reports 49.0° at (-12.95, 4.22). This would have caught both this notch and the
+original spring-housing staircase.
